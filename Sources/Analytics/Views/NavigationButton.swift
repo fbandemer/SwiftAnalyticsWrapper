@@ -38,9 +38,9 @@ public struct NavigationButton<Label: View>: View {
 
     public var body: some View {
 #if DEBUG
-        let mergedDict = (["type": "navigation", "is_devolpment": true] as! [String: Any]).merging(params) { _, new in new }
+        let mergedDict = (["button_type": "navigation", "is_devolpment": true] as! [String: Any]).merging(params) { _, new in new }
 #else
-        let mergedDict = (["type": "navigation", "is_devolpment": false] as! [String: Any]).merging(params) { _, new in new }
+        let mergedDict = (["button_type": "navigation", "is_devolpment": false] as! [String: Any]).merging(params) { _, new in new }
 #endif
         Button(action: {
             Analytics.shared.track(event: "\(category):\(object)_\(verb.rawValue)", params: mergedDict)

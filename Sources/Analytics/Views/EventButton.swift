@@ -35,9 +35,9 @@ public struct EventButton<Label: View>: View {
 
     public var body: some View {
 #if DEBUG
-        let mergedDict = (["type": "event", "is_devolpment": true] as! [String: Any]).merging(params) { _, new in new }
+        let mergedDict = (["button_type": "event", "is_devolpment": true] as! [String: Any]).merging(params) { _, new in new }
 #else
-        let mergedDict = (["type": "event", "is_devolpment": false] as! [String: Any]).merging(params) { _, new in new }
+        let mergedDict = (["button_type": "event", "is_devolpment": false] as! [String: Any]).merging(params) { _, new in new }
 #endif
         
         
