@@ -25,9 +25,12 @@ final public class FeatureFlag {
         return (false, nil)
     }
     
+    static public func getFeatureFlag(_ feature: String) -> String? {
+        PostHogSDK.shared.getFeatureFlag(feature) as? String
+    }
+    
     static public func isEnabledVariant(_ feature: String, variant: String) -> Bool {
         if (PostHogSDK.shared.getFeatureFlag(feature) as? String == variant) {
-            
             return true
         }
         return false
