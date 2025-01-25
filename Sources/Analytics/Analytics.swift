@@ -64,8 +64,10 @@ final public class Analytics {
             let host = "https://eu.i.posthog.com"
             let config = PostHogConfig(apiKey: posthogAPIKey, host: host)
             config.sessionReplay = true
+            config.captureElementInteractions = false
+            config.sessionReplayConfig.screenshotMode = true
             #if DEBUG
-            config.debug = false
+            config.debug = true
             #endif
             PostHogSDK.shared.setup(config)
             if let userID {
