@@ -93,7 +93,7 @@ final public class Analytics {
             } else {
                 Superwall.configure(apiKey: superwallID)
             }
-            let superwallService = SuperwallService(logger: logger, withTelemetry: useTelemetryDeck, withMixpanel: useMixpanel)
+            let superwallService = SuperwallService(logger: logger, withTelemetry: useTelemetryDeck, withMixpanel: useMixpanel, withPostHog: usePosthog)
             Superwall.shared.delegate = superwallService
         }
         
