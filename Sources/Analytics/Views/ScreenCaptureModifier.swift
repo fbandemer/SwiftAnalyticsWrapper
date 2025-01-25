@@ -17,7 +17,7 @@ struct ScreenCaptureModifier: ViewModifier {
 }
 
 public extension View {
-    func postHogScreenView(_ title: String) -> some View {
+    func tagScreenTitle(_ title: String) -> some View {
         modifier(ScreenCaptureModifier(title: title))
     }
 }
