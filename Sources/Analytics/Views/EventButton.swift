@@ -14,6 +14,7 @@ public struct EventButton<Label: View>: View {
     let verb: AnalyticVerbs
     let object: AnalyticObject
     let params: [String: Any]
+    let haptic: HapticMode
     let action: () -> Void
     @ViewBuilder var label: Label
 
@@ -22,6 +23,7 @@ public struct EventButton<Label: View>: View {
         object: String,
         verb: AnalyticVerbs,
         params: [String: Any] = [:],
+        haptic: HapticMode = .none,
         action: @escaping () -> Void,
         @ViewBuilder label: @escaping () -> Label
     ) {
@@ -31,6 +33,7 @@ public struct EventButton<Label: View>: View {
         self.action = action
         self.label = label()
         self.params = params
+        self.haptic = haptic
     }
 
     public var body: some View {
@@ -39,9 +42,8 @@ public struct EventButton<Label: View>: View {
 #else
         let mergedDict = (["button_type": "event", "is_devolpment": false] as! [String: Any]).merging(params) { _, new in new }
 #endif
-        
-        
         Button(action: {
+            haptic.play()
             Analytics.shared.track(event: "\(category):\(object)_\(verb.rawValue)", params: mergedDict)
             Superwall.shared.register(event: "\(category):\(object)_\(verb.rawValue)", params: mergedDict) {
                 DispatchQueue.main.async {
