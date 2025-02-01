@@ -111,21 +111,32 @@ final public class Analytics {
         }
     }
     
-    public func setUserID(_ userID: String) {
+    public func setUserID(_ userID: String, attributes: [String: Any]?) {
         if useMixpanel {
             Mixpanel.mainInstance().identify(distinctId: userID)
+            if let attributes = attributes {
+                let stringifiedParams = stringifyParams(params: attributes)
+                stringifiedParams.forEach({ Mixpanel.mainInstance().people.set(property: $0.key, to: $0.value )})
+
+            }
         }
         if usePosthog {
-            PostHogSDK.shared.identify(userID)
+            PostHogSDK.shared.identify(userID, userProperties: attributes)
         }
         if useTelemetryDeck {
             TelemetryManager.shared.updateDefaultUser(to: userID)
         }
         if useSuperwall {
             Superwall.shared.identify(userId: userID)
+            if let attributes = attributes {
+                Superwall.shared.setUserAttributes(attributes)
+            }
         }
-        
         Purchases.shared.logIn(userID) { (customerInfo, created, error) in
+        }
+        if let attributes = attributes {
+            let stringifiedParams = stringifyParams(params: attributes)
+            Purchases.shared.attribution.setAttributes(stringifiedParams)
         }
     }
     
