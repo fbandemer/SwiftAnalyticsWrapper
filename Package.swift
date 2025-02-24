@@ -15,7 +15,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/TelemetryDeck/SwiftClient", from: "1.5.0"),
         .package(url: "https://github.com/mixpanel/mixpanel-swift", branch: "master"),
-        .package(url: "https://github.com/superwall-me/Superwall-iOS", .upToNextMajor(from: "3.3.1")),
+        .package(url: "https://github.com/superwall-me/Superwall-iOS", .upToNextMajor(from: "4.0.0")),
         .package(url: "https://github.com/getsentry/sentry-cocoa", from: "8.36.0"),
         //        .package(url: "https://github.com/getsentry/sentry-cocoa", branch: "Sentry-Dynamic"),
         .package(url: "https://github.com/RevenueCat/purchases-ios.git", from: "5.2.0"),

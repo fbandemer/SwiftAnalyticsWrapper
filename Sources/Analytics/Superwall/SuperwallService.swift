@@ -25,14 +25,14 @@ internal class SuperwallService: SuperwallDelegate {
         self.posthog = withPostHog
     }
     
-    func handleSuperwallEvent(withInfo eventInfo: SuperwallEventInfo) {
+    func handleSuperwallPlacement(withInfo placementInfo: SuperwallPlacementInfo) {
         var stringifiedParams: [String: String] = [:]
-        for param in eventInfo.params {
+        for param in placementInfo.params {
             stringifiedParams[param.key] = String(describing: param.value)
         }
-        if telemetry { TelemetryManager.send(eventInfo.event.description, with: stringifiedParams) }
-        if mixpanel { Mixpanel.mainInstance().track(event: eventInfo.event.description, properties: stringifiedParams) }
-        if posthog { PostHogSDK.shared.capture(eventInfo.event.description, properties: eventInfo.params) }
-        logger.log("Superwall Event logged: \(eventInfo.event.description)")
+        if telemetry { TelemetryManager.send(placementInfo.placement.description, with: stringifiedParams) }
+        if mixpanel { Mixpanel.mainInstance().track(event: placementInfo.placement.description, properties: stringifiedParams) }
+        if posthog { PostHogSDK.shared.capture(placementInfo.placement.description, properties: placementInfo.params) }
+        logger.log("Superwall Event logged: \(placementInfo.placement.description)")
     }
 }

@@ -44,7 +44,7 @@ public struct NavigationButton<Label: View>: View {
 #endif
         Button(action: {
             Analytics.shared.track(event: "\(category):\(object)_\(verb.rawValue)", params: mergedDict)
-            Superwall.shared.register(event: "\(category):\(object)_\(verb.rawValue)", params: mergedDict) {
+            Superwall.shared.register(placement: "\(category):\(object)_\(verb.rawValue)", params: mergedDict) {
                 DispatchQueue.main.async {
                     action()
                 }

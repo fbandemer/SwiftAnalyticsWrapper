@@ -66,6 +66,8 @@ final public class Analytics {
             config.sessionReplay = true
             config.captureElementInteractions = false
             config.sessionReplayConfig.screenshotMode = true
+            config.sessionReplayConfig.maskAllTextInputs = false
+            config.sessionReplayConfig.maskAllImages = false
             #if DEBUG
             config.debug = true
             #endif
