@@ -1,0 +1,301 @@
+# Analytics & Purchase Wrapper Swift Package Manager - Product Requirements Document
+
+## 1. Introduction
+
+This document outlines the product requirements for AnalyticsPurchaseKit, a unified Swift Package Manager (SPM) solution that consolidates in-app purchase management and analytics functionality for iOS and macOS applications. The package aims to simplify integration of multiple third-party services while enforcing consistent patterns and providing platform-specific optimizations.
+
+## 2. Product overview
+
+AnalyticsPurchaseKit is a comprehensive Swift package that provides a single integration point for essential app services including revenue management, analytics tracking, feature flagging, and crash reporting. The package exposes two platform-specific build targets that abstract away the complexity of managing multiple SDKs while maintaining platform-appropriate functionality.
+
+### Key value propositions
+- **Unified interface**: Single API surface for multiple analytics and purchase providers
+- **Platform optimization**: iOS-specific features (Superwall) with graceful macOS fallbacks
+- **Developer productivity**: Swift macros and pre-built UI components for rapid implementation
+- **Best practices enforcement**: Structured event naming conventions and automatic parameter injection
+
+## 3. Goals and objectives
+
+### Primary goals
+1. **Reduce integration complexity** by providing a single package that manages all analytics and purchase dependencies
+2. **Enforce consistency** across iOS and macOS codebases through shared APIs and naming conventions
+3. **Accelerate development** with pre-built UI components and Swift macros that automate common tasks
+4. **Improve data quality** through enforced event naming patterns and automatic metadata collection
+
+### Success metrics
+- Reduction in time to integrate analytics and purchases from days to hours
+- 100% event naming compliance through validation
+- Zero platform-specific code required in consuming applications
+- Simplified dependency management with single package import
+
+## 4. Target audience
+
+### Primary users
+- **iOS developers** building subscription-based applications for iPhone and iPad
+- **macOS developers** requiring monetization and analytics for desktop applications
+- **Cross-platform teams** maintaining both iOS and macOS versions of their applications
+
+### User characteristics
+- Intermediate to advanced Swift developers
+- Teams prioritizing rapid development and consistent analytics
+- Applications with freemium or subscription business models
+- Developers seeking to reduce third-party SDK management overhead
+
+## 5. Features and requirements
+
+### 5.1 Core functionality
+
+#### Unified analytics layer
+- Simultaneous event dispatch to PostHog, Mixpanel, and TelemetryDeck
+- Enforced `category:object_action` naming convention with validation
+- Automatic environment and platform parameter injection
+- Thread-safe singleton access pattern
+
+#### Purchase management
+- RevenueCat wrapper for subscription and one-time purchase handling
+- Platform-aware PaywallManager with iOS Superwall integration
+- Graceful macOS stubs maintaining API compatibility
+- Async/await support for modern Swift concurrency
+
+#### Feature flag system
+- PostHog-based feature flag retrieval
+- Local caching with configurable TTL
+- Fallback values for offline scenarios
+- Type-safe flag access methods
+
+#### Crash reporting
+- Automatic Sentry initialization and configuration
+- Uncaught exception forwarding
+- Custom error tracking API
+- User context enrichment
+
+### 5.2 Developer experience features
+
+#### Swift macros
+- `@ScreenCapture` macro for automatic screen tracking
+- Compile-time code generation
+- Zero runtime overhead
+- Xcode 15.3+ requirement
+
+#### Pre-built UI components
+- `EventButton`: SwiftUI button with automatic event tracking
+- `NavigationButton`: Navigation-aware button with analytics
+- `EventToggle`: Toggle control with state change tracking
+- `EventTextField`: Text field with focus and submission tracking
+
+### 5.3 Configuration and setup
+
+#### Single-point configuration
+```swift
+AnalyticsPurchaseKit.configure(
+    posthogKey: String,
+    mixpanelKey: String,
+    telemetryDeckAppID: String,
+    sentryDSN: String,
+    revenueCatAPIKey: String,
+    superwallAPIKey: String?,  // Optional, ignored on macOS
+    environment: Environment
+)
+```
+
+#### Environment support
+- Development/Production environment switching
+- Automatic debug parameter injection in development
+- Service-specific environment configuration
+
+## 6. User stories and acceptance criteria
+
+### Analytics integration stories
+
+**ST-101**: As a developer, I want to track custom events with a single API call
+- **Given** the SDK is configured
+- **When** I call `Analytics.shared.track(category:object:verb:params:)`
+- **Then** the event is sent to all configured analytics providers
+- **And** the event name follows the enforced pattern
+- **And** default parameters are automatically included
+
+**ST-102**: As a developer, I want invalid event names to fail at compile time
+- **Given** I'm using the Analytics API
+- **When** I provide an incorrectly formatted event name
+- **Then** an `AnalyticsError.invalidEventName` is thrown
+- **And** the error message explains the correct format
+
+**ST-103**: As a developer, I want to track screen views automatically
+- **Given** I've applied the `@ScreenCapture` macro to a view
+- **When** the view appears
+- **Then** a screen view event is automatically tracked
+- **And** the screen name is derived from the type name
+
+### Purchase management stories
+
+**ST-201**: As a developer, I want to initiate purchases with async/await
+- **Given** RevenueCat is configured
+- **When** I call `Purchases.shared.purchase(productID:)`
+- **Then** the purchase flow is initiated
+- **And** the result is returned asynchronously
+- **And** purchase events are automatically tracked
+
+**ST-202**: As an iOS developer, I want to present paywalls conditionally
+- **Given** Superwall is configured on iOS
+- **When** I call `PaywallManager.shared.presentIfNeeded()`
+- **Then** Superwall determines if a paywall should be shown
+- **And** the paywall is presented if conditions are met
+
+**ST-203**: As a macOS developer, I want paywall API calls to fail gracefully
+- **Given** I'm running on macOS
+- **When** I call any PaywallManager method
+- **Then** the method returns immediately without error
+- **And** no functionality is broken
+
+### Feature flag stories
+
+**ST-301**: As a developer, I want to check feature flags synchronously
+- **Given** PostHog is configured
+- **When** I call `FeatureFlags.shared.bool(for:)`
+- **Then** the flag value is returned from cache if available
+- **And** a background refresh is triggered if cache is stale
+
+**ST-302**: As a developer, I want feature flags to work offline
+- **Given** the app is offline
+- **When** I request a feature flag
+- **Then** the last cached value is returned
+- **And** no errors are thrown
+
+### UI component stories
+
+**ST-401**: As a developer, I want buttons that automatically track interactions
+- **Given** I'm using an EventButton
+- **When** a user taps the button
+- **Then** an event is tracked with the specified parameters
+- **And** default parameters are included
+- **And** the button's action is executed
+
+**ST-402**: As a developer, I want navigation that tracks destination views
+- **Given** I'm using a NavigationButton
+- **When** navigation occurs
+- **Then** both tap and destination events are tracked
+- **And** navigation timing is measured
+
+### Configuration and setup stories
+
+**ST-501**: As a developer, I want to configure all services with one call
+- **Given** I have API keys for all services
+- **When** I call `AnalyticsPurchaseKit.configure()`
+- **Then** all services are initialized
+- **And** the environment is set correctly
+- **And** platform-specific services are configured appropriately
+
+**ST-502**: As a developer, I want secure API key management
+- **Given** I'm configuring the SDK
+- **When** I provide API keys
+- **Then** keys are stored securely in memory
+- **And** keys are not logged or exposed
+- **And** keys are validated before use
+
+### Error handling stories
+
+**ST-601**: As a developer, I want graceful degradation when services fail
+- **Given** one or more services are unavailable
+- **When** I use the SDK features
+- **Then** working services continue to function
+- **And** failures are logged but don't crash the app
+- **And** error callbacks are provided for critical failures
+
+**ST-602**: As a developer, I want comprehensive error reporting
+- **Given** an error occurs in the SDK
+- **When** the error is caught
+- **Then** it's automatically reported to Sentry
+- **And** relevant context is included
+- **And** the error doesn't propagate to crash the app
+
+## 7. Technical requirements / Stack
+
+### Platform requirements
+- **iOS**: 15.0+
+- **macOS**: 12.0+
+- **Xcode**: 15.3+ (for macro support)
+- **Swift**: 5.10+
+
+### Dependencies
+
+| SDK | Version | Platform | Purpose |
+|-----|---------|----------|---------|
+| RevenueCat | Latest | iOS, macOS | Purchase management |
+| Superwall | Latest | iOS only | Paywall orchestration |
+| PostHog | Latest | iOS, macOS | Analytics & feature flags |
+| Mixpanel | Latest | iOS, macOS | Product analytics |
+| TelemetryDeck | Latest | iOS, macOS | Privacy-focused analytics |
+| Sentry | Latest | iOS, macOS | Crash reporting |
+
+### Architecture requirements
+- **Module structure**: Two distinct build targets for platform separation
+- **API design**: Protocol-oriented with concrete implementations
+- **Concurrency**: Full async/await support with backwards compatibility
+- **Thread safety**: All public APIs must be thread-safe
+- **Memory management**: Proper weak reference handling for delegates
+
+### Performance requirements
+- **Initialization**: < 100ms on app launch
+- **Event tracking**: < 10ms synchronous, batched async dispatch
+- **Memory overhead**: < 5MB baseline memory usage
+- **Battery impact**: Negligible with intelligent batching
+
+### Security requirements
+- **API key storage**: In-memory only, no persistence
+- **Data transmission**: HTTPS only with certificate pinning
+- **PII handling**: No automatic PII collection
+- **Compliance**: GDPR and CCPA compliant by default
+
+## 8. Design and user interface
+
+### UI component design principles
+- **Native feel**: Components match platform conventions
+- **Customization**: Full styling control while maintaining functionality
+- **Accessibility**: VoiceOver and keyboard navigation support
+- **Dark mode**: Automatic adaptation to system appearance
+
+### Component specifications
+
+#### EventButton
+```swift
+EventButton(
+    category: String,
+    object: String,
+    verb: EventVerb,
+    params: [String: Any] = [:]
+) {
+    // Action closure + superwall (ios only)  Superwall.shared.register(placement: "StartWorkout") {
+    // navigation.startWorkout()
+    // }
+} label: {
+    // Label view
+}
+```
+
+#### NavigationButton
+```swift
+NavigationButton(
+    category: String,
+    object: String,
+    verb: EventVerb,
+    params: [String: Any] = [:]
+) {
+    // Action closure + superwall (ios only)  Superwall.shared.register(placement: "StartWorkout") {
+    // navigation.startWorkout()
+    // }
+} label: {
+    // Label view
+}
+```
+
+### Macro integration
+- Seamless IDE integration with syntax highlighting
+- Compile-time validation and error reporting
+- Preview support in Xcode canvas
+- Documentation comments for quick help
+
+### Error state handling
+- Clear error messages for configuration issues
+- Visual indicators for offline/degraded states
+- Graceful fallbacks for missing services
+- Developer-friendly debugging output 
