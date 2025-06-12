@@ -1,13 +1,13 @@
 {
-  "originHash" : "5a76fb31c1ff804865188dfd2e20c6a1846156e58bb7fb421e7ccebaf68a6f59",
+  "originHash" : "e3cef98707df8c23a82443e8c89b160478c5a0159a0a51016be7b0d49832cfae",
   "pins" : [
     {
       "identity" : "mixpanel-swift",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mixpanel/mixpanel-swift",
       "state" : {
-        "branch" : "master",
-        "revision" : "61ce9b40817466fb1334db1d7a582fbaf616ab4c"
+        "revision" : "c550cbef7654e59d06bf9c224ea25f681dea8975",
+        "version" : "4.4.0"
       }
     },
     {
@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/RevenueCat/purchases-ios.git",
       "state" : {
-        "revision" : "c7058bfd80d7f42ca6aa392bf1fab769d1158bf1",
-        "version" : "5.5.0"
+        "revision" : "ae6b639cacd045c06ee92ca80b49e34255375ee3",
+        "version" : "4.43.6"
       }
     },
     {
@@ -49,10 +49,10 @@
     {
       "identity" : "superwall-ios",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/superwall-me/Superwall-iOS",
+      "location" : "https://github.com/superwall/Superwall-iOS",
       "state" : {
-        "revision" : "1c21a3c8b86346e588b1c567773d1f2d9ba825eb",
-        "version" : "4.0.0"
+        "revision" : "bd32d30383bf0f2bab4a1725f778e5e28722fdcc",
+        "version" : "3.12.5"
       }
     },
     {
