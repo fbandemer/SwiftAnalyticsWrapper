@@ -4,42 +4,43 @@
 import PackageDescription
 
 let package = Package(
-    name: "Analytics",
+    name: "SwiftAnalyticsWrapper",
     platforms: [.iOS(.v17)],
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "Analytics",
             targets: ["Analytics"]),
+        .library(
+            name: "AnalyticsCore",
+            targets: ["AnalyticsCore"]),
     ],
     dependencies: [
         .package(url: "https://github.com/TelemetryDeck/SwiftClient", from: "1.5.0"),
-        .package(url: "https://github.com/mixpanel/mixpanel-swift", branch: "master"),
+        .package(url: "https://github.com/mixpanel/mixpanel-swift", from: "2.11.1"),
         .package(url: "https://github.com/superwall-me/Superwall-iOS", .upToNextMajor(from: "4.0.0")),
         .package(url: "https://github.com/getsentry/sentry-cocoa", from: "8.36.0"),
-        //        .package(url: "https://github.com/getsentry/sentry-cocoa", branch: "Sentry-Dynamic"),
         .package(url: "https://github.com/RevenueCat/purchases-ios.git", from: "5.2.0"),
         .package(url: "https://github.com/PostHog/posthog-ios.git", from: "3.0.0"),
+        .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0"),
     ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
+        .target(
+            name: "AnalyticsCore",
+            dependencies: []),
         .target(
             name: "Analytics",
-
             dependencies: [
-//                "TelemetryClient",
+                "AnalyticsCore",
                 .product(name: "TelemetryClient", package: "SwiftClient"),
                 .product(name: "Mixpanel", package: "mixpanel-swift"),
-//                "Mixpanel",
                 .product(name: "SuperwallKit", package: "Superwall-iOS"),
-//                "SuperwallKit",
-                    .product(name: "Sentry-Dynamic", package: "sentry-cocoa"),
+                .product(name: "Sentry-Dynamic", package: "sentry-cocoa"),
                 .product(name: "RevenueCat", package: "purchases-ios"),
                 .product(name: "RevenueCatUI", package: "purchases-ios"),
                 .product(name: "PostHog", package: "posthog-ios"),
-//                "RevenueCat"
-            ])
-
+            ]),
+        .testTarget(
+            name: "AnalyticsTests",
+            dependencies: ["Analytics"]),
     ]
 )
