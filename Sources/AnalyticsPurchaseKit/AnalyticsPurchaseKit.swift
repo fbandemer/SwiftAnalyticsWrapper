@@ -1,16 +1,21 @@
 import Foundation
+import RevenueCat
 
-// Re-export Core functionality
 @_exported import Core
 
 // Platform-specific imports
 #if os(iOS)
 @_exported import AnalyticsPurchaseKit_iOS
-#elseif os(macOS)
-@_exported import AnalyticsPurchaseKit_macOS
 #endif
 
 /// Main AnalyticsPurchaseKit module that provides unified access to all functionality
+/// 
+/// Key classes available:
+/// - AnalyticsPurchaseKit: Main configuration and setup
+/// - Analytics: Core analytics tracking with event validation
+/// - PaywallManager: Platform-specific paywall management
+/// - EventVerb: Standardized action verbs for consistent event naming
+/// - AnalyticsError: Comprehensive error handling for analytics operations
 public extension AnalyticsPurchaseKit {
     
     /// Enhanced configure method that handles platform-specific setup automatically
@@ -23,6 +28,7 @@ public extension AnalyticsPurchaseKit {
     ///   - revenueCatAPIKey: RevenueCat API key for purchase management
     ///   - superwallAPIKey: Superwall API key (iOS only, ignored on macOS)
     ///   - environment: Environment configuration (development/production)
+    ///   - userId: Optional user identifier to associate with all analytics and purchase providers
     /// - Throws: ConfigurationError if configuration fails
     func configureWithPlatformSupport(
         posthogKey: String,
@@ -31,7 +37,8 @@ public extension AnalyticsPurchaseKit {
         sentryDSN: String,
         revenueCatAPIKey: String,
         superwallAPIKey: String? = nil,
-        environment: Environment = .production
+        environment: Environment = .production,
+        userId: String? = nil
     ) throws {
         // Call the base configuration
         try configure(
@@ -45,7 +52,24 @@ public extension AnalyticsPurchaseKit {
         )
         
         // Configure platform-specific features automatically
+        #if canImport(SuperwallKit)
         try configureSuperwallFromConfig()
+        #endif
+        
+        // Set userId for all providers if provided
+        if let userId = userId {
+            Analytics.shared.setUserId(userId)
+            // Set userId for Superwall (iOS only)
+            #if os(iOS)
+            Superwall.shared.identify(userId: userId)
+            #endif
+            // Set userId for RevenueCat
+            Purchases.shared.logIn(userId) { customerInfo, created, error in
+                if let error = error {
+                    print("[AnalyticsPurchaseKit] RevenueCat logIn error: \(error.localizedDescription)")
+                }
+            }
+        }
     }
     
     /// Convenience method for quick configuration with minimal parameters
@@ -56,13 +80,15 @@ public extension AnalyticsPurchaseKit {
     ///   - telemetryDeckAppID: TelemetryDeck app ID
     ///   - sentryDSN: Sentry DSN
     ///   - revenueCatAPIKey: RevenueCat API key
+    ///   - userId: Optional user identifier to associate with all analytics and purchase providers
     /// - Throws: ConfigurationError if configuration fails
     func quickConfigure(
         posthogKey: String,
         mixpanelKey: String,
         telemetryDeckAppID: String,
         sentryDSN: String,
-        revenueCatAPIKey: String
+        revenueCatAPIKey: String,
+        userId: String? = nil
     ) throws {
         try configureWithPlatformSupport(
             posthogKey: posthogKey,
@@ -71,7 +97,8 @@ public extension AnalyticsPurchaseKit {
             sentryDSN: sentryDSN,
             revenueCatAPIKey: revenueCatAPIKey,
             superwallAPIKey: nil,
-            environment: .production
+            environment: .production,
+            userId: userId
         )
     }
     
@@ -83,6 +110,7 @@ public extension AnalyticsPurchaseKit {
     ///   - sentryDSN: Sentry DSN
     ///   - revenueCatAPIKey: RevenueCat API key
     ///   - superwallAPIKey: Optional Superwall API key
+    ///   - userId: Optional user identifier to associate with all analytics and purchase providers
     /// - Throws: ConfigurationError if configuration fails
     func configureDevelopment(
         posthogKey: String,
@@ -90,7 +118,8 @@ public extension AnalyticsPurchaseKit {
         telemetryDeckAppID: String,
         sentryDSN: String,
         revenueCatAPIKey: String,
-        superwallAPIKey: String? = nil
+        superwallAPIKey: String? = nil,
+        userId: String? = nil
     ) throws {
         try configureWithPlatformSupport(
             posthogKey: posthogKey,
@@ -99,7 +128,8 @@ public extension AnalyticsPurchaseKit {
             sentryDSN: sentryDSN,
             revenueCatAPIKey: revenueCatAPIKey,
             superwallAPIKey: superwallAPIKey,
-            environment: .development
+            environment: .development,
+            userId: userId
         )
     }
 } 

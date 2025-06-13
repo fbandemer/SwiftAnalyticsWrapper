@@ -91,13 +91,10 @@ let package = Package(
             path: "Sources/Macros"
         ),
         
-        // Tests
+        // Test targets
         .testTarget(
             name: "AnalyticsPurchaseKitTests",
-            dependencies: [
-                "AnalyticsPurchaseKit",
-                "Core",
-            ],
+            dependencies: ["AnalyticsPurchaseKit"],
             path: "Tests"
         ),
     ]
