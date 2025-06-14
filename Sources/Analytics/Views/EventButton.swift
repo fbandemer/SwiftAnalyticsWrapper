@@ -15,6 +15,7 @@ public struct EventButton<Label: View>: View {
     let object: AnalyticObject
     let params: [String: Any]
     let haptic: HapticMode
+    let buttonStyle: any ButtonStyle
     let action: () -> Void
     @ViewBuilder var label: Label
 
@@ -24,6 +25,7 @@ public struct EventButton<Label: View>: View {
         verb: AnalyticVerbs,
         params: [String: Any] = [:],
         haptic: HapticMode = .none,
+        buttonStyle: any ButtonStyle = .plain,
         action: @escaping () -> Void,
         @ViewBuilder label: @escaping () -> Label
     ) {
@@ -34,6 +36,7 @@ public struct EventButton<Label: View>: View {
         self.label = label()
         self.params = params
         self.haptic = haptic
+        self.buttonStyle = buttonStyle
     }
 
     public var body: some View {
@@ -53,6 +56,6 @@ public struct EventButton<Label: View>: View {
         }, label: {
             label
         })
-        .buttonStyle(.plain)
+        .buttonStyle(buttonStyle)
     }
 }

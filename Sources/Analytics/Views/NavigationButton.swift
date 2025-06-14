@@ -15,6 +15,7 @@ public struct NavigationButton<Label: View>: View {
     let object: AnalyticObject
     let params: [String: Any]
     let rowAlignment: VerticalAlignment
+    let buttonStyle: any ButtonStyle
     let action: () -> Void
     @ViewBuilder var label: Label
 
@@ -24,6 +25,7 @@ public struct NavigationButton<Label: View>: View {
         verb: AnalyticVerbs,
         params: [String: Any] = [:],
         rowAlignment: VerticalAlignment = .center,
+        buttonStyle: any ButtonStyle = .plain,
         action: @escaping () -> Void,
         @ViewBuilder label: @escaping () -> Label
     ) {
@@ -34,6 +36,7 @@ public struct NavigationButton<Label: View>: View {
         self.label = label()
         self.params = params
         self.rowAlignment = rowAlignment
+        self.buttonStyle = buttonStyle
     }
 
     public var body: some View {
@@ -59,6 +62,6 @@ public struct NavigationButton<Label: View>: View {
             }
             .contentShape(.rect)
         })
-        .buttonStyle(.plain)
+        .buttonStyle(buttonStyle)
     }
 }
