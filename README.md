@@ -1,4 +1,4 @@
-# SwiftAnalyticsWrapper
+# Analytics Package
 
 A unified analytics solution for iOS applications that integrates multiple tracking and analytics services including Mixpanel, TelemetryDeck, PostHog, Superwall, RevenueCat, and Sentry.
 
@@ -9,69 +9,49 @@ A unified analytics solution for iOS applications that integrates multiple track
 
 ## Installation
 
-Add this package to your iOS project using Swift Package Manager:
-
-```swift
-dependencies: [
-    .package(url: "https://github.com/yourusername/SwiftAnalyticsWrapper.git", from: "1.0.0")
-]
-```
+Add this package to your iOS project using Swift Package Manager.
 
 ## Core Features
 
 - Unified interface for multiple analytics providers
-- Automatic event tracking with structured events
+- Automatic event tracking
 - User identification and attribute management
 - Subscription tracking integration
 - SwiftUI components for analytics-aware UI elements
 - Crash reporting and monitoring
-- Feature flag support via PostHog
 
 ## Quick Start
 
 ### Initialize Analytics
 
-Using the modern configuration approach:
-
 ```swift
-let config = AnalyticsConfiguration(
-    userID: currentUserID,
-    logger: logger,
+Analytics.shared.initialize(
+    for: userID,
+    with: logger,
     superwallID: "your_superwall_id",
-    posthogAPIKey: "your_posthog_key", 
+    posthogAPIKey: "your_posthog_key",
     telemetryID: "your_telemetry_id",
     mixpanelID: "your_mixpanel_id",
-    sentryDSN: "your_sentry_dsn",
-    revenueCatID: "your_revenuecat_id"
+    sentry: "your_sentry_dsn",
+    revenueCatID: "your_revenuecat_id",
+    userDefault: .standard
 )
-
-Analytics.shared.initialize(with: config)
 ```
 
 ### Track Events
 
-Using the modern structured approach:
-
 ```swift
-// Using AnalyticsEvent
-let event = AnalyticsEvent(
-    name: "purchase_completed",
-    parameters: ["product_id": "premium_123", "price": 9.99],
-    value: 9.99
-)
-Analytics.shared.track(event: event)
-
-// Or using the convenience method
 Analytics.shared.track(
-    event: "screen_viewed",
-    params: ["screen_name": "settings"]
+    event: "event_name",
+    floatValue: optionalValue,
+    params: ["key": "value"]
 )
 ```
 
 ### Set User Attributes
 
 ```swift
-Analytics.shared.setUserAttribute(key: "subscription_level", value: "premium")
+Analytics.shared.setUserAttributes(key: "attribute_name", value: "attribute_value")
 ```
 
 ## UI Components
@@ -82,14 +62,14 @@ A SwiftUI button that automatically tracks user interactions:
 
 ```swift
 EventButton(
-    category: "settings",
-    object: "dark_mode",
+    category: "screen_name",
+    object: "button_name",
     verb: .tap,
-    params: ["previous_state": isDarkMode]
+    params: ["custom_param": "value"]
 ) {
-    isDarkMode.toggle()
+    // Action to perform
 } label: {
-    Text("Toggle Dark Mode")
+    Text("Click Me")
 }
 ```
 
@@ -99,30 +79,14 @@ A specialized button for navigation actions with built-in analytics tracking:
 
 ```swift
 NavigationButton(
-    category: "main",
-    object: "settings",
+    category: "screen_name",
+    object: "navigation_item",
     verb: .navigate,
     rowAlignment: .center
 ) {
-    showSettings = true
+    // Navigation action
 } label: {
-    Text("Settings")
-}
-```
-
-## Feature Flags
-
-Check if a feature is enabled through PostHog:
-
-```swift
-if FeatureFlag.isEnabled("premium_features") {
-    // Show premium features
-}
-
-// Or with payload
-let (isEnabled, payload) = FeatureFlag.isEnabledWithPayload("experiment_1")
-if isEnabled {
-    // Use payload data for the experiment
+    Text("Navigate to Settings")
 }
 ```
 
@@ -133,9 +97,7 @@ if isEnabled {
 Track the duration of events:
 
 ```swift
-Analytics.shared.time(event: "content_loading")
-// ... content loads
-Analytics.shared.track(event: "content_loading", params: ["success": true])
+Analytics.shared.time(event: "event_name")
 ```
 
 ### Increment Attributes
@@ -143,7 +105,7 @@ Analytics.shared.track(event: "content_loading", params: ["success": true])
 Increment numeric attributes:
 
 ```swift
-Analytics.shared.incrementAttribute(key: "articles_read", value: 1.0)
+Analytics.shared.incrementAttribute(key: "count", value: 1.0)
 ```
 
 ### Subscription Status
@@ -154,24 +116,55 @@ Track subscription status:
 Analytics.shared.setSubscriptionStatus(active: true, key: "premium_status")
 ```
 
-### Screen Capture
+### User Identification
 
-Enable screen capture for analytics:
+Update user identification:
 
 ```swift
-.modifier(ScreenCaptureModifier())
+Analytics.shared.setUserID(userID: "user123")
 ```
 
 ## Dependencies
 
 This package integrates with several third-party analytics providers:
 
-- TelemetryDeck SwiftClient (from 1.5.0)
-- Mixpanel Swift (from 2.11.1)
-- Superwall iOS (from 4.0.0)
-- Sentry Cocoa (from 8.36.0)
-- RevenueCat (from 5.2.0)
-- PostHog iOS (from 3.0.0)
+- TelemetryDeck SwiftClient
+- Mixpanel Swift
+- Superwall iOS
+- Sentry Cocoa
+- RevenueCat
+- PostHog iOS
+
+## Configuration
+
+### RevenueCat Attribution
+
+Enable RevenueCat attribution tracking:
+
+```swift
+Analytics.shared.setRCAttributionConsent()
+```
+
+### Restore Purchases
+
+Restore user purchases asynchronously:
+
+```swift
+do {
+    let customerInfo = try await Analytics.shared.restorePurchases()
+    // Handle restored purchases
+} catch {
+    // Handle errors
+}
+```
+
+## Best Practices
+
+1. Initialize analytics early in your app's lifecycle
+2. Use consistent event naming conventions
+3. Include relevant context in event parameters
+4. Handle errors appropriately
+5. Consider privacy implications when tracking user data
 
 ## License
 
