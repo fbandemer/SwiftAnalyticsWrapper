@@ -49,7 +49,7 @@ final public class Analytics {
         
         if let mixpanelID {
             useMixpanel = true
-            let mixpanel = Mixpanel.initialize(token: mixpanelID)
+            let mixpanel = Mixpanel.initialize(token: mixpanelID, trackAutomaticEvents: true)
             mixpanel.serverURL = "https://api-eu.mixpanel.com"
             if let userID {
                 mixpanel.identify(distinctId: userID)
