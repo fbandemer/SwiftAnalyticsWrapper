@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct EventButton<Label: View, ButtonStyleType: PrimitiveButtonStyle>: View {
+public struct EventButton<Label: View>: View {
     public typealias AnalyticCategory = String
     public typealias AnalyticObject = String
     let category: AnalyticCategory
@@ -15,7 +15,6 @@ public struct EventButton<Label: View, ButtonStyleType: PrimitiveButtonStyle>: V
     let object: AnalyticObject
     let params: [String: Any]
     let haptic: HapticMode
-    let buttonStyle: ButtonStyleType
     let action: () -> Void
     @ViewBuilder var label: Label
 
@@ -25,7 +24,6 @@ public struct EventButton<Label: View, ButtonStyleType: PrimitiveButtonStyle>: V
         verb: AnalyticVerbs,
         params: [String: Any] = [:],
         haptic: HapticMode = .none,
-        buttonStyle: ButtonStyleType = PlainButtonStyle(),
         action: @escaping () -> Void,
         @ViewBuilder label: @escaping () -> Label
     ) {
@@ -36,7 +34,6 @@ public struct EventButton<Label: View, ButtonStyleType: PrimitiveButtonStyle>: V
         self.label = label()
         self.params = params
         self.haptic = haptic
-        self.buttonStyle = buttonStyle
     }
 
     public var body: some View {
@@ -48,43 +45,13 @@ public struct EventButton<Label: View, ButtonStyleType: PrimitiveButtonStyle>: V
         Button(action: {
             haptic.play()
             Analytics.shared.track(event: "\(category):\(object)_\(verb.rawValue)", params: mergedDict)
-            #if os(iOS)
             Superwall.shared.register(placement: "\(category):\(object)_\(verb.rawValue)", params: mergedDict) {
                 DispatchQueue.main.async {
                     action()
                 }
             }
-            #else
-            DispatchQueue.main.async {
-                action()
-            }
-            #endif
         }, label: {
             label
         })
-        .buttonStyle(buttonStyle)
-    }
-}
-
-extension EventButton where ButtonStyleType == PlainButtonStyle {
-    public init(
-        category: AnalyticCategory,
-        object: String,
-        verb: AnalyticVerbs,
-        params: [String: Any] = [:],
-        haptic: HapticMode = .none,
-        action: @escaping () -> Void,
-        @ViewBuilder label: @escaping () -> Label
-    ) {
-        self.init(
-            category: category,
-            object: object,
-            verb: verb,
-            params: params,
-            haptic: haptic,
-            buttonStyle: PlainButtonStyle(),
-            action: action,
-            label: label
-        )
     }
 }

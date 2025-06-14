@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct NavigationButton<Label: View, ButtonStyleType: PrimitiveButtonStyle>: View {
+public struct NavigationButton<Label: View>: View {
     public typealias AnalyticCategory = String
     public typealias AnalyticObject = String
     let category: AnalyticCategory
@@ -15,7 +15,6 @@ public struct NavigationButton<Label: View, ButtonStyleType: PrimitiveButtonStyl
     let object: AnalyticObject
     let params: [String: Any]
     let rowAlignment: VerticalAlignment
-    let buttonStyle: ButtonStyleType
     let action: () -> Void
     @ViewBuilder var label: Label
 
@@ -25,7 +24,6 @@ public struct NavigationButton<Label: View, ButtonStyleType: PrimitiveButtonStyl
         verb: AnalyticVerbs,
         params: [String: Any] = [:],
         rowAlignment: VerticalAlignment = .center,
-        buttonStyle: ButtonStyleType = PlainButtonStyle(),
         action: @escaping () -> Void,
         @ViewBuilder label: @escaping () -> Label
     ) {
@@ -36,7 +34,6 @@ public struct NavigationButton<Label: View, ButtonStyleType: PrimitiveButtonStyl
         self.label = label()
         self.params = params
         self.rowAlignment = rowAlignment
-        self.buttonStyle = buttonStyle
     }
 
     public var body: some View {
@@ -47,17 +44,11 @@ public struct NavigationButton<Label: View, ButtonStyleType: PrimitiveButtonStyl
 #endif
         Button(action: {
             Analytics.shared.track(event: "\(category):\(object)_\(verb.rawValue)", params: mergedDict)
-            #if os(iOS)
             Superwall.shared.register(placement: "\(category):\(object)_\(verb.rawValue)", params: mergedDict) {
                 DispatchQueue.main.async {
                     action()
                 }
             }
-            #else
-            DispatchQueue.main.async {
-                action()
-            }
-            #endif
         }, label: {
             HStack(alignment: rowAlignment) {
                 label
@@ -68,29 +59,5 @@ public struct NavigationButton<Label: View, ButtonStyleType: PrimitiveButtonStyl
             }
             .contentShape(.rect)
         })
-        .buttonStyle(buttonStyle)
-    }
-}
-
-extension NavigationButton where ButtonStyleType == PlainButtonStyle {
-    public init(
-        category: AnalyticCategory,
-        object: String,
-        verb: AnalyticVerbs,
-        params: [String: Any] = [:],
-        rowAlignment: VerticalAlignment = .center,
-        action: @escaping () -> Void,
-        @ViewBuilder label: @escaping () -> Label
-    ) {
-        self.init(
-            category: category,
-            object: object,
-            verb: verb,
-            params: params,
-            rowAlignment: rowAlignment,
-            buttonStyle: PlainButtonStyle(),
-            action: action,
-            label: label
-        )
     }
 }
