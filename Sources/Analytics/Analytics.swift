@@ -9,7 +9,9 @@
 
 import Foundation
 import TelemetryClient
+#if os(iOS)
 import SuperwallKit
+#endif
 import OSLog
 import Mixpanel
 import RevenueCat
@@ -29,45 +31,49 @@ final public class Analytics {
     
     public static let shared = Analytics()
     
-    public func initialize(
-        for userID: String?,
-        with logger: Logger,
-        superwallID: String?,
-        posthogAPIKey: String?,
-        telemetryID: String?,
-        mixpanelID: String?,
-        sentry: String?,
-        revenueCatID: String?,
-        userDefault: UserDefaults
-    ) {
-        self.logger = logger
-        self.userID = userID
+    /// Creates an Analytics instance with an optional ID. If left empty defaults to UUID
+    public init() {
+        enrichment.0 = UUID().uuidString
+    }
+    
+    /// You are required to call start() before any tracking takes place
+    public func start(userID: String? = nil, superwall: String? = nil, mixpanelID: String? = nil, telemetryId: String? = nil, posthogAPIKey: String? = nil, sentryId: String? = nil, revenueCatAPIKey: String? = nil, userDefault: UserDefaults = .standard, logger: Logger = Logger(subsystem: "set subsystem", category: "set category")) {
         self.userDefault = userDefault
+        self.logger = logger
+        
+        logger.log("Starting Analytics")
+        
+        self.userID = userID
+        
+        enrichment.1.insert("is_devoloper")
+        
         if let mixpanelID {
             useMixpanel = true
-            let mixpanel = Mixpanel.initialize(token: mixpanelID, trackAutomaticEvents: true)
+            let mixpanel = Mixpanel.initialize(token: mixpanelID)
             mixpanel.serverURL = "https://api-eu.mixpanel.com"
             if let userID {
-                Mixpanel.mainInstance().identify(distinctId: userID)
+                mixpanel.identify(distinctId: userID)
             }
         }
-        if let telemetryID {
+        
+        if let telemetryId {
             useTelemetryDeck = true
-            let configuration = TelemetryManagerConfiguration(
-                        appID: telemetryID)
-            configuration.defaultUser = userID
-            TelemetryManager.initialize(with: configuration)
+            TelemetryManager.initialize(with: TelemetryManagerConfiguration(appID: telemetryId))
+            if let userID {
+                TelemetryManager.send("set_user", with: ["user_id": userID])
+            }
         }
         
         if let posthogAPIKey {
             usePosthog = true
             let host = "https://eu.i.posthog.com"
             let config = PostHogConfig(apiKey: posthogAPIKey, host: host)
-            config.sessionReplay = true
-            config.captureElementInteractions = false
-            config.sessionReplayConfig.screenshotMode = true
-            config.sessionReplayConfig.maskAllTextInputs = false
-            config.sessionReplayConfig.maskAllImages = false
+            // TODO: These properties might not exist in current PostHog version
+            // config.sessionReplay = true
+            // config.captureElementInteractions = false
+            // config.sessionReplayConfig.screenshotMode = true
+            // config.sessionReplayConfig.maskAllTextInputs = false
+            // config.sessionReplayConfig.maskAllImages = false
             #if DEBUG
             config.debug = true
             #endif
@@ -77,35 +83,35 @@ final public class Analytics {
             }
         }
         
-        if let revenueCatID {
-#if DEBUG
-            Purchases.logLevel = .debug
-#endif
-            Purchases.configure(withAPIKey: revenueCatID, appUserID: userID)
-            Purchases.shared.attribution.enableAdServicesAttributionTokenCollection()
-
+        if let sentryId {
+            useSentry = true
+            CrashManager.shared.start(id: sentryId)
         }
         
-        if let superwallID {
+        #if os(iOS)
+        if let superwall {
             useSuperwall = true
-            if revenueCatID != nil {
-                let purchaseController = RCPurchaseController(userDefault: userDefault)
-                Superwall.configure(apiKey: superwallID, purchaseController: purchaseController)
-                purchaseController.syncSubscriptionStatus()
-            } else {
-                Superwall.configure(apiKey: superwallID)
-            }
             let superwallService = SuperwallService(logger: logger, withTelemetry: useTelemetryDeck, withMixpanel: useMixpanel, withPostHog: usePosthog)
+            Superwall.configure(apiKey: superwall, purchaseController: RCPurchaseController(userDefault: userDefault))
             Superwall.shared.delegate = superwallService
         }
+        #endif
         
-        if let sentry {
-            CrashManager.shared.start(id: sentry)
-            useSentry = true
+        if let revenueCatAPIKey {
+            Purchases.logLevel = .warn
+            Purchases.configure(withAPIKey: revenueCatAPIKey)
+            
+            if let userID {
+                Purchases.shared.logIn(userID) { customerInfo, created, error in
+                    if let error {
+                        self.logger.error("Error when logging into revenue cat: \(error.localizedDescription)")
+                    }
+                }
+            }
         }
+        
+        logger.log("Started Analytics")
     }
-    
-
     
     public func time(event: String) {
         if useMixpanel {
@@ -128,12 +134,14 @@ final public class Analytics {
         if useTelemetryDeck {
             TelemetryManager.shared.updateDefaultUser(to: userID)
         }
+        #if os(iOS)
         if useSuperwall {
             Superwall.shared.identify(userId: userID)
             if let attributes = attributes {
                 Superwall.shared.setUserAttributes(attributes)
             }
         }
+        #endif
         Purchases.shared.logIn(userID) { (customerInfo, created, error) in
         }
         if let attributes = attributes {
@@ -178,7 +186,9 @@ final public class Analytics {
             userDefault.set(value, forKey: key)
         }
         attributes[key] = value
+        #if os(iOS)
         Superwall.shared.setUserAttributes(attributes)
+        #endif
     }
     
     public func incrementAttribute(key: String, value: Double) {
@@ -192,7 +202,9 @@ final public class Analytics {
         let newValue = value + oldValue
         attributes[key] = newValue
         userDefault.set(newValue, forKey:key)
+        #if os(iOS)
         Superwall.shared.setUserAttributes(attributes)
+        #endif
     }
     
     public func setSubscriptionStatus(active: Bool, key: String) {

@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "Analytics",
-    platforms: [.iOS(.v17)],
+    platforms: [.iOS(.v17), .macOS(.v14)],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
@@ -32,7 +32,7 @@ let package = Package(
                 .product(name: "TelemetryClient", package: "SwiftClient"),
                 .product(name: "Mixpanel", package: "mixpanel-swift"),
 //                "Mixpanel",
-                .product(name: "SuperwallKit", package: "Superwall-iOS"),
+                .product(name: "SuperwallKit", package: "Superwall-iOS", condition: .when(platforms: [.iOS])),
 //                "SuperwallKit",
                     .product(name: "Sentry-Dynamic", package: "sentry-cocoa"),
                 .product(name: "RevenueCat", package: "purchases-ios"),

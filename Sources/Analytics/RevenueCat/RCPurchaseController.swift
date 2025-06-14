@@ -5,6 +5,7 @@
 //  Created by Fynn Bandemer on 24.02.24.
 //
 
+#if os(iOS)
 import SuperwallKit
 import RevenueCat
 import StoreKit
@@ -89,3 +90,4 @@ final class RCPurchaseController: PurchaseController {
     }
   }
 }
+#endif

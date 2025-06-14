@@ -6,5 +6,7 @@
 //
 
 import Foundation
+#if os(iOS)
 @_exported import SuperwallKit
+#endif
 

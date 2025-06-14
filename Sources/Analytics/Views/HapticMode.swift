@@ -6,7 +6,9 @@
 //
 
 import Foundation
+#if os(iOS)
 import UIKit
+#endif
 
 public enum HapticMode {
     case none
@@ -17,6 +19,7 @@ public enum HapticMode {
 
 extension HapticMode {
     func play() {
+        #if os(iOS)
         switch self {
         case .none:
             return
@@ -27,5 +30,9 @@ extension HapticMode {
         case .heavy:
             UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
         }
+        #else
+        // Haptic feedback is not available on macOS
+        return
+        #endif
     }
 }

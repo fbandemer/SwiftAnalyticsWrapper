@@ -5,6 +5,7 @@
 //  Created by Fynn Bandemer on 04.11.23.
 //
 
+#if os(iOS)
 import Foundation
 import SuperwallKit
 import TelemetryClient
@@ -36,3 +37,4 @@ internal class SuperwallService: SuperwallDelegate {
         logger.log("Superwall Event logged: \(placementInfo.placement.description)")
     }
 }
+#endif

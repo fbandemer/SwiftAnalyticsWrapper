@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct NavigationButton<Label: View>: View {
+public struct NavigationButton<Label: View, ButtonStyleType: PrimitiveButtonStyle>: View {
     public typealias AnalyticCategory = String
     public typealias AnalyticObject = String
     let category: AnalyticCategory
@@ -15,7 +15,7 @@ public struct NavigationButton<Label: View>: View {
     let object: AnalyticObject
     let params: [String: Any]
     let rowAlignment: VerticalAlignment
-    let buttonStyle: any ButtonStyle
+    let buttonStyle: ButtonStyleType
     let action: () -> Void
     @ViewBuilder var label: Label
 
@@ -25,7 +25,7 @@ public struct NavigationButton<Label: View>: View {
         verb: AnalyticVerbs,
         params: [String: Any] = [:],
         rowAlignment: VerticalAlignment = .center,
-        buttonStyle: any ButtonStyle = .plain,
+        buttonStyle: ButtonStyleType = PlainButtonStyle(),
         action: @escaping () -> Void,
         @ViewBuilder label: @escaping () -> Label
     ) {
@@ -47,11 +47,17 @@ public struct NavigationButton<Label: View>: View {
 #endif
         Button(action: {
             Analytics.shared.track(event: "\(category):\(object)_\(verb.rawValue)", params: mergedDict)
+            #if os(iOS)
             Superwall.shared.register(placement: "\(category):\(object)_\(verb.rawValue)", params: mergedDict) {
                 DispatchQueue.main.async {
                     action()
                 }
             }
+            #else
+            DispatchQueue.main.async {
+                action()
+            }
+            #endif
         }, label: {
             HStack(alignment: rowAlignment) {
                 label
@@ -63,5 +69,28 @@ public struct NavigationButton<Label: View>: View {
             .contentShape(.rect)
         })
         .buttonStyle(buttonStyle)
+    }
+}
+
+extension NavigationButton where ButtonStyleType == PlainButtonStyle {
+    public init(
+        category: AnalyticCategory,
+        object: String,
+        verb: AnalyticVerbs,
+        params: [String: Any] = [:],
+        rowAlignment: VerticalAlignment = .center,
+        action: @escaping () -> Void,
+        @ViewBuilder label: @escaping () -> Label
+    ) {
+        self.init(
+            category: category,
+            object: object,
+            verb: verb,
+            params: params,
+            rowAlignment: rowAlignment,
+            buttonStyle: PlainButtonStyle(),
+            action: action,
+            label: label
+        )
     }
 }
