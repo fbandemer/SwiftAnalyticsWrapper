@@ -49,21 +49,33 @@ public struct SimpleEventButton: View {
             Button(title, systemImage: systemImage) {
                 haptic.play()
                 Analytics.shared.track(event: "\(category):\(object)_\(verb.rawValue)", params: mergedDict)
+                 #if os(iOS)
                 Superwall.shared.register(placement: "\(category):\(object)_\(verb.rawValue)", params: mergedDict) {
                     DispatchQueue.main.async {
                         action()
                     }
                 }
+                #else
+                DispatchQueue.main.async {
+                    action()
+                }
+                #endif
             }
         } else {
             Button(title) {
                 haptic.play()
                 Analytics.shared.track(event: "\(category):\(object)_\(verb.rawValue)", params: mergedDict)
+                 #if os(iOS)
                 Superwall.shared.register(placement: "\(category):\(object)_\(verb.rawValue)", params: mergedDict) {
                     DispatchQueue.main.async {
                         action()
                     }
                 }
+                #else
+                DispatchQueue.main.async {
+                    action()
+                }
+                #endif
             }
         }
     }
