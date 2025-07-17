@@ -15,6 +15,7 @@ import Mixpanel
 import RevenueCat
 import PostHog
 
+@MainActor
 final public class Analytics {
     var logger: Logger = Logger(subsystem: "set subsystem", category: "set category")
     var userDefault: UserDefaults = .standard

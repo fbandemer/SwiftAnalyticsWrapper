@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 import Sentry
 
+@MainActor
 final public class CrashManager {
     public static let shared = CrashManager()
     

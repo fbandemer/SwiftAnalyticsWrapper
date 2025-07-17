@@ -16,6 +16,7 @@ public enum HapticMode {
 }
 
 extension HapticMode {
+    @MainActor
     func play() {
         switch self {
         case .none:
