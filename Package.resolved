@@ -1,5 +1,5 @@
 {
-  "originHash" : "ffa0402ed64278e31a03233a136d1e38db302296f371cf8ef149a7a09253b167",
+  "originHash" : "f0f95c27f62762272c173f50dadb850471545f4af6b8d2868494be7e3dfb33b0",
   "pins" : [
     {
       "identity" : "mixpanel-swift",
@@ -26,15 +26,6 @@
       "state" : {
         "revision" : "fa196fa767b15663ff8941a0a80e3ad67ad4d53f",
         "version" : "5.33.0"
-      }
-    },
-    {
-      "identity" : "sentry-cocoa",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/getsentry/sentry-cocoa",
-      "state" : {
-        "revision" : "ca92efeb24b10052cd2a79e5205f42c5a16770ec",
-        "version" : "8.53.2"
       }
     },
     {
