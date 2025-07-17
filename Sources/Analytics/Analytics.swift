@@ -15,7 +15,6 @@ import Mixpanel
 import RevenueCat
 import PostHog
 
-@MainActor
 final public class Analytics {
     var logger: Logger = Logger(subsystem: "set subsystem", category: "set category")
     var userDefault: UserDefaults = .standard
@@ -28,7 +27,7 @@ final public class Analytics {
     var usePosthog: Bool = false
     var useSentry: Bool = false
     
-    public static let shared = Analytics()
+    public nonisolated(unsafe) static let shared = Analytics()
     
     public func initialize(
         for userID: String?,
