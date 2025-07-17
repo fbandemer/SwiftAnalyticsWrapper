@@ -1,5 +1,5 @@
 {
-  "originHash" : "5a76fb31c1ff804865188dfd2e20c6a1846156e58bb7fb421e7ccebaf68a6f59",
+  "originHash" : "ffa0402ed64278e31a03233a136d1e38db302296f371cf8ef149a7a09253b167",
   "pins" : [
     {
       "identity" : "mixpanel-swift",
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/PostHog/posthog-ios.git",
       "state" : {
-        "revision" : "d6fde6cea4fbb2f968f116aa04572c39297a8c2b",
-        "version" : "3.26.2"
+        "revision" : "1c2e98eb20aa9218be12a9fded58e22cc8451514",
+        "version" : "3.29.0"
       }
     },
     {
@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/RevenueCat/purchases-ios.git",
       "state" : {
-        "revision" : "cdfe7100fc8cca4a655a9c0f1d34e1fcbc40edd0",
-        "version" : "5.28.1"
+        "revision" : "fa196fa767b15663ff8941a0a80e3ad67ad4d53f",
+        "version" : "5.33.0"
       }
     },
     {
@@ -33,8 +33,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/getsentry/sentry-cocoa",
       "state" : {
-        "revision" : "930b78a63f47549c81e6e63c9172584f7d3dfdd6",
-        "version" : "8.52.1"
+        "revision" : "ca92efeb24b10052cd2a79e5205f42c5a16770ec",
+        "version" : "8.53.2"
       }
     },
     {
@@ -51,8 +51,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/superwall-me/Superwall-iOS",
       "state" : {
-        "revision" : "0174b92b0dd3321c1c3378f1703ec33c16491b89",
-        "version" : "4.5.1"
+        "revision" : "8bb0d689f014fa4bc893827afa97c5b5f48e0d95",
+        "version" : "4.6.0"
       }
     },
     {
