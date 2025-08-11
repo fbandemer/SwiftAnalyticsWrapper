@@ -115,7 +115,7 @@ final public class Analytics {
         }
     }
     
-    public func setUserID(_ userID: String, email: String?, attributes: [String: Any]?) {
+    public func setUserID(_ userID: String, email: String?, oneSignalUserID: String? = nil, attributes: [String: Any]?) {
         Purchases.shared.logIn(userID) { (customerInfo, created, error) in
         }
         if let email {
