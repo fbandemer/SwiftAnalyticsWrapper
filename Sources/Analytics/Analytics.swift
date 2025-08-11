@@ -121,6 +121,10 @@ final public class Analytics {
         if let email {
             Purchases.shared.attribution.setEmail(email)
         }
+        if let oneSignalUserID {
+            Purchases.shared.attribution.setOnesignalUserID(oneSignalUserID)
+        }
+        
         if let attributes = attributes {
             let stringifiedParams = stringifyParams(params: attributes)
             Purchases.shared.attribution.setAttributes(stringifiedParams)
