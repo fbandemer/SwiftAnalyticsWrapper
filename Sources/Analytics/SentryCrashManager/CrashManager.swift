@@ -14,6 +14,9 @@ final public class CrashManager {
     
     public func start(id: String) {
         SentrySDK.start { options in
+            #if DEBUG
+            options.environment = "development"
+            #endif
             options.dsn = id
 //            options.debug = true
             options.attachScreenshot = true

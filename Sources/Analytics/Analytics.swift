@@ -68,11 +68,13 @@ final public class Analytics {
             config.sessionReplayConfig.screenshotMode = true
             config.sessionReplayConfig.maskAllTextInputs = false
             config.sessionReplayConfig.maskAllImages = false
+            config.personProfiles = .identifiedOnly
             #if DEBUG
             config.debug = true
             #endif
             PostHogSDK.shared.setup(config)
             if let userID {
+//                PostHogSDK.shared.getAnonymousId()
                 PostHogSDK.shared.identify(userID)
             }
         }
