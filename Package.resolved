@@ -1,15 +1,6 @@
 {
-  "originHash" : "5a76fb31c1ff804865188dfd2e20c6a1846156e58bb7fb421e7ccebaf68a6f59",
+  "originHash" : "1fb08d40a3109a8fe246e7c73ccffddd55b046e7dc08ac986ce9889b7506dcee",
   "pins" : [
-    {
-      "identity" : "mixpanel-swift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/mixpanel/mixpanel-swift",
-      "state" : {
-        "branch" : "master",
-        "revision" : "e8c8783d94f5fa2680f3e6eac202964c3db4d410"
-      }
-    },
     {
       "identity" : "posthog-ios",
       "kind" : "remoteSourceControl",
@@ -53,15 +44,6 @@
       "state" : {
         "revision" : "0174b92b0dd3321c1c3378f1703ec33c16491b89",
         "version" : "4.5.1"
-      }
-    },
-    {
-      "identity" : "swiftclient",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/TelemetryDeck/SwiftClient",
-      "state" : {
-        "revision" : "d20ccc4b8266cf739eede58cdfc7e9c6ffb41cda",
-        "version" : "1.5.1"
       }
     }
   ],

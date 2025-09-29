@@ -10,7 +10,7 @@ import SwiftUI
 import Sentry
 
 final public class CrashManager {
-    public static let shared = CrashManager()
+    nonisolated(unsafe) public static let shared = CrashManager()
     
     public func start(id: String) {
         SentrySDK.start { options in

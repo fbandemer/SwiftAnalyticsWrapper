@@ -8,10 +8,8 @@
 //
 
 import Foundation
-import TelemetryClient
 import SuperwallKit
 import OSLog
-import Mixpanel
 import RevenueCat
 import PostHog
 
@@ -19,23 +17,18 @@ final public class Analytics {
     var logger: Logger = Logger(subsystem: "set subsystem", category: "set category")
     var userDefault: UserDefaults = .standard
     var userID: String? = nil
-    var enrichment: (String?, Set<String>) = (nil, [])
     var attributes: [String: Any] = [:]
-    var useMixpanel: Bool = false
-    var useTelemetryDeck: Bool = false
     var useSuperwall: Bool = false
     var usePosthog: Bool = false
     var useSentry: Bool = false
     
-    public static let shared = Analytics()
+    nonisolated(unsafe) public static let shared = Analytics()
     
     public func initialize(
         for userID: String?,
         with logger: Logger,
         superwallID: String?,
         posthogAPIKey: String?,
-        telemetryID: String?,
-        mixpanelID: String?,
         sentry: String?,
         revenueCatID: String?,
         userDefault: UserDefaults
@@ -43,21 +36,6 @@ final public class Analytics {
         self.logger = logger
         self.userID = userID
         self.userDefault = userDefault
-        if let mixpanelID {
-            useMixpanel = true
-            let mixpanel = Mixpanel.initialize(token: mixpanelID, trackAutomaticEvents: true)
-            mixpanel.serverURL = "https://api-eu.mixpanel.com"
-            if let userID {
-                Mixpanel.mainInstance().identify(distinctId: userID)
-            }
-        }
-        if let telemetryID {
-            useTelemetryDeck = true
-            let configuration = TelemetryManagerConfiguration(
-                        appID: telemetryID)
-            configuration.defaultUser = userID
-            TelemetryManager.initialize(with: configuration)
-        }
         
         if let posthogAPIKey {
             usePosthog = true
@@ -74,7 +52,6 @@ final public class Analytics {
             #endif
             PostHogSDK.shared.setup(config)
             if let userID {
-//                PostHogSDK.shared.getAnonymousId()
                 PostHogSDK.shared.identify(userID)
             }
         }
@@ -97,7 +74,7 @@ final public class Analytics {
             } else {
                 Superwall.configure(apiKey: superwallID)
             }
-            let superwallService = SuperwallService(logger: logger, withTelemetry: useTelemetryDeck, withMixpanel: useMixpanel, withPostHog: usePosthog)
+            let superwallService = SuperwallService(logger: logger, withPostHog: usePosthog)
             Superwall.shared.delegate = superwallService
         }
         
@@ -107,16 +84,12 @@ final public class Analytics {
         }
     }
     
-
-    
     public func time(event: String) {
-        if useMixpanel {
-            Mixpanel.mainInstance().time(event: event)
-        }
+        logger.log("Timing event requested: \(event)")
     }
     
     public func setUserID(_ userID: String, email: String?, oneSignalUserID: String? = nil, attributes: [String: Any]?) {
-        Purchases.shared.logIn(userID) { (customerInfo, created, error) in
+        Purchases.shared.logIn(userID) { (_, _, _) in
         }
         if let email {
             Purchases.shared.attribution.setEmail(email)
@@ -129,21 +102,9 @@ final public class Analytics {
             let stringifiedParams = stringifyParams(params: attributes)
             Purchases.shared.attribution.setAttributes(stringifiedParams)
         }
-        if useMixpanel {
-            Mixpanel.mainInstance().identify(distinctId: userID)
-            Purchases.shared.attribution.setMixpanelDistinctID(userID)
-            if let attributes = attributes {
-                let stringifiedParams = stringifyParams(params: attributes)
-                stringifiedParams.forEach({ Mixpanel.mainInstance().people.set(property: $0.key, to: $0.value )})
-
-            }
-        }
         if usePosthog {
             PostHogSDK.shared.identify(userID, userProperties: attributes)
             Purchases.shared.attribution.setPostHogUserID(userID)
-        }
-        if useTelemetryDeck {
-            TelemetryManager.shared.updateDefaultUser(to: userID)
         }
         if useSuperwall {
             Superwall.shared.identify(userId: userID)
@@ -154,22 +115,10 @@ final public class Analytics {
     }
     
     public func track(event: String, floatValue: Double? = nil, params: [String: Any]) {
-        let stringifiedParams = stringifyParams(params: params)
-        if useMixpanel {
-            Mixpanel.mainInstance().track(event: event, properties: stringifiedParams)
-        }
         if usePosthog {
             PostHogSDK.shared.capture(event, properties: params)
         }
         
-        if useTelemetryDeck {
-            let payload = enrichParams(params: params)
-            let stringifiedPayload = stringifyParams(params: payload)
-            TelemetryManager.shared.send(event, for: userID, floatValue: floatValue, with: stringifiedPayload)
-            if useMixpanel {
-                Purchases.shared.attribution.setMixpanelDistinctID(Mixpanel.mainInstance().distinctId)
-            }
-        }
         if useSentry {
             CrashManager.shared.log("Event logged: \(event)")
         }
@@ -177,9 +126,6 @@ final public class Analytics {
     }
 
     public func setUserAttributes(key: String, value: String) {
-        if useMixpanel {
-            Mixpanel.mainInstance().people.set(property: key, to: value)
-        }
         if usePosthog {
             PostHogSDK.shared.register([key: value])
         }
@@ -189,13 +135,12 @@ final public class Analytics {
             userDefault.set(value, forKey: key)
         }
         attributes[key] = value
-        Superwall.shared.setUserAttributes(attributes)
+        if useSuperwall {
+            Superwall.shared.setUserAttributes(attributes)
+        }
     }
     
     public func incrementAttribute(key: String, value: Double) {
-        if useMixpanel {
-            Mixpanel.mainInstance().people.increment(property: key, by: value)
-        }
         if usePosthog {
             PostHogSDK.shared.register([key: value])
         }
@@ -203,7 +148,9 @@ final public class Analytics {
         let newValue = value + oldValue
         attributes[key] = newValue
         userDefault.set(newValue, forKey:key)
-        Superwall.shared.setUserAttributes(attributes)
+        if useSuperwall {
+            Superwall.shared.setUserAttributes(attributes)
+        }
     }
     
     public func setSubscriptionStatus(active: Bool, key: String) {
@@ -212,9 +159,6 @@ final public class Analytics {
     
     public func setUserID(userID: String) {
         self.userID = userID
-        if useMixpanel {
-            Mixpanel.mainInstance().identify(distinctId: userID)
-        }
         if usePosthog {
             PostHogSDK.shared.identify(userID)
         }
@@ -231,10 +175,6 @@ final public class Analytics {
     
     public func setRCAttributionConsent() {
         Purchases.shared.attribution.enableAdServicesAttributionTokenCollection()
-    }
-    
-    private func enrichParams(params: [String: Any]) -> [String: Any] {
-        return attributes.merging(params) { _, new in new }
     }
     
     public func restorePurchases() async throws -> CustomerInfo {

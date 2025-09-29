@@ -1,6 +1,6 @@
 # Analytics Package
 
-A unified analytics solution for iOS applications that integrates multiple tracking and analytics services including Mixpanel, TelemetryDeck, PostHog, Superwall, RevenueCat, and Sentry.
+A unified analytics solution for iOS applications that integrates multiple tracking and analytics services including PostHog, Superwall, RevenueCat, and Sentry.
 
 ## Requirements
 
@@ -30,8 +30,6 @@ Analytics.shared.initialize(
     with: logger,
     superwallID: "your_superwall_id",
     posthogAPIKey: "your_posthog_key",
-    telemetryID: "your_telemetry_id",
-    mixpanelID: "your_mixpanel_id",
     sentry: "your_sentry_dsn",
     revenueCatID: "your_revenuecat_id",
     userDefault: .standard
@@ -128,8 +126,6 @@ Analytics.shared.setUserID(userID: "user123")
 
 This package integrates with several third-party analytics providers:
 
-- TelemetryDeck SwiftClient
-- Mixpanel Swift
 - Superwall iOS
 - Sentry Cocoa
 - RevenueCat
