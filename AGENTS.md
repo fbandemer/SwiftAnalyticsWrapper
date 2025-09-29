@@ -12,6 +12,10 @@ Follow Swift API Design Guidelines with 4-space indentation and trailing commas 
 ## Testing Guidelines
 Add new XCTest cases in `Tests/AnalyticsTests/AnalyticsTests.swift` or a sibling file that mirrors the module path. Name tests using the `test<Behavior>_<Condition>` pattern and include both provider stubs and façade-level expectations. Run `swift test` locally before pushing, and ensure any asynchronous behavior is covered with `XCTExpectations` to guard against regressions.
 
+## Platform Notes
+Superwall integrations compile only on iOS. macOS builds set `superwallID` to `nil` and rely on the SwiftUI buttons to execute actions directly, so guard any new Superwall code with `#if canImport(SuperwallKit)` to keep cross-platform builds green.
+
+
 ## Commit & Pull Request Guidelines
 Recent history favors short, imperative subjects (e.g., `Update Analytics.swift`). Keep commits focused, referencing modules touched. Pull requests should describe the problem, summarize the solution, link related tasks, and note testing performed. Include screenshots or console logs only when UI or runtime behavior changes. Tag reviewers responsible for the affected provider integrations.
 

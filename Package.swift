@@ -27,7 +27,7 @@ let package = Package(
         .target(
             name: "Analytics",
             dependencies: [
-                .product(name: "SuperwallKit", package: "Superwall-iOS"),
+                .product(name: "SuperwallKit", package: "Superwall-iOS", condition: .when(platforms: [.iOS])),
                 .product(name: "Sentry-Dynamic", package: "sentry-cocoa"),
                 .product(name: "RevenueCat", package: "purchases-ios"),
                 .product(name: "RevenueCatUI", package: "purchases-ios"),

@@ -42,13 +42,26 @@ public struct NavigationButton<Label: View>: View {
 #else
         let mergedDict = (["button_type": "navigation", "is_devolpment": false] as! [String: Any]).merging(params) { _, new in new }
 #endif
+        let placement = "\(category):\(object)_\(verb.rawValue)"
         Button(action: {
-            Analytics.shared.track(event: "\(category):\(object)_\(verb.rawValue)", params: mergedDict)
-            Superwall.shared.register(placement: "\(category):\(object)_\(verb.rawValue)", params: mergedDict) {
+            Analytics.shared.track(event: placement, params: mergedDict)
+#if canImport(SuperwallKit)
+            if Analytics.shared.isSuperwallEnabled {
+                Superwall.shared.register(placement: placement, params: mergedDict) {
+                    DispatchQueue.main.async {
+                        action()
+                    }
+                }
+            } else {
                 DispatchQueue.main.async {
                     action()
                 }
             }
+#else
+            DispatchQueue.main.async {
+                action()
+            }
+#endif
         }, label: {
             HStack(alignment: rowAlignment) {
                 label

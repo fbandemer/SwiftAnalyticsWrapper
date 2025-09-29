@@ -122,6 +122,10 @@ Update user identification:
 Analytics.shared.setUserID(userID: "user123")
 ```
 
+## Platform Notes
+
+- Superwall integration is available only on iOS builds. Pass `nil` for `superwallID` when targeting macOS; UI components continue to function by running their actions immediately.
+
 ## Dependencies
 
 This package integrates with several third-party analytics providers:

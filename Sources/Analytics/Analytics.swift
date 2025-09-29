@@ -8,7 +8,9 @@
 //
 
 import Foundation
+#if canImport(SuperwallKit)
 import SuperwallKit
+#endif
 import OSLog
 import RevenueCat
 import PostHog
@@ -23,6 +25,14 @@ final public class Analytics {
     var useSentry: Bool = false
     
     nonisolated(unsafe) public static let shared = Analytics()
+    
+    public var isSuperwallEnabled: Bool {
+#if canImport(SuperwallKit)
+        return useSuperwall
+#else
+        return false
+#endif
+    }
     
     public func initialize(
         for userID: String?,
@@ -41,11 +51,15 @@ final public class Analytics {
             usePosthog = true
             let host = "https://eu.i.posthog.com"
             let config = PostHogConfig(apiKey: posthogAPIKey, host: host)
+            
+#if os(iOS)
             config.sessionReplay = true
             config.captureElementInteractions = false
             config.sessionReplayConfig.screenshotMode = true
             config.sessionReplayConfig.maskAllTextInputs = false
             config.sessionReplayConfig.maskAllImages = false
+#endif
+
             config.personProfiles = .identifiedOnly
             #if DEBUG
             config.debug = true
@@ -65,6 +79,7 @@ final public class Analytics {
 
         }
         
+#if canImport(SuperwallKit)
         if let superwallID {
             useSuperwall = true
             if revenueCatID != nil {
@@ -77,6 +92,11 @@ final public class Analytics {
             let superwallService = SuperwallService(logger: logger, withPostHog: usePosthog)
             Superwall.shared.delegate = superwallService
         }
+#else
+        if superwallID != nil {
+            logger.log("Superwall ID provided but Superwall is unavailable on this platform.")
+        }
+#endif
         
         if let sentry {
             CrashManager.shared.start(id: sentry)
@@ -106,12 +126,14 @@ final public class Analytics {
             PostHogSDK.shared.identify(userID, userProperties: attributes)
             Purchases.shared.attribution.setPostHogUserID(userID)
         }
+#if canImport(SuperwallKit)
         if useSuperwall {
             Superwall.shared.identify(userId: userID)
             if let attributes = attributes {
                 Superwall.shared.setUserAttributes(attributes)
             }
         }
+#endif
     }
     
     public func track(event: String, floatValue: Double? = nil, params: [String: Any]) {
@@ -135,9 +157,11 @@ final public class Analytics {
             userDefault.set(value, forKey: key)
         }
         attributes[key] = value
+#if canImport(SuperwallKit)
         if useSuperwall {
             Superwall.shared.setUserAttributes(attributes)
         }
+#endif
     }
     
     public func incrementAttribute(key: String, value: Double) {
@@ -148,9 +172,11 @@ final public class Analytics {
         let newValue = value + oldValue
         attributes[key] = newValue
         userDefault.set(newValue, forKey:key)
+#if canImport(SuperwallKit)
         if useSuperwall {
             Superwall.shared.setUserAttributes(attributes)
         }
+#endif
     }
     
     public func setSubscriptionStatus(active: Bool, key: String) {

@@ -1,10 +1,10 @@
 //
 //  RCPurchaseController.swift
-//  
 //
 //  Created by Fynn Bandemer on 24.02.24.
 //
 
+#if canImport(SuperwallKit)
 import SuperwallKit
 import RevenueCat
 import StoreKit
@@ -89,3 +89,5 @@ final class RCPurchaseController: PurchaseController {
     }
   }
 }
+#endif
+

@@ -18,8 +18,10 @@ final public class CrashManager {
             options.environment = "development"
             #endif
             options.dsn = id
-//            options.debug = true
+#if os(iOS)
             options.attachScreenshot = true
+#endif
+//            options.debug = true
             // Enabled debug when first installing is always helpful
 //            options.enableTracing = true
         }

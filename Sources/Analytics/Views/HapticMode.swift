@@ -6,7 +6,9 @@
 //
 
 import Foundation
+#if canImport(UIKit)
 import UIKit
+#endif
 
 public enum HapticMode {
     case none
@@ -17,6 +19,7 @@ public enum HapticMode {
 
 extension HapticMode {
     func play() {
+#if canImport(UIKit)
         switch self {
         case .none:
             return
@@ -27,5 +30,8 @@ extension HapticMode {
         case .heavy:
             UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
         }
+#else
+        return
+#endif
     }
 }

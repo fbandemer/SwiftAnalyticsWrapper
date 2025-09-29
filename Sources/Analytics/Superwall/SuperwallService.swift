@@ -1,10 +1,10 @@
 //
 //  File.swift
-//  
 //
 //  Created by Fynn Bandemer on 04.11.23.
 //
 
+#if canImport(SuperwallKit)
 import Foundation
 import SuperwallKit
 import OSLog
@@ -26,3 +26,5 @@ internal class SuperwallService: SuperwallDelegate {
         logger.log("Superwall Event logged: \(placementInfo.placement.description)")
     }
 }
+#endif
+
