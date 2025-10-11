@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct NavigationButton<Label: View>: View {
+public struct AnalyticsNavigationButton<Label: View>: View {
     public typealias AnalyticCategory = String
     public typealias AnalyticObject = String
     let category: AnalyticCategory
@@ -37,31 +37,31 @@ public struct NavigationButton<Label: View>: View {
     }
 
     public var body: some View {
-#if DEBUG
-        let mergedDict = (["button_type": "navigation", "is_devolpment": true] as! [String: Any]).merging(params) { _, new in new }
-#else
-        let mergedDict = (["button_type": "navigation", "is_devolpment": false] as! [String: Any]).merging(params) { _, new in new }
-#endif
+        #if DEBUG
+            let mergedDict = (["button_type": "navigation", "is_devolpment": true] as! [String: Any]).merging(params) { _, new in new }
+        #else
+            let mergedDict = (["button_type": "navigation", "is_devolpment": false] as! [String: Any]).merging(params) { _, new in new }
+        #endif
         let placement = "\(category):\(object)_\(verb.rawValue)"
         Button(action: {
             Analytics.shared.track(event: placement, params: mergedDict)
-#if canImport(SuperwallKit)
-            if Analytics.shared.isSuperwallEnabled {
-                Superwall.shared.register(placement: placement, params: mergedDict) {
+            #if canImport(SuperwallKit)
+                if Analytics.shared.isSuperwallEnabled {
+                    Superwall.shared.register(placement: placement, params: mergedDict) {
+                        DispatchQueue.main.async {
+                            action()
+                        }
+                    }
+                } else {
                     DispatchQueue.main.async {
                         action()
                     }
                 }
-            } else {
+            #else
                 DispatchQueue.main.async {
                     action()
                 }
-            }
-#else
-            DispatchQueue.main.async {
-                action()
-            }
-#endif
+            #endif
         }, label: {
             HStack(alignment: rowAlignment) {
                 label
