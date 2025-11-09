@@ -7,7 +7,11 @@
 //  Created by Fynn Bandemer on 28.10.23.
 //
 
+import AnalyticsManagerInterface
+import CrashManagerInterface
+import CrashManager
 import Foundation
+import Observation
 #if canImport(SuperwallKit)
 import SuperwallKit
 #endif
@@ -15,18 +19,30 @@ import OSLog
 import RevenueCat
 import PostHog
 
-final public class Analytics {
+@Observable
+public final class DefaultAnalyticsManager: AnalyticsManagerInterface.AnalyticsManager {
     var logger: Logger = Logger(subsystem: "set subsystem", category: "set category")
     var userDefault: UserDefaults = .standard
     var userID: String? = nil
     var attributes: [String: Any] = [:]
     var useSuperwall: Bool = false
     var usePosthog: Bool = false
-    var useSentry: Bool = false
-    
-    nonisolated(unsafe) public static let shared = Analytics()
-    
-    public var isSuperwallEnabled: Bool {
+    var useCrashManager: Bool = false
+    let crashManager: CrashManaging
+
+    nonisolated(unsafe) public static let shared = DefaultAnalyticsManager()
+
+    public override init(configuration: AnalyticsConfiguration = .init()) {
+        self.crashManager = DefaultCrashManager.shared
+        super.init(configuration: configuration)
+    }
+
+    public init(configuration: AnalyticsConfiguration = .init(), crashManager: CrashManaging) {
+        self.crashManager = crashManager
+        super.init(configuration: configuration)
+    }
+
+    public override var isSuperwallEnabled: Bool {
 #if canImport(SuperwallKit)
         return useSuperwall
 #else
@@ -99,8 +115,9 @@ final public class Analytics {
 #endif
         
         if let sentry {
-            CrashManager.shared.start(id: sentry)
-            useSentry = true
+            let config = CrashConfiguration(dsn: sentry, environment: Self.defaultEnvironment)
+            crashManager.start(with: config)
+            useCrashManager = true
         }
     }
     
@@ -136,13 +153,43 @@ final public class Analytics {
 #endif
     }
     
+    public override func track(_ event: AnalyticsEvent) {
+        track(event: event.name, params: event.properties.toAnyDictionary())
+    }
+
+    /// High-level helper that encapsulates the previous SwiftUI button
+    /// behavior. It validates event naming, tracks the event, and triggers the
+    /// supplied action once analytics and any Superwall placement finish.
+    public func performEvent(
+        category: some AnalyticsCategory,
+        object: AnalyticsObject,
+        verb: AnalyticsVerb,
+        attributes: AnalyticsAttributes = [:],
+        action: @escaping AnalyticsAction
+    ) {
+        guard let event = try? AnalyticsEvent(
+            category: category,
+            object: object,
+            verb: verb,
+            properties: attributes
+        ) else {
+            assertionFailure("Invalid analytics naming for placement")
+            return
+        }
+
+        track(event)
+        handlePlacement(event.name, params: event.properties.toAnyDictionary()) {
+            action()
+        }
+    }
+
     public func track(event: String, floatValue: Double? = nil, params: [String: Any]) {
         if usePosthog {
             PostHogSDK.shared.capture(event, properties: params)
         }
         
-        if useSentry {
-            CrashManager.shared.log("Event logged: \(event)")
+        if useCrashManager {
+            crashManager.log("Event logged: \(event)")
         }
         logger.log("Event logged: \(event)")
     }
@@ -197,8 +244,39 @@ final public class Analytics {
         }
         return stringifiedParams
     }
-    
-    
+
+    public override func setUserIdentity(_ identity: AnalyticsUserIdentity) {
+        setUserID(identity.id, email: identity.email, attributes: identity.attributes.toAnyDictionary())
+    }
+
+    public override func setUserAttribute(_ key: String, value: AnalyticsAttributeValue) {
+        setUserAttributes(key: key, value: String(describing: value.anyValue))
+    }
+
+    public override func incrementUserAttribute(_ key: String, by value: Double) {
+        incrementAttribute(key: key, value: value)
+    }
+
+    public override func setSubscriptionStatus(isActive: Bool, key: String) {
+        setSubscriptionStatus(active: isActive, key: key)
+    }
+
+    public override func handlePlacement(_ placement: String, params: [String: Any], completion: @escaping () -> Void) {
+#if canImport(SuperwallKit)
+        if isSuperwallEnabled {
+            Superwall.shared.register(placement: placement, params: params) {
+                DispatchQueue.main.async {
+                    completion()
+                }
+            }
+            return
+        }
+#endif
+        DispatchQueue.main.async {
+            completion()
+        }
+    }
+
     public func setRCAttributionConsent() {
         Purchases.shared.attribution.enableAdServicesAttributionTokenCollection()
     }
@@ -207,9 +285,11 @@ final public class Analytics {
         let customerInfos = try await Purchases.shared.restorePurchases()
         return customerInfos
     }
+    private static var defaultEnvironment: String {
+        #if DEBUG
+        return "development"
+        #else
+        return "production"
+        #endif
+    }
 }
-
-
-//extension Analytics  {
-//}
-

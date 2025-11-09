@@ -12,8 +12,20 @@ let package = Package(
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
-            name: "Analytics",
-            targets: ["Analytics"]),
+            name: "AnalyticsManagerInterface",
+            targets: ["AnalyticsManagerInterface"]),
+        .library(
+            name: "CrashManagerInterface",
+            targets: ["CrashManagerInterface"]),
+        .library(
+            name: "CrashManager",
+            targets: ["CrashManager"]),
+        .library(
+            name: "AnalyticsManager",
+            targets: ["AnalyticsManager"]),
+        .library(
+            name: "AnalyticsManagerTesting",
+            targets: ["AnalyticsManagerTesting"]),
     ],
     dependencies: [
         .package(url: "https://github.com/superwall-me/Superwall-iOS", .upToNextMajor(from: "4.0.0")),
@@ -25,14 +37,42 @@ let package = Package(
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "Analytics",
+            name: "AnalyticsManagerInterface"
+        ),
+        .target(
+            name: "CrashManagerInterface"
+        ),
+        .target(
+            name: "CrashManager",
             dependencies: [
+                "CrashManagerInterface",
+                .product(name: "Sentry-Dynamic", package: "sentry-cocoa")
+            ]),
+        .target(
+            name: "AnalyticsManager",
+            dependencies: [
+                "AnalyticsManagerInterface",
+                "CrashManagerInterface",
+                "CrashManager",
                 .product(name: "SuperwallKit", package: "Superwall-iOS", condition: .when(platforms: [.iOS])),
-                .product(name: "Sentry-Dynamic", package: "sentry-cocoa"),
                 .product(name: "RevenueCat", package: "purchases-ios"),
                 .product(name: "RevenueCatUI", package: "purchases-ios"),
                 .product(name: "PostHog", package: "posthog-ios"),
-            ])
-
+            ],
+            path: "Sources/AnalyticsManager"
+        ),
+        .target(
+            name: "AnalyticsManagerTesting",
+            dependencies: ["AnalyticsManagerInterface"],
+            path: "Sources/AnalyticsManagerTesting"
+        ),
+        .testTarget(
+            name: "AnalyticsManagerTests",
+            dependencies: [
+                "AnalyticsManager",
+                "AnalyticsManagerTesting"
+            ],
+            path: "Tests/AnalyticsTests"
+        )
     ]
 )

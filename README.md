@@ -25,7 +25,11 @@ Add this package to your iOS project using Swift Package Manager.
 ### Initialize Analytics
 
 ```swift
-Analytics.shared.initialize(
+import AnalyticsManager
+import AnalyticsManagerInterface
+
+let analytics = DefaultAnalyticsManager.shared
+analytics.initialize(
     for: userID,
     with: logger,
     superwallID: "your_superwall_id",
@@ -36,55 +40,73 @@ Analytics.shared.initialize(
 )
 ```
 
+Inject the observable manager into SwiftUI when you need environment access:
+
+```swift
+@State private var analytics = DefaultAnalyticsManager.shared
+
+var body: some View {
+    RootView()
+        .environment(analytics)
+}
+```
+
 ### Track Events
 
 ```swift
-Analytics.shared.track(
-    event: "event_name",
-    floatValue: optionalValue,
-    params: ["key": "value"]
+import AnalyticsManagerInterface
+
+let event = try AnalyticsEvent(
+    category: AppCategory.account_settings,
+    object: "delete_account_button",
+    verb: .click,
+    properties: [
+        "button_type": .string("destructive"),
+        "plan": .string("pro")
+    ]
 )
+
+DefaultAnalyticsManager.shared.track(event)
 ```
+
+> Define your own enums that conform to `AnalyticsCategory` to describe feature areas (e.g. `enum AppCategory: String, AnalyticsCategory { case account_settings }`).
+
+## Event Naming Conventions
+
+All events follow the `category:object:verb` structure outlined in the Simple Event Naming Conventions for Product Analytics playbook:
+
+1. **Category** – snake_case enum describing the product surface (`billing_portal`).
+2. **Object** – snake_case noun for the specific element (`delete_account_button`).
+3. **Verb** – present-tense value from `AnalyticsVerb` (`.click`, `.view`, `.submit`).
+
+`AnalyticsNamingRules` validates every component and throws if casing or characters drift from the contract, ensuring consistent, queryable analytics data.
 
 ### Set User Attributes
 
 ```swift
-Analytics.shared.setUserAttributes(key: "attribute_name", value: "attribute_value")
+DefaultAnalyticsManager.shared.setUserAttribute(
+    "attribute_name",
+    value: .string("attribute_value")
+)
 ```
 
 ## UI Components
 
-### EventButton
+### Button Actions
 
-A SwiftUI button that automatically tracks user interactions:
-
-```swift
-EventButton(
-    category: "screen_name",
-    object: "button_name",
-    verb: .tap,
-    params: ["custom_param": "value"]
-) {
-    // Action to perform
-} label: {
-    Text("Click Me")
-}
-```
-
-### NavigationButton
-
-A specialized button for navigation actions with built-in analytics tracking:
+Instead of shipping prebuilt SwiftUI buttons, the package exposes a `performEvent` helper so every app can design its own UI controls while still enforcing naming rules:
 
 ```swift
-NavigationButton(
-    category: "screen_name",
-    object: "navigation_item",
-    verb: .navigate,
-    rowAlignment: .center
-) {
-    // Navigation action
-} label: {
-    Text("Navigate to Settings")
+Button("Upgrade") {
+    DefaultAnalyticsManager.shared.performEvent(
+        category: AppCategory.dashboard,
+        object: "upgrade_cta",
+        verb: .click,
+        attributes: ["cta_variant": .string("summer_campaign")]
+    ) {
+        // Your original action
+        presentPaywall()
+    }
 }
 ```
 
@@ -95,7 +117,7 @@ NavigationButton(
 Track the duration of events:
 
 ```swift
-Analytics.shared.time(event: "event_name")
+DefaultAnalyticsManager.shared.time(event: "event_name")
 ```
 
 ### Increment Attributes
@@ -103,7 +125,7 @@ Analytics.shared.time(event: "event_name")
 Increment numeric attributes:
 
 ```swift
-Analytics.shared.incrementAttribute(key: "count", value: 1.0)
+DefaultAnalyticsManager.shared.incrementUserAttribute("count", by: 1.0)
 ```
 
 ### Subscription Status
@@ -111,7 +133,7 @@ Analytics.shared.incrementAttribute(key: "count", value: 1.0)
 Track subscription status:
 
 ```swift
-Analytics.shared.setSubscriptionStatus(active: true, key: "premium_status")
+DefaultAnalyticsManager.shared.setSubscriptionStatus(isActive: true, key: "premium_status")
 ```
 
 ### User Identification
@@ -119,7 +141,13 @@ Analytics.shared.setSubscriptionStatus(active: true, key: "premium_status")
 Update user identification:
 
 ```swift
-Analytics.shared.setUserID(userID: "user123")
+let identity = AnalyticsUserIdentity(
+    id: "user123",
+    email: "user@example.com",
+    attributes: ["plan": .string("starter")]
+)
+
+DefaultAnalyticsManager.shared.setUserIdentity(identity)
 ```
 
 ## Platform Notes
@@ -142,7 +170,7 @@ This package integrates with several third-party analytics providers:
 Enable RevenueCat attribution tracking:
 
 ```swift
-Analytics.shared.setRCAttributionConsent()
+DefaultAnalyticsManager.shared.setRCAttributionConsent()
 ```
 
 ### Restore Purchases
@@ -151,11 +179,29 @@ Restore user purchases asynchronously:
 
 ```swift
 do {
-    let customerInfo = try await Analytics.shared.restorePurchases()
+    let customerInfo = try await DefaultAnalyticsManager.shared.restorePurchases()
     // Handle restored purchases
 } catch {
     // Handle errors
 }
+```
+
+## Testing Utilities
+
+`AnalyticsManagerTesting` ships mocks and sample categories so features can validate analytics logic without hitting live SDKs.
+
+```swift
+import AnalyticsManagerTesting
+
+let mock = MockAnalyticsManager()
+let event = try AnalyticsEvent(
+    category: AnalyticsTestCategory.test_flow,
+    object: "primary_cta",
+    verb: .click
+)
+
+mock.track(event)
+XCTAssertEqual(mock.trackedEvents.first?.name, "test_flow:primary_cta:click")
 ```
 
 ## Best Practices

@@ -1,16 +1,16 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-This Swift Package is defined by `Package.swift` and resolves dependencies via `Package.resolved`. Core analytics logic lives under `Sources/Analytics`, with provider-specific glue in subfolders like `Superwall` and `RevenueCat`, shared verbs in `Analytics/AnalyticVerbs.swift`, and SwiftUI helpers inside `Views/`. Tests reside in `Tests/AnalyticsTests`, mirroring the public API surface. Keep new integrations isolated in their own subfolder to preserve a clear separation between service adapters, shared models, and UI utilities.
+This Swift Package is defined by `Package.swift` and resolves dependencies via `Package.resolved`. Core analytics logic now lives under `Sources/AnalyticsManager` with its public contracts in `Sources/AnalyticsManagerInterface`. Crash reporting follows the same pattern (`Sources/CrashManager` + `Sources/CrashManagerInterface`). Provider-specific glue stays in subfolders such as `Superwall`, `RevenueCat`, or `PostHogFeatureFlag`, while SwiftUI helpers sit inside `Sources/AnalyticsManager/Views`. Tests reside in `Tests/AnalyticsTests`, mirroring the public API surface. Keep new integrations isolated in their own subfolder to preserve a clear separation between service adapters, shared models, and UI utilities.
 
 ## Build, Test, and Development Commands
 `swift build` compiles the package and verifies dependency compatibility. `swift test` runs the `AnalyticsTests` XCTest target; add `--enable-code-coverage` when validating coverage before release. Use `swift package generate-documentation` if you need DocC output while reviewing API additions.
 
 ## Coding Style & Naming Conventions
-Follow Swift API Design Guidelines with 4-space indentation and trailing commas for multiline collections. Types and protocols use PascalCase (`SuperwallService`), methods and properties use camelCase (`trackEvent`). Keep analytics event identifiers descriptive and namespaced (`billing_invoicePaid`). Prefer extensions for provider-specific functionality to keep `Analytics.swift` focused on façade responsibilities.
+Follow Swift API Design Guidelines with 4-space indentation and trailing commas for multiline collections. Types and protocols use PascalCase (`SuperwallService`), methods and properties use camelCase (`trackEvent`). Keep analytics event identifiers descriptive and namespaced per the `{category}:{object}:{verb}` convention enforced by `AnalyticsVerb`. Prefer extensions for provider-specific functionality to keep `DefaultAnalyticsManager` focused on façade responsibilities.
 
 ## Testing Guidelines
-Add new XCTest cases in `Tests/AnalyticsTests/AnalyticsTests.swift` or a sibling file that mirrors the module path. Name tests using the `test<Behavior>_<Condition>` pattern and include both provider stubs and façade-level expectations. Run `swift test` locally before pushing, and ensure any asynchronous behavior is covered with `XCTExpectations` to guard against regressions.
+Add new XCTest cases in `Tests/AnalyticsTests/AnalyticsTests.swift` or a sibling file that mirrors the module path. Name tests using the `test<Behavior>_<Condition>` pattern and include both provider stubs and façade-level expectations. Prefer the `AnalyticsManagerTesting` module for mocks (`MockAnalyticsManager`, `AnalyticsTestCategory`) instead of rolling ad-hoc doubles. Run `swift test` locally before pushing, and ensure any asynchronous behavior is covered with `XCTExpectations` to guard against regressions.
 
 ## Platform Notes
 Superwall integrations compile only on iOS. macOS builds set `superwallID` to `nil` and rely on the SwiftUI buttons to execute actions directly, so guard any new Superwall code with `#if canImport(SuperwallKit)` to keep cross-platform builds green.
