@@ -33,7 +33,7 @@ let package = Package(
             name: "AnalyticsManager",
             dependencies: [
                 .product(name: "SwiftAnalyticsKitInterface", package: "SwiftAnalyticsKitInterface"),
-                .product(name: "Sentry-Dynamic", package: "sentry-cocoa"),
+                .product(name: "Sentry", package: "sentry-cocoa"),
                 .product(name: "SuperwallKit", package: "Superwall-iOS", condition: .when(platforms: [.iOS])),
                 .product(name: "RevenueCat", package: "purchases-ios"),
                 .product(name: "RevenueCatUI", package: "purchases-ios"),
