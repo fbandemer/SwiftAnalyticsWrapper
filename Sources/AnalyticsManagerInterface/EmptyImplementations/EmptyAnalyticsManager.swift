@@ -1,5 +1,6 @@
 import Foundation
 import Observation
+import SwiftUI
 
 /// Observable base analytics manager with empty implementations.
 @Observable
@@ -42,5 +43,9 @@ open class EmptyAnalyticsManager: AnalyticsManaging {
 
     open func handlePlacement(_ placement: String, params: [String: Any], completion: @escaping () -> Void) {
         completion()
+    }
+
+    open func makeCustomerCenterView() -> AnyView {
+        AnyView(EmptyView())
     }
 }

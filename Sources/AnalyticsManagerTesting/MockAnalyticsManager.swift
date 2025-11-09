@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 import AnalyticsManagerInterface
 
 public final class MockAnalyticsManager: AnalyticsManaging {
@@ -11,6 +12,7 @@ public final class MockAnalyticsManager: AnalyticsManaging {
     public private(set) var subscriptionStatuses: [(key: String, isActive: Bool)] = []
     public var superwallEnabled = false
     public var placementCompletionQueue: DispatchQueue = .main
+    public var customerCenterViewFactory: () -> AnyView = { AnyView(EmptyView()) }
 
     public var isSuperwallEnabled: Bool {
         superwallEnabled
@@ -57,5 +59,9 @@ public final class MockAnalyticsManager: AnalyticsManaging {
         placementCompletionQueue.async {
             completion()
         }
+    }
+
+    public func makeCustomerCenterView() -> AnyView {
+        customerCenterViewFactory()
     }
 }

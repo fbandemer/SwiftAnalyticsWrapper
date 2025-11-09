@@ -1,5 +1,6 @@
 import Foundation
 import Observation
+import SwiftUI
 
 /// Type-safe payload used for analytics calls.
 public typealias AnalyticsAttributes = [String: AnalyticsAttributeValue]
@@ -224,4 +225,5 @@ public protocol AnalyticsManaging: AnyObject {
     func incrementUserAttribute(_ key: String, by value: Double)
     func setSubscriptionStatus(isActive: Bool, key: String)
     func handlePlacement(_ placement: String, params: [String: Any], completion: @escaping () -> Void)
+    func makeCustomerCenterView() -> AnyView
 }

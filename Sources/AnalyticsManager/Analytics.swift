@@ -16,6 +16,7 @@ import SuperwallKit
 import OSLog
 import RevenueCat
 import PostHog
+import SwiftUI
 
 @Observable
 public final class DefaultAnalyticsManager: AnalyticsManaging {
@@ -249,6 +250,10 @@ public final class DefaultAnalyticsManager: AnalyticsManaging {
         }
 #endif
         completion()
+    }
+
+    public func makeCustomerCenterView() -> AnyView {
+        AnyView(CustomerCenterContainerView())
     }
 
     public func setRCAttributionConsent() {

@@ -20,9 +20,9 @@ public final class MockFeatureFlagManager: FeatureFlagManaging {
 
     public init() {}
 
-    public func configure(posthogAPIKey: String) {
-        configuredKey = posthogAPIKey
-        self.posthogAPIKey = posthogAPIKey
+    public func configure(key: String) {
+        configuredKey = key
+        self.posthogAPIKey = key
     }
 
     public func setUserID(_ userID: String?) {

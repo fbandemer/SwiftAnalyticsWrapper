@@ -46,7 +46,7 @@ analytics.setUserIdentity(
 )
 
 let featureFlags = PosthogFeatureManager.shared
-featureFlags.configure(posthogAPIKey: "your_posthog_key")
+featureFlags.configure(key: "your_posthog_key")
 featureFlags.setUserID(userID)
 
 // Configure crash reporting separately when needed
@@ -174,6 +174,20 @@ if featureFlags.isFeatureFlagEnabled("paywall_v2") {
 if featureFlags.isFeatureFlag("onboarding_experiment", inVariant: "treatment") {
     let payload = featureFlags.featureFlagPayload("onboarding_experiment", matching: "treatment")
     // use variant-specific payload data
+}
+```
+
+### Customer Center
+
+Present RevenueCat's customer center without importing `RevenueCatUI` in your app target:
+
+```swift
+struct SupportView: View {
+    @State private var analytics = DefaultAnalyticsManager.shared
+
+    var body: some View {
+        analytics.makeCustomerCenterView()
+    }
 }
 ```
 
