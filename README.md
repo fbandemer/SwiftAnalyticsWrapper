@@ -26,7 +26,7 @@ Add this package to your iOS project using Swift Package Manager.
 
 ```swift
 import AnalyticsManager
-import AnalyticsManagerInterface
+import SwiftAnalyticsKitInterface
 
 let analytics = DefaultAnalyticsManager.shared
 analytics.initializeIfNeeded(userDefaults: .standard)
@@ -71,7 +71,7 @@ var body: some View {
 ### Track Events
 
 ```swift
-import AnalyticsManagerInterface
+import SwiftAnalyticsKitInterface
 
 let event = try AnalyticsEvent(
     category: AppCategory.account_settings,

@@ -7,7 +7,7 @@
 //  Created by Fynn Bandemer on 28.10.23.
 //
 
-import AnalyticsManagerInterface
+import SwiftAnalyticsKitInterface
 import Foundation
 import Observation
 #if canImport(SuperwallKit)

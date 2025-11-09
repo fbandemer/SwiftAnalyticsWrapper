@@ -5,7 +5,7 @@
 //  Created by Fynn Bandemer on 07.11.23.
 //
 
-import AnalyticsManagerInterface
+import SwiftAnalyticsKitInterface
 import Foundation
 import Observation
 import Sentry

@@ -1,4 +1,4 @@
-import AnalyticsManagerInterface
+import SwiftAnalyticsKitInterface
 
 public final class MockFeatureFlagManager: FeatureFlagManaging {
     public private(set) var userID: String?

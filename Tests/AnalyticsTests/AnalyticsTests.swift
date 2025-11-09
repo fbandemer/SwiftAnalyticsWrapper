@@ -1,4 +1,4 @@
-import AnalyticsManagerInterface
+import SwiftAnalyticsKitInterface
 import AnalyticsManagerTesting
 import Foundation
 import Testing

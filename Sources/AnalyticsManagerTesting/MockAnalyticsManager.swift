@@ -1,6 +1,6 @@
 import Foundation
 import SwiftUI
-import AnalyticsManagerInterface
+import SwiftAnalyticsKitInterface
 
 public final class MockAnalyticsManager: AnalyticsManaging {
     public private(set) var configuration: AnalyticsConfiguration

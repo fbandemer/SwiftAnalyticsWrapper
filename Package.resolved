@@ -1,5 +1,5 @@
 {
-  "originHash" : "480416d29db3a86a86f0e020ec60ea9c5bce200d5fc38925e390eff9b8d61537",
+  "originHash" : "febaecbbae9850e03353fa5b9f0bed68d376f464343a8f16797ee2adc2f91148",
   "pins" : [
     {
       "identity" : "posthog-ios",
@@ -62,6 +62,15 @@
       "state" : {
         "revision" : "399f76dcd91e4c688ca2301fa24a8cc6d9927211",
         "version" : "0.99.0"
+      }
+    },
+    {
+      "identity" : "swiftanalyticskitinterface",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/fbandemer/SwiftAnalyticsKitInterface",
+      "state" : {
+        "branch" : "main",
+        "revision" : "baa6de2bca035b6f56b9a427b0a9d6b6e9df8bfc"
       }
     }
   ],

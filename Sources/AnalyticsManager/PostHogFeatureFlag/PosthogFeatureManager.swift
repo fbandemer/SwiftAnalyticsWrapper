@@ -1,4 +1,4 @@
-import AnalyticsManagerInterface
+import SwiftAnalyticsKitInterface
 import Foundation
 import Observation
 import PostHog
