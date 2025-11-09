@@ -193,28 +193,22 @@ public struct AnalyticsUserIdentity: Sendable {
 public struct AnalyticsConfiguration: Sendable {
     public var loggerSubsystem: String
     public var loggerCategory: String
-    public var enableCrashReporting: Bool
     public var superwallAPIKey: String?
     public var posthogAPIKey: String?
     public var revenueCatAPIKey: String?
-    public var sentryDSN: String?
 
     public init(
         loggerSubsystem: String = "",
         loggerCategory: String = "",
-        enableCrashReporting: Bool = true,
         superwallAPIKey: String? = nil,
         posthogAPIKey: String? = nil,
-        revenueCatAPIKey: String? = nil,
-        sentryDSN: String? = nil
+        revenueCatAPIKey: String? = nil
     ) {
         self.loggerSubsystem = loggerSubsystem
         self.loggerCategory = loggerCategory
-        self.enableCrashReporting = enableCrashReporting
         self.superwallAPIKey = superwallAPIKey
         self.posthogAPIKey = posthogAPIKey
         self.revenueCatAPIKey = revenueCatAPIKey
-        self.sentryDSN = sentryDSN
     }
 }
 
@@ -225,58 +219,9 @@ public protocol AnalyticsManaging: AnyObject {
     func configure(using configuration: AnalyticsConfiguration)
     func initializeIfNeeded(userDefaults: UserDefaults)
     func track(_ event: AnalyticsEvent)
-    func time(_ label: String)
     func setUserIdentity(_ identity: AnalyticsUserIdentity)
     func setUserAttribute(_ key: String, value: AnalyticsAttributeValue)
     func incrementUserAttribute(_ key: String, by value: Double)
     func setSubscriptionStatus(isActive: Bool, key: String)
     func handlePlacement(_ placement: String, params: [String: Any], completion: @escaping () -> Void)
-}
-
-/// Observable base class that can be placed inside a SwiftUI environment.
-@Observable
-open class AnalyticsManager: AnalyticsManaging {
-    public private(set) var configuration: AnalyticsConfiguration
-
-    public init(configuration: AnalyticsConfiguration = .init()) {
-        self.configuration = configuration
-    }
-
-    open var isSuperwallEnabled: Bool { false }
-
-    open func configure(using configuration: AnalyticsConfiguration) {
-        self.configuration = configuration
-    }
-
-    open func initializeIfNeeded(userDefaults: UserDefaults) {
-        // Default no-op. Concrete managers wire dependencies here.
-    }
-
-    open func track(_ event: AnalyticsEvent) {
-        // Default no-op to keep interface module dependency-free.
-    }
-
-    open func time(_ label: String) {
-        // Default no-op.
-    }
-
-    open func setUserIdentity(_ identity: AnalyticsUserIdentity) {
-        // Default no-op.
-    }
-
-    open func setUserAttribute(_ key: String, value: AnalyticsAttributeValue) {
-        // Default no-op.
-    }
-
-    open func incrementUserAttribute(_ key: String, by value: Double) {
-        // Default no-op.
-    }
-
-    open func setSubscriptionStatus(isActive: Bool, key: String) {
-        // Default no-op.
-    }
-
-    open func handlePlacement(_ placement: String, params: [String: Any], completion: @escaping () -> Void) {
-        completion()
-    }
 }

@@ -1,7 +1,8 @@
 import Foundation
 import AnalyticsManagerInterface
 
-public final class MockAnalyticsManager: AnalyticsManagerInterface.AnalyticsManager {
+public final class MockAnalyticsManager: AnalyticsManaging {
+    public private(set) var configuration: AnalyticsConfiguration
     public private(set) var trackedEvents: [AnalyticsEvent] = []
     public private(set) var handledPlacements: [(name: String, params: [String: Any])] = []
     public private(set) var identities: [AnalyticsUserIdentity] = []
@@ -11,31 +12,43 @@ public final class MockAnalyticsManager: AnalyticsManagerInterface.AnalyticsMana
     public var superwallEnabled = false
     public var placementCompletionQueue: DispatchQueue = .main
 
-    public override var isSuperwallEnabled: Bool {
+    public var isSuperwallEnabled: Bool {
         superwallEnabled
     }
 
-    public override func track(_ event: AnalyticsEvent) {
+    public init(configuration: AnalyticsConfiguration = .init()) {
+        self.configuration = configuration
+    }
+
+    public func configure(using configuration: AnalyticsConfiguration) {
+        self.configuration = configuration
+    }
+
+    public func initializeIfNeeded(userDefaults: UserDefaults) {
+        // empty
+    }
+
+    public func track(_ event: AnalyticsEvent) {
         trackedEvents.append(event)
     }
 
-    public override func setUserIdentity(_ identity: AnalyticsUserIdentity) {
+    public func setUserIdentity(_ identity: AnalyticsUserIdentity) {
         identities.append(identity)
     }
 
-    public override func setUserAttribute(_ key: String, value: AnalyticsAttributeValue) {
+    public func setUserAttribute(_ key: String, value: AnalyticsAttributeValue) {
         attributes.append((key, value))
     }
 
-    public override func incrementUserAttribute(_ key: String, by value: Double) {
+    public func incrementUserAttribute(_ key: String, by value: Double) {
         incrementedAttributes.append((key, value))
     }
 
-    public override func setSubscriptionStatus(isActive: Bool, key: String) {
+    public func setSubscriptionStatus(isActive: Bool, key: String) {
         subscriptionStatuses.append((key, isActive))
     }
 
-    public override func handlePlacement(
+    public func handlePlacement(
         _ placement: String,
         params: [String: Any],
         completion: @escaping () -> Void

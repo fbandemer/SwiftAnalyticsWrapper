@@ -15,12 +15,6 @@ let package = Package(
             name: "AnalyticsManagerInterface",
             targets: ["AnalyticsManagerInterface"]),
         .library(
-            name: "CrashManagerInterface",
-            targets: ["CrashManagerInterface"]),
-        .library(
-            name: "CrashManager",
-            targets: ["CrashManager"]),
-        .library(
             name: "AnalyticsManager",
             targets: ["AnalyticsManager"]),
         .library(
@@ -32,6 +26,7 @@ let package = Package(
         .package(url: "https://github.com/getsentry/sentry-cocoa", from: "8.36.0"),
         .package(url: "https://github.com/RevenueCat/purchases-ios.git", from: "5.2.0"),
         .package(url: "https://github.com/PostHog/posthog-ios.git", from: "3.0.0"),
+        .package(url: "https://github.com/apple/swift-testing.git", from: "0.9.0"),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -40,20 +35,10 @@ let package = Package(
             name: "AnalyticsManagerInterface"
         ),
         .target(
-            name: "CrashManagerInterface"
-        ),
-        .target(
-            name: "CrashManager",
-            dependencies: [
-                "CrashManagerInterface",
-                .product(name: "Sentry-Dynamic", package: "sentry-cocoa")
-            ]),
-        .target(
             name: "AnalyticsManager",
             dependencies: [
                 "AnalyticsManagerInterface",
-                "CrashManagerInterface",
-                "CrashManager",
+                .product(name: "Sentry-Dynamic", package: "sentry-cocoa"),
                 .product(name: "SuperwallKit", package: "Superwall-iOS", condition: .when(platforms: [.iOS])),
                 .product(name: "RevenueCat", package: "purchases-ios"),
                 .product(name: "RevenueCatUI", package: "purchases-ios"),
@@ -70,7 +55,8 @@ let package = Package(
             name: "AnalyticsManagerTests",
             dependencies: [
                 "AnalyticsManager",
-                "AnalyticsManagerTesting"
+                "AnalyticsManagerTesting",
+                .product(name: "Testing", package: "swift-testing")
             ],
             path: "Tests/AnalyticsTests"
         )

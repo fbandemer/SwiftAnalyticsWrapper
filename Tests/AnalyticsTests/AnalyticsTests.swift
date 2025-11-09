@@ -1,24 +1,25 @@
-import XCTest
-@testable import AnalyticsManager
 import AnalyticsManagerInterface
 import AnalyticsManagerTesting
+import Foundation
+import Testing
+@testable import AnalyticsManager
 
-final class AnalyticsManagerTests: XCTestCase {
-    func testNamingRulesRejectUppercaseObject() {
-        XCTAssertThrowsError(
+struct AnalyticsManagerTests {
+    @Test
+    func namingRulesRejectUppercaseObject() {
+        #expect(
+            throws: AnalyticsNamingError.uppercaseCharacters(component: "DeleteButton")
+        ) {
             try AnalyticsNamingRules.composeName(
                 category: AnalyticsTestCategory.checkout,
                 object: "DeleteButton",
                 verb: .click
             )
-        ) { error in
-            guard case AnalyticsNamingError.uppercaseCharacters = error else {
-                return XCTFail("Unexpected error: \(error)")
-            }
         }
     }
 
-    func testMockAnalyticsManagerRecordsTrackedEvents() throws {
+    @Test
+    func mockAnalyticsManagerRecordsTrackedEvents() throws {
         let mock = MockAnalyticsManager()
         let event = try AnalyticsEvent(
             category: AnalyticsTestCategory.settings,
@@ -31,22 +32,39 @@ final class AnalyticsManagerTests: XCTestCase {
 
         mock.track(event)
 
-        XCTAssertEqual(mock.trackedEvents.count, 1)
-        XCTAssertEqual(mock.trackedEvents.first?.name, "settings:delete_account_button:click")
+        #expect(mock.trackedEvents.count == 1)
+        #expect(mock.trackedEvents.first?.name == "settings:delete_account_button:click")
     }
 
-    func testHandlePlacementRecordsAndCompletes() {
+    @Test
+    func handlePlacementRecordsAndCompletes() async {
         let mock = MockAnalyticsManager()
         mock.placementCompletionQueue = DispatchQueue(label: "mock.placement")
-        let expectation = expectation(description: "placement completion")
 
-        mock.handlePlacement("settings:advanced:view", params: ["cta": "advanced"]) {
-            expectation.fulfill()
+        await withCheckedContinuation { continuation in
+            mock.handlePlacement("settings:advanced:view", params: ["cta": "advanced"]) {
+                continuation.resume()
+            }
         }
 
-        wait(for: [expectation], timeout: 1)
-        XCTAssertEqual(mock.handledPlacements.count, 1)
-        XCTAssertEqual(mock.handledPlacements.first?.name, "settings:advanced:view")
-        XCTAssertEqual(mock.handledPlacements.first?.params["cta"] as? String, "advanced")
+        #expect(mock.handledPlacements.count == 1)
+        #expect(mock.handledPlacements.first?.name == "settings:advanced:view")
+        #expect(mock.handledPlacements.first?.params["cta"] as? String == "advanced")
+    }
+
+    @Test
+    func featureFlagOverridesExposeState() {
+        let mock = MockFeatureFlagManager()
+        mock.overrides["paywall_v2"] = .init(
+            isEnabled: true,
+            variant: "treatment",
+            payload: .string("copy_b")
+        )
+
+        #expect(mock.isFeatureFlagEnabled("paywall_v2"))
+        #expect(mock.featureFlagVariant("paywall_v2") == "treatment")
+        #expect(mock.isFeatureFlag("paywall_v2", inVariant: "treatment"))
+        #expect(mock.featureFlagPayloadIfEnabled("paywall_v2") == .string("copy_b"))
+        #expect(mock.featureFlagPayload("paywall_v2", matching: "treatment") == .string("copy_b"))
     }
 }

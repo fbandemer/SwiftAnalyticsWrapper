@@ -8,8 +8,6 @@
 //
 
 import AnalyticsManagerInterface
-import CrashManagerInterface
-import CrashManager
 import Foundation
 import Observation
 #if canImport(SuperwallKit)
@@ -20,54 +18,43 @@ import RevenueCat
 import PostHog
 
 @Observable
-public final class DefaultAnalyticsManager: AnalyticsManagerInterface.AnalyticsManager {
-    var logger: Logger = Logger(subsystem: "set subsystem", category: "set category")
+public final class DefaultAnalyticsManager: AnalyticsManaging {
+    public private(set) var configuration: AnalyticsConfiguration
+    var logger: Logger = Logger(subsystem: "Analytics", category: "Default")
     var userDefault: UserDefaults = .standard
     var userID: String? = nil
     var attributes: [String: Any] = [:]
     var useSuperwall: Bool = false
     var usePosthog: Bool = false
-    var useCrashManager: Bool = false
-    let crashManager: CrashManaging
+    private static let posthogHost = "https://eu.i.posthog.com"
 
     nonisolated(unsafe) public static let shared = DefaultAnalyticsManager()
 
-    public override init(configuration: AnalyticsConfiguration = .init()) {
-        self.crashManager = DefaultCrashManager.shared
-        super.init(configuration: configuration)
+    public init(configuration: AnalyticsConfiguration = .init()) {
+        self.configuration = configuration
     }
 
-    public init(configuration: AnalyticsConfiguration = .init(), crashManager: CrashManaging) {
-        self.crashManager = crashManager
-        super.init(configuration: configuration)
-    }
-
-    public override var isSuperwallEnabled: Bool {
+    public var isSuperwallEnabled: Bool {
 #if canImport(SuperwallKit)
         return useSuperwall
 #else
         return false
 #endif
     }
-    
-    public func initialize(
-        for userID: String?,
-        with logger: Logger,
-        superwallID: String?,
-        posthogAPIKey: String?,
-        sentry: String?,
-        revenueCatID: String?,
-        userDefault: UserDefaults
-    ) {
-        self.logger = logger
-        self.userID = userID
-        self.userDefault = userDefault
-        
-        if let posthogAPIKey {
+
+    public func configure(using configuration: AnalyticsConfiguration) {
+        self.configuration = configuration
+
+        let subsystem = configuration.loggerSubsystem.isEmpty ? "Analytics" : configuration.loggerSubsystem
+        let category = configuration.loggerCategory.isEmpty ? "Default" : configuration.loggerCategory
+        logger = Logger(subsystem: subsystem, category: category)
+        usePosthog = false
+        useSuperwall = false
+
+        if let posthogAPIKey = configuration.posthogAPIKey {
             usePosthog = true
-            let host = "https://eu.i.posthog.com"
-            let config = PostHogConfig(apiKey: posthogAPIKey, host: host)
-            
+            let config = PostHogConfig(apiKey: posthogAPIKey, host: Self.posthogHost)
+
 #if os(iOS)
             config.sessionReplay = true
             config.captureElementInteractions = false
@@ -77,28 +64,27 @@ public final class DefaultAnalyticsManager: AnalyticsManagerInterface.AnalyticsM
 #endif
 
             config.personProfiles = .identifiedOnly
-            #if DEBUG
+#if DEBUG
             config.debug = true
-            #endif
+#endif
             PostHogSDK.shared.setup(config)
             if let userID {
                 PostHogSDK.shared.identify(userID)
             }
         }
-        
-        if let revenueCatID {
+
+        if let revenueCatID = configuration.revenueCatAPIKey {
 #if DEBUG
             Purchases.logLevel = .debug
 #endif
             Purchases.configure(withAPIKey: revenueCatID, appUserID: userID)
             Purchases.shared.attribution.enableAdServicesAttributionTokenCollection()
-
         }
-        
+
 #if canImport(SuperwallKit)
-        if let superwallID {
+        if let superwallID = configuration.superwallAPIKey {
             useSuperwall = true
-            if revenueCatID != nil {
+            if configuration.revenueCatAPIKey != nil {
                 let purchaseController = RCPurchaseController(userDefault: userDefault)
                 Superwall.configure(apiKey: superwallID, purchaseController: purchaseController)
                 purchaseController.syncSubscriptionStatus()
@@ -109,23 +95,18 @@ public final class DefaultAnalyticsManager: AnalyticsManagerInterface.AnalyticsM
             Superwall.shared.delegate = superwallService
         }
 #else
-        if superwallID != nil {
+        if configuration.superwallAPIKey != nil {
             logger.log("Superwall ID provided but Superwall is unavailable on this platform.")
         }
 #endif
-        
-        if let sentry {
-            let config = CrashConfiguration(dsn: sentry, environment: Self.defaultEnvironment)
-            crashManager.start(with: config)
-            useCrashManager = true
-        }
     }
-    
-    public func time(event: String) {
-        logger.log("Timing event requested: \(event)")
+
+    public func initializeIfNeeded(userDefaults: UserDefaults) {
+        userDefault = userDefaults
     }
     
     public func setUserID(_ userID: String, email: String?, oneSignalUserID: String? = nil, attributes: [String: Any]?) {
+        self.userID = userID
         Purchases.shared.logIn(userID) { (_, _, _) in
         }
         if let email {
@@ -153,7 +134,7 @@ public final class DefaultAnalyticsManager: AnalyticsManagerInterface.AnalyticsM
 #endif
     }
     
-    public override func track(_ event: AnalyticsEvent) {
+    public func track(_ event: AnalyticsEvent) {
         track(event: event.name, params: event.properties.toAnyDictionary())
     }
 
@@ -183,14 +164,11 @@ public final class DefaultAnalyticsManager: AnalyticsManagerInterface.AnalyticsM
         }
     }
 
-    public func track(event: String, floatValue: Double? = nil, params: [String: Any]) {
+    public func track(event: String, params: [String: Any]) {
         if usePosthog {
             PostHogSDK.shared.capture(event, properties: params)
         }
         
-        if useCrashManager {
-            crashManager.log("Event logged: \(event)")
-        }
         logger.log("Event logged: \(event)")
     }
 
@@ -245,36 +223,32 @@ public final class DefaultAnalyticsManager: AnalyticsManagerInterface.AnalyticsM
         return stringifiedParams
     }
 
-    public override func setUserIdentity(_ identity: AnalyticsUserIdentity) {
+    public func setUserIdentity(_ identity: AnalyticsUserIdentity) {
         setUserID(identity.id, email: identity.email, attributes: identity.attributes.toAnyDictionary())
     }
 
-    public override func setUserAttribute(_ key: String, value: AnalyticsAttributeValue) {
+    public func setUserAttribute(_ key: String, value: AnalyticsAttributeValue) {
         setUserAttributes(key: key, value: String(describing: value.anyValue))
     }
 
-    public override func incrementUserAttribute(_ key: String, by value: Double) {
+    public func incrementUserAttribute(_ key: String, by value: Double) {
         incrementAttribute(key: key, value: value)
     }
 
-    public override func setSubscriptionStatus(isActive: Bool, key: String) {
+    public func setSubscriptionStatus(isActive: Bool, key: String) {
         setSubscriptionStatus(active: isActive, key: key)
     }
 
-    public override func handlePlacement(_ placement: String, params: [String: Any], completion: @escaping () -> Void) {
+    public func handlePlacement(_ placement: String, params: [String: Any], completion: @escaping () -> Void) {
 #if canImport(SuperwallKit)
         if isSuperwallEnabled {
             Superwall.shared.register(placement: placement, params: params) {
-                DispatchQueue.main.async {
-                    completion()
-                }
+                completion()
             }
             return
         }
 #endif
-        DispatchQueue.main.async {
-            completion()
-        }
+        completion()
     }
 
     public func setRCAttributionConsent() {
@@ -284,12 +258,5 @@ public final class DefaultAnalyticsManager: AnalyticsManagerInterface.AnalyticsM
     public func restorePurchases() async throws -> CustomerInfo {
         let customerInfos = try await Purchases.shared.restorePurchases()
         return customerInfos
-    }
-    private static var defaultEnvironment: String {
-        #if DEBUG
-        return "development"
-        #else
-        return "production"
-        #endif
     }
 }

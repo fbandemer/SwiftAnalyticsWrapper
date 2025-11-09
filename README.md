@@ -29,15 +29,32 @@ import AnalyticsManager
 import AnalyticsManagerInterface
 
 let analytics = DefaultAnalyticsManager.shared
-analytics.initialize(
-    for: userID,
-    with: logger,
-    superwallID: "your_superwall_id",
-    posthogAPIKey: "your_posthog_key",
-    sentry: "your_sentry_dsn",
-    revenueCatID: "your_revenuecat_id",
-    userDefault: .standard
+analytics.initializeIfNeeded(userDefaults: .standard)
+
+analytics.configure(
+    using: AnalyticsConfiguration(
+        loggerSubsystem: "com.example.app",
+        loggerCategory: "analytics",
+        superwallAPIKey: "your_superwall_id",
+        posthogAPIKey: "your_posthog_key",
+        revenueCatAPIKey: "your_revenuecat_id"
+    )
 )
+
+analytics.setUserIdentity(
+    AnalyticsUserIdentity(id: userID, email: "user@example.com")
+)
+
+let featureFlags = PosthogFeatureManager.shared
+featureFlags.configure(posthogAPIKey: "your_posthog_key")
+featureFlags.setUserID(userID)
+
+// Configure crash reporting separately when needed
+let crashConfig = CrashConfiguration(
+    dsn: "your_sentry_dsn",
+    environment: "production"
+)
+DefaultCrashManager.shared.start(with: crashConfig)
 ```
 
 Inject the observable manager into SwiftUI when you need environment access:
@@ -112,14 +129,6 @@ Button("Upgrade") {
 
 ## Advanced Features
 
-### Time Events
-
-Track the duration of events:
-
-```swift
-DefaultAnalyticsManager.shared.time(event: "event_name")
-```
-
 ### Increment Attributes
 
 Increment numeric attributes:
@@ -148,6 +157,24 @@ let identity = AnalyticsUserIdentity(
 )
 
 DefaultAnalyticsManager.shared.setUserIdentity(identity)
+```
+
+### Feature Flags
+
+Evaluate PostHog feature flags without leaving the analytics façade:
+
+```swift
+let featureFlags = PosthogFeatureManager.shared
+
+if featureFlags.isFeatureFlagEnabled("paywall_v2") {
+    let payload = featureFlags.featureFlagPayloadIfEnabled("paywall_v2")
+    print(payload?.anyValue ?? "no payload")
+}
+
+if featureFlags.isFeatureFlag("onboarding_experiment", inVariant: "treatment") {
+    let payload = featureFlags.featureFlagPayload("onboarding_experiment", matching: "treatment")
+    // use variant-specific payload data
+}
 ```
 
 ## Platform Notes

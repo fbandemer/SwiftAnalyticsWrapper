@@ -34,25 +34,3 @@ public protocol CrashManaging: AnyObject {
     func capture(error: Error, attachments: [CrashAttachment])
     func log(_ message: String)
 }
-
-/// Observable base crash manager to allow SwiftUI environment injection.
-@Observable
-open class CrashManager: CrashManaging {
-    public private(set) var configuration: CrashConfiguration
-
-    public init(configuration: CrashConfiguration = .init()) {
-        self.configuration = configuration
-    }
-
-    open func start(with configuration: CrashConfiguration) {
-        self.configuration = configuration
-    }
-
-    open func capture(error: Error, attachments: [CrashAttachment] = []) {
-        // Default no-op.
-    }
-
-    open func log(_ message: String) {
-        // Default no-op.
-    }
-}

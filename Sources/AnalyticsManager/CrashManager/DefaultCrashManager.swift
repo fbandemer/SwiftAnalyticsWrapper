@@ -1,27 +1,30 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by Fynn Bandemer on 07.11.23.
 //
 
-import CrashManagerInterface
+import AnalyticsManagerInterface
 import Foundation
 import Observation
 import Sentry
 
 /// Default crash manager backed by Sentry.
 @Observable
-public final class DefaultCrashManager: CrashManagerInterface.CrashManager {
+public final class DefaultCrashManager: CrashManaging {
     public nonisolated(unsafe) static let shared = DefaultCrashManager()
 
-    public override func start(with configuration: CrashConfiguration) {
-        super.start(with: configuration)
+    public private(set) var configuration: CrashConfiguration
 
-        guard let dsn = configuration.dsn else {
-            assertionFailure("CrashConfiguration missing DSN while attempting to start crash manager.")
-            return
-        }
+    public init(configuration: CrashConfiguration = .init()) {
+        self.configuration = configuration
+    }
+
+    public func start(with configuration: CrashConfiguration) {
+        self.configuration = configuration
+
+        guard let dsn = configuration.dsn else { return }
 
         SentrySDK.start { options in
             options.dsn = dsn
@@ -37,7 +40,7 @@ public final class DefaultCrashManager: CrashManagerInterface.CrashManager {
         start(with: CrashConfiguration(dsn: id, environment: Self.defaultEnvironment))
     }
 
-    public override func capture(error: Error, attachments: [CrashAttachment] = []) {
+    public func capture(error: Error, attachments: [CrashAttachment] = []) {
         guard !attachments.isEmpty else {
             SentrySDK.capture(error: error)
             return
@@ -51,7 +54,7 @@ public final class DefaultCrashManager: CrashManagerInterface.CrashManager {
         }
     }
 
-    public override func log(_ message: String) {
+    public func log(_ message: String) {
         let crumb = Breadcrumb()
         crumb.level = .info
         crumb.category = "log"

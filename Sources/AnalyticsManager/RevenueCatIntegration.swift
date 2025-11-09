@@ -4,6 +4,6 @@
 //
 //  Created by Fynn Bandemer on 23.11.23.
 //
-
-import Foundation
-@_exported import RevenueCatUI
+//
+//import Foundation
+//@_exported import RevenueCatUI
