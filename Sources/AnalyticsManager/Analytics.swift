@@ -260,8 +260,18 @@ public final class DefaultAnalyticsManager: AnalyticsManaging {
         Purchases.shared.attribution.enableAdServicesAttributionTokenCollection()
     }
     
-    public func restorePurchases() async throws -> CustomerInfo {
+    public func restorePurchases() async throws -> RevenueCat.CustomerInfo {
         let customerInfos = try await Purchases.shared.restorePurchases()
         return customerInfos
+    }
+}
+
+
+struct Testing: View {
+    @State private var analytics = DefaultAnalyticsManager()
+
+    
+    var body: some View {
+        EmptyView()
     }
 }
