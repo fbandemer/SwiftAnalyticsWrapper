@@ -4,16 +4,16 @@ import Foundation
 public struct AnalyticsConfiguration: Sendable {
     public var loggerSubsystem: String
     public var loggerCategory: String
-    public var superwallAPIKey: String?
-    public var posthogAPIKey: String?
-    public var revenueCatAPIKey: String?
+    public var superwallAPIKey: String
+    public var posthogAPIKey: String
+    public var revenueCatAPIKey: String
 
     public init(
         loggerSubsystem: String = "",
         loggerCategory: String = "",
-        superwallAPIKey: String? = nil,
-        posthogAPIKey: String? = nil,
-        revenueCatAPIKey: String? = nil
+        superwallAPIKey: String = "",
+        posthogAPIKey: String = "",
+        revenueCatAPIKey: String = ""
     ) {
         self.loggerSubsystem = loggerSubsystem
         self.loggerCategory = loggerCategory

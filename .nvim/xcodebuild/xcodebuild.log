@@ -1,112 +1,22 @@
 Resolving Package Graph
 Resolved source packages
-SwiftAnalyticsKitInterface - https://github.com/fbandemer/SwiftAnalyticsKitInterface @ 1.0.3
-Sentry - https://github.com/getsentry/sentry-cocoa @ 8.52.1
-swift-testing - https://github.com/apple/swift-testing.git @ 0.99.0
-swift-dependencies - https://github.com/pointfreeco/swift-dependencies @ 1.10.0
-xctest-dynamic-overlay - https://github.com/pointfreeco/xctest-dynamic-overlay @ 1.7.0
-SuperwallKit - https://github.com/superwall-me/Superwall-iOS @ 4.5.1
 combine-schedulers - https://github.com/pointfreeco/combine-schedulers @ 1.0.3
-Superscript - https://github.com/superwall/Superscript-iOS @ 0.2.8
-swift-concurrency-extras - https://github.com/pointfreeco/swift-concurrency-extras @ 1.3.2
 swift-syntax - https://github.com/swiftlang/swift-syntax.git @ 600.0.1
-swift-clocks - https://github.com/pointfreeco/swift-clocks @ 1.0.6
 RevenueCat - https://github.com/RevenueCat/purchases-ios.git @ 5.28.1
+xctest-dynamic-overlay - https://github.com/pointfreeco/xctest-dynamic-overlay @ 1.7.0
+swift-concurrency-extras - https://github.com/pointfreeco/swift-concurrency-extras @ 1.3.2
 PostHog - https://github.com/PostHog/posthog-ios.git @ 3.26.2
+swift-clocks - https://github.com/pointfreeco/swift-clocks @ 1.0.6
+Sentry - https://github.com/getsentry/sentry-cocoa @ 8.52.1
+swift-dependencies - https://github.com/pointfreeco/swift-dependencies @ 1.10.0
+SuperwallKit - https://github.com/superwall-me/Superwall-iOS @ 4.5.1
+Superscript - https://github.com/superwall/Superscript-iOS @ 0.2.8
+SwiftAnalyticsKitInterface - https://github.com/fbandemer/SwiftAnalyticsKitInterface @ 1.0.3
+swift-testing - https://github.com/apple/swift-testing.git @ 0.99.0
 note: Building targets in dependency order
 note: Target dependency graph (33 targets)
-[AnalyticsManager] Compiling Analytics.swift
-[!]  /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:238:1: extension declares a conformance of imported type 'AnalyticsClient' to imported protocol 'DependencyKey'; this will not behave correctly if the owners of 'SwiftAnalyticsKitInterface' introduce this conformance in the future
-extension AnalyticsClient: DependencyKey {
-^
-[!]  /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:154:25: variable 'posthogConfig' was never mutated; consider changing to 'let' constant
-                    var posthogConfig = PostHogConfig(apiKey: posthogAPIKey, host: AnalyticsClientDefaults.posthogHost)
-                    ~~~ ^
-[x] /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:135:30: reference to captured var 'configuration' in concurrently-executing code
-            configuration: { configuration },
-                             ^
-[x] /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:138:28: reference to captured var 'useSuperwall' in concurrently-executing code
-                    return useSuperwall
-                           ^
-[x] /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:188:88: capture of 'userDefaults' with non-Sendable type 'UserDefaults' in a '@Sendable' closure
-                            let purchaseController = RCPurchaseController(userDefault: userDefaults)
-                                                                                       ^
-[x] /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:144:17: mutation of captured var 'configuration' in concurrently-executing code
-                configuration = newConfiguration
-                ^
-[x] /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:148:17: mutation of captured var 'logger' in concurrently-executing code
-                logger = Logger(subsystem: subsystem, category: category)
-                ^
-[x] /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:149:17: mutation of captured var 'usePosthog' in concurrently-executing code
-                usePosthog = false
-                ^
-[x] /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:150:17: mutation of captured var 'useSuperwall' in concurrently-executing code
-                useSuperwall = false
-                ^
-[x] /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:153:21: mutation of captured var 'usePosthog' in concurrently-executing code
-                    usePosthog = true
-                    ^
-[x] /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:171:28: reference to captured var 'userID' in concurrently-executing code
-                    if let userID {
-                           ^
-[x] /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:180:78: reference to captured var 'userID' in concurrently-executing code
-                    Purchases.configure(withAPIKey: revenueCatID, appUserID: userID)
-                                                                             ^
-[x] /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:186:25: mutation of captured var 'useSuperwall' in concurrently-executing code
-                        useSuperwall = true
-                        ^
-[x] /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:188:88: reference to captured var 'userDefaults' in concurrently-executing code
-                            let purchaseController = RCPurchaseController(userDefault: userDefaults)
-                                                                                       ^
-[x] /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:194:73: reference to captured var 'logger' in concurrently-executing code
-                        let superwallService = SuperwallService(logger: logger, withPostHog: usePosthog)
-                                                                        ^
-[x] /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:194:94: reference to captured var 'usePosthog' in concurrently-executing code
-                        let superwallService = SuperwallService(logger: logger, withPostHog: usePosthog)
-                                                                                             ^
-[x] /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:197:25: mutation of captured var 'useSuperwall' in concurrently-executing code
-                        useSuperwall = false
-                        ^
-[x] /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:206:17: capture of 'userDefaults' with non-Sendable type 'UserDefaults' in a '@Sendable' closure
-                userDefaults = defaults
-                ^
-[x] /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:206:17: mutation of captured var 'userDefaults' in concurrently-executing code
-                userDefaults = defaults
-                ^
-[x] /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:209:17: capture of 'trackEvent(named:params:)' with non-Sendable type '(String, [String : Any]) -> ()' in a '@Sendable' closure
-                trackEvent(named: event.name, params: event.properties.toAnyDictionary())
-                ^
-[x] /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:36:14: concurrently-executed local function 'trackEvent(named:params:)' must be marked as '@Sendable'
-        func trackEvent(named name: String, params: [String: Any]) {
-             ^
-[x] /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:212:17: capture of 'assignUser(id:email:oneSignalUserID:attributes:)' with non-Sendable type '(String, String?, String?, [String : Any]?) -> ()' in a '@Sendable' closure
-                assignUser(
-                ^
-[x] /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:81:14: concurrently-executed local function 'assignUser(id:email:oneSignalUserID:attributes:)' must be marked as '@Sendable'
-        func assignUser(
-             ^
-[x] /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:220:17: capture of 'setUserAttributeValue' with non-Sendable type '(String, String) -> ()' in a '@Sendable' closure
-                setUserAttributeValue(key, String(describing: value.anyValue))
-                ^
-[x] /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:44:14: concurrently-executed local function 'setUserAttributeValue' must be marked as '@Sendable'
-        func setUserAttributeValue(_ key: String, _ value: String) {
-             ^
-[x] /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:223:17: capture of 'incrementAttributeValue(_:by:)' with non-Sendable type '(String, Double) -> ()' in a '@Sendable' closure
-                incrementAttributeValue(key, by: value)
-                ^
-[x] /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:64:14: concurrently-executed local function 'incrementAttributeValue(_:by:)' must be marked as '@Sendable'
-        func incrementAttributeValue(_ key: String, by value: Double) {
-             ^
-[x] /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:226:17: capture of 'setUserAttributeValue' with non-Sendable type '(String, String) -> ()' in a '@Sendable' closure
-                setUserAttributeValue(key, "\(isActive)")
-                ^
-[x] /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:229:17: capture of 'handlePlacement(_:params:completion:)' with non-Sendable type '(String, [String : Any], @escaping AnalyticsAction) -> ()' (aka '(String, Dictionary<String, Any>, @escaping @Sendable () -> ()) -> ()') in a '@Sendable' closure
-                handlePlacement(placement, params: params, completion: completion)
-                ^
-[x] /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:118:14: concurrently-executed local function 'handlePlacement(_:params:completion:)' must be marked as '@Sendable'
-        func handlePlacement(
-             ^
-[!]  /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:238:1: extension declares a conformance of imported type 'AnalyticsClient' to imported protocol 'DependencyKey'; this will not behave correctly if the owners of 'SwiftAnalyticsKitInterface' introduce this conformance in the future
+[AnalyticsManager] Compiling SuperwallService.swift
+[!]  /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:272:1: extension declares a conformance of imported type 'AnalyticsClient' to imported protocol 'DependencyKey'; this will not behave correctly if the owners of 'SwiftAnalyticsKitInterface' introduce this conformance in the future
 extension AnalyticsClient: DependencyKey {
 ^
 [!]  /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/CrashManager/CrashClient+Default.swift:68:1: extension declares a conformance of imported type 'CrashClient' to imported protocol 'DependencyKey'; this will not behave correctly if the owners of 'SwiftAnalyticsKitInterface' introduce this conformance in the future
@@ -119,22 +29,36 @@ extension FeatureFlagClient: DependencyKey {
     func handleSuperwallPlacement(withInfo placementInfo: SuperwallPlacementInfo) {
                                                           ^
 [AnalyticsManager] Compiling RCPurchaseController.swift
-[AnalyticsManager] Compiling SuperwallService.swift
-[AnalyticsManager] Compiling CrashClient+Default.swift
+[AnalyticsManager] Compiling Analytics.swift
+[!]  /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:272:1: extension declares a conformance of imported type 'AnalyticsClient' to imported protocol 'DependencyKey'; this will not behave correctly if the owners of 'SwiftAnalyticsKitInterface' introduce this conformance in the future
+extension AnalyticsClient: DependencyKey {
+^
+[!]  /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:114:13: variable 'posthogConfig' was never mutated; consider changing to 'let' constant
+        var posthogConfig = PostHogConfig(apiKey: apiKey, host: AnalyticsClientDefaults.posthogHost)
+        ~~~ ^
+[x] /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:260:17: cannot find 'logger' in scope
+                logger.log("Event logged: \(event.name, privacy: .public)")
+                ^~~~~~
+[x] /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:260:67: extra argument 'privacy' in call
+                logger.log("Event logged: \(event.name, privacy: .public)")
+                                           ~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+[x] /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:260:67: cannot infer contextual base in reference to member 'public'
+                logger.log("Event logged: \(event.name, privacy: .public)")
+                                                                 ~^~~~~~
+[AnalyticsManager] Copy arm64-apple-ios-simulator.swiftdoc -> AnalyticsManager.swiftdoc
+[AnalyticsManager] Copy arm64-apple-ios-simulator.swiftsourceinfo -> AnalyticsManager.swiftsourceinfo
+[AnalyticsManager] Copy arm64-apple-ios-simulator.abi.json -> AnalyticsManager.abi.json
+[AnalyticsManager] Copy arm64-apple-ios-simulator.swiftmodule -> AnalyticsManager.swiftmodule
 
 -----------------------------
 -- xcodebuild.nvim summary --
 -----------------------------
 
 Warnings:
-   /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:238:1
+   /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:272:1
     extension declares a conformance of imported type 'AnalyticsClient' to imported protocol 'DependencyKey'; this will not behave correctly if the owners of 'SwiftAnalyticsKitInterface' introduce this conformance in the future
     extension AnalyticsClient: DependencyKey {
     ^
-   /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:154:25
-    variable 'posthogConfig' was never mutated; consider changing to 'let' constant
-                        var posthogConfig = PostHogConfig(apiKey: posthogAPIKey, host: AnalyticsClientDefaults.posthogHost)
-                        ~~~ ^
    /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/CrashManager/CrashClient+Default.swift:68:1
     extension declares a conformance of imported type 'CrashClient' to imported protocol 'DependencyKey'; this will not behave correctly if the owners of 'SwiftAnalyticsKitInterface' introduce this conformance in the future
     extension CrashClient: DependencyKey {
@@ -147,121 +71,24 @@ Warnings:
     'SuperwallPlacementInfo' is deprecated: renamed to 'SuperwallEventInfo'
         func handleSuperwallPlacement(withInfo placementInfo: SuperwallPlacementInfo) {
                                                               ^
+   /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:114:13
+    variable 'posthogConfig' was never mutated; consider changing to 'let' constant
+            var posthogConfig = PostHogConfig(apiKey: apiKey, host: AnalyticsClientDefaults.posthogHost)
+            ~~~ ^
 
 Errors:
-  ✖ ** BUILD FAILED **
-  ✖ /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:135:30
-    reference to captured var 'configuration' in concurrently-executing code
-                configuration: { configuration },
-                                 ^
-  ✖ /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:138:28
-    reference to captured var 'useSuperwall' in concurrently-executing code
-                        return useSuperwall
-                               ^
-  ✖ /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:188:88
-    capture of 'userDefaults' with non-Sendable type 'UserDefaults' in a '@Sendable' closure
-                                let purchaseController = RCPurchaseController(userDefault: userDefaults)
-                                                                                           ^
-  ✖ /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:144:17
-    mutation of captured var 'configuration' in concurrently-executing code
-                    configuration = newConfiguration
-                    ^
-  ✖ /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:148:17
-    mutation of captured var 'logger' in concurrently-executing code
-                    logger = Logger(subsystem: subsystem, category: category)
-                    ^
-  ✖ /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:149:17
-    mutation of captured var 'usePosthog' in concurrently-executing code
-                    usePosthog = false
-                    ^
-  ✖ /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:150:17
-    mutation of captured var 'useSuperwall' in concurrently-executing code
-                    useSuperwall = false
-                    ^
-  ✖ /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:153:21
-    mutation of captured var 'usePosthog' in concurrently-executing code
-                        usePosthog = true
-                        ^
-  ✖ /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:171:28
-    reference to captured var 'userID' in concurrently-executing code
-                        if let userID {
-                               ^
-  ✖ /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:180:78
-    reference to captured var 'userID' in concurrently-executing code
-                        Purchases.configure(withAPIKey: revenueCatID, appUserID: userID)
-                                                                                 ^
-  ✖ /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:186:25
-    mutation of captured var 'useSuperwall' in concurrently-executing code
-                            useSuperwall = true
-                            ^
-  ✖ /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:188:88
-    reference to captured var 'userDefaults' in concurrently-executing code
-                                let purchaseController = RCPurchaseController(userDefault: userDefaults)
-                                                                                           ^
-  ✖ /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:194:73
-    reference to captured var 'logger' in concurrently-executing code
-                            let superwallService = SuperwallService(logger: logger, withPostHog: usePosthog)
-                                                                            ^
-  ✖ /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:194:94
-    reference to captured var 'usePosthog' in concurrently-executing code
-                            let superwallService = SuperwallService(logger: logger, withPostHog: usePosthog)
-                                                                                                 ^
-  ✖ /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:197:25
-    mutation of captured var 'useSuperwall' in concurrently-executing code
-                            useSuperwall = false
-                            ^
-  ✖ /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:206:17
-    capture of 'userDefaults' with non-Sendable type 'UserDefaults' in a '@Sendable' closure
-                    userDefaults = defaults
-                    ^
-  ✖ /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:206:17
-    mutation of captured var 'userDefaults' in concurrently-executing code
-                    userDefaults = defaults
-                    ^
-  ✖ /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:209:17
-    capture of 'trackEvent(named:params:)' with non-Sendable type '(String, [String : Any]) -> ()' in a '@Sendable' closure
-                    trackEvent(named: event.name, params: event.properties.toAnyDictionary())
-                    ^
-  ✖ /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:36:14
-    concurrently-executed local function 'trackEvent(named:params:)' must be marked as '@Sendable'
-            func trackEvent(named name: String, params: [String: Any]) {
-                 ^
-  ✖ /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:212:17
-    capture of 'assignUser(id:email:oneSignalUserID:attributes:)' with non-Sendable type '(String, String?, String?, [String : Any]?) -> ()' in a '@Sendable' closure
-                    assignUser(
-                    ^
-  ✖ /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:81:14
-    concurrently-executed local function 'assignUser(id:email:oneSignalUserID:attributes:)' must be marked as '@Sendable'
-            func assignUser(
-                 ^
-  ✖ /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:220:17
-    capture of 'setUserAttributeValue' with non-Sendable type '(String, String) -> ()' in a '@Sendable' closure
-                    setUserAttributeValue(key, String(describing: value.anyValue))
-                    ^
-  ✖ /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:44:14
-    concurrently-executed local function 'setUserAttributeValue' must be marked as '@Sendable'
-            func setUserAttributeValue(_ key: String, _ value: String) {
-                 ^
-  ✖ /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:223:17
-    capture of 'incrementAttributeValue(_:by:)' with non-Sendable type '(String, Double) -> ()' in a '@Sendable' closure
-                    incrementAttributeValue(key, by: value)
-                    ^
-  ✖ /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:64:14
-    concurrently-executed local function 'incrementAttributeValue(_:by:)' must be marked as '@Sendable'
-            func incrementAttributeValue(_ key: String, by value: Double) {
-                 ^
-  ✖ /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:226:17
-    capture of 'setUserAttributeValue' with non-Sendable type '(String, String) -> ()' in a '@Sendable' closure
-                    setUserAttributeValue(key, "\(isActive)")
-                    ^
-  ✖ /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:229:17
-    capture of 'handlePlacement(_:params:completion:)' with non-Sendable type '(String, [String : Any], @escaping AnalyticsAction) -> ()' (aka '(String, Dictionary<String, Any>, @escaping @Sendable () -> ()) -> ()') in a '@Sendable' closure
-                    handlePlacement(placement, params: params, completion: completion)
-                    ^
-  ✖ /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:118:14
-    concurrently-executed local function 'handlePlacement(_:params:completion:)' must be marked as '@Sendable'
-            func handlePlacement(
-                 ^
+  ✖ /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:260:17
+    cannot find 'logger' in scope
+                    logger.log("Event logged: \(event.name, privacy: .public)")
+                    ^~~~~~
+  ✖ /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:260:67
+    extra argument 'privacy' in call
+                    logger.log("Event logged: \(event.name, privacy: .public)")
+                                               ~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+  ✖ /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:260:67
+    cannot infer contextual base in reference to member 'public'
+                    logger.log("Event logged: \(event.name, privacy: .public)")
+                                                                     ~^~~~~~
 
   Build Failed
 

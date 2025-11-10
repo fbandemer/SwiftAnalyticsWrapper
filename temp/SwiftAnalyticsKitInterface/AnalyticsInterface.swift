@@ -13,11 +13,11 @@ public typealias AnalyticsAction = @Sendable () -> Void
 public protocol AnalyticsCategory: RawRepresentable, Sendable where RawValue == String {}
 
 /// Closure-based client describing analytics integrations.
-public struct AnalyticsClient: @unchecked Sendable {
-    public var configuration: @Sendable () -> AnalyticsConfiguration
-    public var isSuperwallEnabled: @Sendable () -> Bool
-    public var configure: @Sendable (_ configuration: AnalyticsConfiguration) -> Void
-    public var initializeIfNeeded: @Sendable (_ userDefaults: UserDefaults) -> Void
+public struct AnalyticsClient: Sendable {
+    public var configuration: AnalyticsConfiguration
+    public var isSuperwallEnabled: Bool
+    public var userID: String?
+    public var configure: @Sendable (_ configuration: AnalyticsConfiguration, _ userDefaults: UserDefaults) -> Void
     public var track: @Sendable (_ event: AnalyticsEvent) -> Void
     public var setUserIdentity: @Sendable (_ identity: AnalyticsUserIdentity) -> Void
     public var setUserAttribute: @Sendable (_ key: String, _ value: AnalyticsAttributeValue) -> Void
@@ -27,10 +27,9 @@ public struct AnalyticsClient: @unchecked Sendable {
     public var makeCustomerCenterView: @Sendable () -> AnyView
 
     public init(
-        configuration: @escaping @Sendable () -> AnalyticsConfiguration,
-        isSuperwallEnabled: @escaping @Sendable () -> Bool,
-        configure: @escaping @Sendable (_ configuration: AnalyticsConfiguration) -> Void,
-        initializeIfNeeded: @escaping @Sendable (_ userDefaults: UserDefaults) -> Void,
+        configuration: AnalyticsConfiguration,
+        isSuperwallEnabled: Bool,
+        configure: @escaping @Sendable (_ configuration: AnalyticsConfiguration, _ userDefaults: UserDefaults) -> Void,
         track: @escaping @Sendable (_ event: AnalyticsEvent) -> Void,
         setUserIdentity: @escaping @Sendable (_ identity: AnalyticsUserIdentity) -> Void,
         setUserAttribute: @escaping @Sendable (_ key: String, _ value: AnalyticsAttributeValue) -> Void,
@@ -42,7 +41,6 @@ public struct AnalyticsClient: @unchecked Sendable {
         self.configuration = configuration
         self.isSuperwallEnabled = isSuperwallEnabled
         self.configure = configure
-        self.initializeIfNeeded = initializeIfNeeded
         self.track = track
         self.setUserIdentity = setUserIdentity
         self.setUserAttribute = setUserAttribute

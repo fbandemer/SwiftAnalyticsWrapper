@@ -7,13 +7,10 @@ public extension AnalyticsClient {
     static let empty: Self = {
         let logger = Logger(subsystem: "SwiftAnalyticsKitInterface", category: "EmptyAnalyticsClient")
         return Self(
-            configuration: { .init() },
-            isSuperwallEnabled: { false },
-            configure: { _ in
+            configuration: .init(),
+            isSuperwallEnabled: false,
+            configure: { _, _ in
                 logger.debug("EmptyAnalyticsClient.configure(using:) invoked")
-            },
-            initializeIfNeeded: { _ in
-                logger.debug("EmptyAnalyticsClient.initializeIfNeeded(userDefaults:) invoked")
             },
             track: { event in
                 logger.debug("EmptyAnalyticsClient.track(_:) invoked for event \(event.name, privacy: .public)")
