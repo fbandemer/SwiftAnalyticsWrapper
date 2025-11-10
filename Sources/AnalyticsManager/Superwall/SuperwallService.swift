@@ -1,30 +1,25 @@
 //
-//  File.swift
+//  SuperwallService.swift
 //
 //  Created by Fynn Bandemer on 04.11.23.
 //
 
 #if canImport(SuperwallKit)
-import Foundation
-import SuperwallKit
-import OSLog
-import PostHog
+    import Foundation
+    import OSLog
+    import PostHog
+    import SuperwallKit
 
-internal class SuperwallService: SuperwallDelegate {
-    let logger: Logger
-    let posthog: Bool
-    
-    internal init(logger: Logger, withPostHog: Bool) {
-        self.logger = logger
-        self.posthog = withPostHog
-    }
-    
-    func handleSuperwallPlacement(withInfo placementInfo: SuperwallPlacementInfo) {
-        if posthog {
-            PostHogSDK.shared.capture(placementInfo.placement.description, properties: placementInfo.params)
+    class SuperwallService: SuperwallDelegate {
+        let logger: Logger
+
+        init(logger: Logger) {
+            self.logger = logger
         }
-        logger.log("Superwall Event logged: \(placementInfo.placement.description)")
-    }
-}
-#endif
 
+        func handleSuperwallPlacement(withInfo placementInfo: SuperwallPlacementInfo) {
+            PostHogSDK.shared.capture(placementInfo.placement.description, properties: placementInfo.params)
+            logger.log("Superwall Event logged: \(placementInfo.placement.description)")
+        }
+    }
+#endif

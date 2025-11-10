@@ -20,16 +20,11 @@ public final class MockAnalyticsManager {
 
     public lazy var client: AnalyticsClient = {
         AnalyticsClient(
-            configuration: { [unowned self] in
-                self.configuration
-            },
-            isSuperwallEnabled: { [unowned self] in
-                self.isSuperwallEnabled
-            },
-            configure: { [unowned self] configuration in
+            configuration: configuration,
+            isSuperwallEnabled: isSuperwallEnabled,
+            configure: { [unowned self] configuration, _ in
                 self.configure(using: configuration)
             },
-            initializeIfNeeded: { _ in },
             track: { [unowned self] event in
                 self.track(event)
             },
@@ -60,10 +55,6 @@ public final class MockAnalyticsManager {
 
     public func configure(using configuration: AnalyticsConfiguration) {
         self.configuration = configuration
-    }
-
-    public func initializeIfNeeded(userDefaults: UserDefaults) {
-        // empty
     }
 
     public func track(_ event: AnalyticsEvent) {

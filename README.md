@@ -29,8 +29,6 @@ import AnalyticsManager
 import SwiftAnalyticsKitInterface
 
 var analytics: AnalyticsClient = .default()
-analytics.initializeIfNeeded(.standard)
-
 analytics.configure(
     AnalyticsConfiguration(
         loggerSubsystem: "com.example.app",
@@ -38,7 +36,8 @@ analytics.configure(
         superwallAPIKey: "your_superwall_id",
         posthogAPIKey: "your_posthog_key",
         revenueCatAPIKey: "your_revenuecat_id"
-    )
+    ),
+    .standard
 )
 
 analytics.setUserIdentity(

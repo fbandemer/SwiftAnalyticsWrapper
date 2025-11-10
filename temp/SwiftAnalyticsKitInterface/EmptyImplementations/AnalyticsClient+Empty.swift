@@ -7,8 +7,7 @@ public extension AnalyticsClient {
     static let empty: Self = {
         let logger = Logger(subsystem: "SwiftAnalyticsKitInterface", category: "EmptyAnalyticsClient")
         return Self(
-            configuration: .init(),
-            isSuperwallEnabled: false,
+            logger: logger,
             configure: { _, _ in
                 logger.debug("EmptyAnalyticsClient.configure(using:) invoked")
             },

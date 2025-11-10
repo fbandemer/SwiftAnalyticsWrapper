@@ -1,5 +1,6 @@
 import Dependencies
 import Foundation
+import OSLog
 import SwiftUI
 
 /// Type-safe payload used for analytics calls.
@@ -14,9 +15,7 @@ public protocol AnalyticsCategory: RawRepresentable, Sendable where RawValue == 
 
 /// Closure-based client describing analytics integrations.
 public struct AnalyticsClient: Sendable {
-    public var configuration: AnalyticsConfiguration
-    public var isSuperwallEnabled: Bool
-    public var userID: String?
+    public var logger: Logger
     public var configure: @Sendable (_ configuration: AnalyticsConfiguration, _ userDefaults: UserDefaults) -> Void
     public var track: @Sendable (_ event: AnalyticsEvent) -> Void
     public var setUserIdentity: @Sendable (_ identity: AnalyticsUserIdentity) -> Void
@@ -27,8 +26,7 @@ public struct AnalyticsClient: Sendable {
     public var makeCustomerCenterView: @Sendable () -> AnyView
 
     public init(
-        configuration: AnalyticsConfiguration,
-        isSuperwallEnabled: Bool,
+        logger: Logger,
         configure: @escaping @Sendable (_ configuration: AnalyticsConfiguration, _ userDefaults: UserDefaults) -> Void,
         track: @escaping @Sendable (_ event: AnalyticsEvent) -> Void,
         setUserIdentity: @escaping @Sendable (_ identity: AnalyticsUserIdentity) -> Void,
@@ -38,8 +36,7 @@ public struct AnalyticsClient: Sendable {
         handlePlacement: @escaping @Sendable (_ placement: String, _ params: [String: Any], _ completion: @escaping AnalyticsAction) -> Void,
         makeCustomerCenterView: @escaping @Sendable () -> AnyView
     ) {
-        self.configuration = configuration
-        self.isSuperwallEnabled = isSuperwallEnabled
+        self.logger = logger
         self.configure = configure
         self.track = track
         self.setUserIdentity = setUserIdentity
