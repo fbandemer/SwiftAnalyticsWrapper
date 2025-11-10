@@ -21,6 +21,7 @@ struct AnalyticsManagerTests {
     @Test
     func mockAnalyticsManagerRecordsTrackedEvents() throws {
         let mock = MockAnalyticsManager()
+        let client = mock.client
         let event = try AnalyticsEvent(
             category: AnalyticsTestCategory.settings,
             object: "delete_account_button",
@@ -30,7 +31,7 @@ struct AnalyticsManagerTests {
             ]
         )
 
-        mock.track(event)
+        client.track(event)
 
         #expect(mock.trackedEvents.count == 1)
         #expect(mock.trackedEvents.first?.name == "settings:delete_account_button:click")
@@ -40,9 +41,10 @@ struct AnalyticsManagerTests {
     func handlePlacementRecordsAndCompletes() async {
         let mock = MockAnalyticsManager()
         mock.placementCompletionQueue = DispatchQueue(label: "mock.placement")
+        let client = mock.client
 
         await withCheckedContinuation { continuation in
-            mock.handlePlacement("settings:advanced:view", params: ["cta": "advanced"]) {
+            client.handlePlacement("settings:advanced:view", ["cta": "advanced"]) {
                 continuation.resume()
             }
         }
@@ -55,16 +57,17 @@ struct AnalyticsManagerTests {
     @Test
     func featureFlagOverridesExposeState() {
         let mock = MockFeatureFlagManager()
+        let client = mock.client
         mock.overrides["paywall_v2"] = .init(
             isEnabled: true,
             variant: "treatment",
             payload: .string("copy_b")
         )
 
-        #expect(mock.isFeatureFlagEnabled("paywall_v2"))
-        #expect(mock.featureFlagVariant("paywall_v2") == "treatment")
-        #expect(mock.isFeatureFlag("paywall_v2", inVariant: "treatment"))
-        #expect(mock.featureFlagPayloadIfEnabled("paywall_v2") == .string("copy_b"))
-        #expect(mock.featureFlagPayload("paywall_v2", matching: "treatment") == .string("copy_b"))
+        #expect(client.isFeatureFlagEnabled("paywall_v2"))
+        #expect(client.featureFlagVariant("paywall_v2") == "treatment")
+        #expect(client.isFeatureFlagInVariant("paywall_v2", "treatment"))
+        #expect(client.featureFlagPayloadIfEnabled("paywall_v2") == .string("copy_b"))
+        #expect(client.featureFlagPayload("paywall_v2", "treatment") == .string("copy_b"))
     }
 }

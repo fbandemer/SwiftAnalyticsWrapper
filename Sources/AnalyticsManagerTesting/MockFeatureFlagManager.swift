@@ -1,7 +1,6 @@
 import SwiftAnalyticsKitInterface
 
-public final class MockFeatureFlagManager: FeatureFlagManaging {
-    public private(set) var userID: String?
+public final class MockFeatureFlagManager {
     public private(set) var posthogAPIKey: String?
     public struct Override {
         public var isEnabled: Bool
@@ -18,15 +17,34 @@ public final class MockFeatureFlagManager: FeatureFlagManaging {
     public var overrides: [String: Override] = [:]
     public private(set) var configuredKey: String?
 
+    public lazy var client: FeatureFlagClient = {
+        FeatureFlagClient(
+            configure: { [unowned self] key in
+                self.configure(key: key)
+            },
+            isFeatureFlagEnabled: { [unowned self] key in
+                self.isFeatureFlagEnabled(key)
+            },
+            featureFlagPayloadIfEnabled: { [unowned self] key in
+                self.featureFlagPayloadIfEnabled(key)
+            },
+            featureFlagVariant: { [unowned self] key in
+                self.featureFlagVariant(key)
+            },
+            isFeatureFlagInVariant: { [unowned self] key, variant in
+                self.isFeatureFlag(key, inVariant: variant)
+            },
+            featureFlagPayload: { [unowned self] key, variant in
+                self.featureFlagPayload(key, matching: variant)
+            }
+        )
+    }()
+
     public init() {}
 
     public func configure(key: String) {
         configuredKey = key
-        self.posthogAPIKey = key
-    }
-
-    public func setUserID(_ userID: String?) {
-        self.userID = userID
+        posthogAPIKey = key
     }
 
     public func isFeatureFlagEnabled(_ key: String) -> Bool {

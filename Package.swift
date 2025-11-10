@@ -13,10 +13,12 @@ let package = Package(
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "AnalyticsManager",
-            targets: ["AnalyticsManager"]),
+            targets: ["AnalyticsManager"]
+        ),
         .library(
             name: "AnalyticsManagerTesting",
-            targets: ["AnalyticsManagerTesting"]),
+            targets: ["AnalyticsManagerTesting"]
+        ),
     ],
     dependencies: [
         .package(url: "https://github.com/superwall-me/Superwall-iOS", .upToNextMajor(from: "4.0.0")),
@@ -24,7 +26,8 @@ let package = Package(
         .package(url: "https://github.com/RevenueCat/purchases-ios.git", from: "5.2.0"),
         .package(url: "https://github.com/PostHog/posthog-ios.git", from: "3.0.0"),
         .package(url: "https://github.com/apple/swift-testing.git", from: "0.9.0"),
-        .package(url: "https://github.com/fbandemer/SwiftAnalyticsKitInterface", from: "1.0.0")
+        .package(url: "https://github.com/fbandemer/SwiftAnalyticsKitInterface", from: "1.0.3"),
+        .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.10.0"),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -38,13 +41,14 @@ let package = Package(
                 .product(name: "RevenueCat", package: "purchases-ios"),
                 .product(name: "RevenueCatUI", package: "purchases-ios"),
                 .product(name: "PostHog", package: "posthog-ios"),
+                .product(name: "Dependencies", package: "swift-dependencies"),
             ],
             path: "Sources/AnalyticsManager"
         ),
         .target(
             name: "AnalyticsManagerTesting",
             dependencies: [
-                .product(name: "SwiftAnalyticsKitInterface", package: "SwiftAnalyticsKitInterface")
+                .product(name: "SwiftAnalyticsKitInterface", package: "SwiftAnalyticsKitInterface"),
             ],
             path: "Sources/AnalyticsManagerTesting"
         ),
@@ -54,9 +58,9 @@ let package = Package(
                 "AnalyticsManager",
                 "AnalyticsManagerTesting",
                 .product(name: "SwiftAnalyticsKitInterface", package: "SwiftAnalyticsKitInterface"),
-                .product(name: "Testing", package: "swift-testing")
+                .product(name: "Testing", package: "swift-testing"),
             ],
             path: "Tests/AnalyticsTests"
-        )
+        ),
     ]
 )

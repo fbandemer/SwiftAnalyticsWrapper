@@ -28,11 +28,11 @@ Add this package to your iOS project using Swift Package Manager.
 import AnalyticsManager
 import SwiftAnalyticsKitInterface
 
-let analytics = DefaultAnalyticsManager.shared
-analytics.initializeIfNeeded(userDefaults: .standard)
+var analytics: AnalyticsClient = .default()
+analytics.initializeIfNeeded(.standard)
 
 analytics.configure(
-    using: AnalyticsConfiguration(
+    AnalyticsConfiguration(
         loggerSubsystem: "com.example.app",
         loggerCategory: "analytics",
         superwallAPIKey: "your_superwall_id",
@@ -45,26 +45,37 @@ analytics.setUserIdentity(
     AnalyticsUserIdentity(id: userID, email: "user@example.com")
 )
 
-let featureFlags = PosthogFeatureManager.shared
-featureFlags.configure(key: "your_posthog_key")
-featureFlags.setUserID(userID)
+var featureFlags: FeatureFlagClient = .default()
+featureFlags.configure("your_posthog_key")
 
 // Configure crash reporting separately when needed
 let crashConfig = CrashConfiguration(
     dsn: "your_sentry_dsn",
     environment: "production"
 )
-DefaultCrashManager.shared.start(with: crashConfig)
+var crashClient: CrashClient = .default()
+crashClient.start(crashConfig)
 ```
 
 Inject the observable manager into SwiftUI when you need environment access:
 
 ```swift
-@State private var analytics = DefaultAnalyticsManager.shared
+import Dependencies
 
-var body: some View {
-    RootView()
-        .environment(analytics)
+struct RootView: View {
+    @Dependency(\.analytics) var analytics
+
+    var body: some View {
+        Button("Track CTA") {
+            analytics.performEvent(
+                category: AppCategory.dashboard,
+                object: "upgrade_cta",
+                verb: .click
+            ) {
+                presentPaywall()
+            }
+        }
+    }
 }
 ```
 
@@ -72,6 +83,9 @@ var body: some View {
 
 ```swift
 import SwiftAnalyticsKitInterface
+import AnalyticsManager
+
+var analytics: AnalyticsClient = .default()
 
 let event = try AnalyticsEvent(
     category: AppCategory.account_settings,
@@ -83,7 +97,7 @@ let event = try AnalyticsEvent(
     ]
 )
 
-DefaultAnalyticsManager.shared.track(event)
+analytics.track(event)
 ```
 
 > Define your own enums that conform to `AnalyticsCategory` to describe feature areas (e.g. `enum AppCategory: String, AnalyticsCategory { case account_settings }`).
@@ -101,10 +115,7 @@ All events follow the `category:object:verb` structure outlined in the Simple Ev
 ### Set User Attributes
 
 ```swift
-DefaultAnalyticsManager.shared.setUserAttribute(
-    "attribute_name",
-    value: .string("attribute_value")
-)
+analytics.setUserAttribute("attribute_name", .string("attribute_value"))
 ```
 
 ## UI Components
@@ -115,7 +126,7 @@ Instead of shipping prebuilt SwiftUI buttons, the package exposes a `performEven
 
 ```swift
 Button("Upgrade") {
-    DefaultAnalyticsManager.shared.performEvent(
+    analytics.performEvent(
         category: AppCategory.dashboard,
         object: "upgrade_cta",
         verb: .click,
@@ -134,7 +145,7 @@ Button("Upgrade") {
 Increment numeric attributes:
 
 ```swift
-DefaultAnalyticsManager.shared.incrementUserAttribute("count", by: 1.0)
+analytics.incrementUserAttribute("count", 1.0)
 ```
 
 ### Subscription Status
@@ -142,7 +153,7 @@ DefaultAnalyticsManager.shared.incrementUserAttribute("count", by: 1.0)
 Track subscription status:
 
 ```swift
-DefaultAnalyticsManager.shared.setSubscriptionStatus(isActive: true, key: "premium_status")
+analytics.setSubscriptionStatus(true, "premium_status")
 ```
 
 ### User Identification
@@ -156,7 +167,7 @@ let identity = AnalyticsUserIdentity(
     attributes: ["plan": .string("starter")]
 )
 
-DefaultAnalyticsManager.shared.setUserIdentity(identity)
+analytics.setUserIdentity(identity)
 ```
 
 ### Feature Flags
@@ -164,15 +175,16 @@ DefaultAnalyticsManager.shared.setUserIdentity(identity)
 Evaluate PostHog feature flags without leaving the analytics façade:
 
 ```swift
-let featureFlags = PosthogFeatureManager.shared
+var featureFlags: FeatureFlagClient = .default()
+featureFlags.configure("posthog_api_key")
 
 if featureFlags.isFeatureFlagEnabled("paywall_v2") {
     let payload = featureFlags.featureFlagPayloadIfEnabled("paywall_v2")
     print(payload?.anyValue ?? "no payload")
 }
 
-if featureFlags.isFeatureFlag("onboarding_experiment", inVariant: "treatment") {
-    let payload = featureFlags.featureFlagPayload("onboarding_experiment", matching: "treatment")
+if featureFlags.isFeatureFlagInVariant("onboarding_experiment", "treatment") {
+    let payload = featureFlags.featureFlagPayload("onboarding_experiment", "treatment")
     // use variant-specific payload data
 }
 ```
@@ -182,8 +194,10 @@ if featureFlags.isFeatureFlag("onboarding_experiment", inVariant: "treatment") {
 Present RevenueCat's customer center without importing `RevenueCatUI` in your app target:
 
 ```swift
+import Dependencies
+
 struct SupportView: View {
-    @State private var analytics = DefaultAnalyticsManager.shared
+    @Dependency(\.analytics) var analytics
 
     var body: some View {
         analytics.makeCustomerCenterView()
@@ -206,12 +220,14 @@ This package integrates with several third-party analytics providers:
 
 ## Configuration
 
+RevenueCat-specific helpers that are not part of the pure analytics surface are exposed as convenience extensions on `AnalyticsClient`.
+
 ### RevenueCat Attribution
 
 Enable RevenueCat attribution tracking:
 
 ```swift
-DefaultAnalyticsManager.shared.setRCAttributionConsent()
+analytics.setRCAttributionConsent()
 ```
 
 ### Restore Purchases
@@ -220,7 +236,7 @@ Restore user purchases asynchronously:
 
 ```swift
 do {
-    let customerInfo = try await DefaultAnalyticsManager.shared.restorePurchases()
+    let customerInfo = try await analytics.restorePurchases()
     // Handle restored purchases
 } catch {
     // Handle errors
@@ -235,13 +251,14 @@ do {
 import AnalyticsManagerTesting
 
 let mock = MockAnalyticsManager()
+let analytics = mock.client
 let event = try AnalyticsEvent(
     category: AnalyticsTestCategory.test_flow,
     object: "primary_cta",
     verb: .click
 )
 
-mock.track(event)
+analytics.track(event)
 XCTAssertEqual(mock.trackedEvents.first?.name, "test_flow:primary_cta:click")
 ```
 

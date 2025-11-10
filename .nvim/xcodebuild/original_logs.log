@@ -1,0 +1,364 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild build -scheme AnalyticsManager -destination id=4E36D96A-4B01-4812-A20D-4AC23E9F09C2 -resultBundlePath /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/.nvim/xcodebuild/build.xcresult -parallelizeTargets
+
+2025-11-10 11:44:50.847 xcodebuild[46232:6627639]  DVTDeviceOperation: Encountered a build number "" that is incompatible with DVTBuildVersion.
+Resolve Package Graph
+2025-11-10 11:44:50.952 xcodebuild[46232:6627534] [MT] DVTDeviceOperation: Encountered a build number "" that is incompatible with DVTBuildVersion.
+failed querying registry identity for 'https://github.com/RevenueCat/purchases-ios.git': no registry configured'failed querying registry identity for 'https://github.com/superwall-me/Superwall-iOS': no registry configured'failed querying registry identity for 'https://github.com/PostHog/posthog-ios.git': no registry configured'failed querying registry identity for 'https://github.com/getsentry/sentry-cocoa': no registry configured'failed querying registry identity for 'https://github.com/apple/swift-testing.git': no registry configured'failed querying registry identity for 'https://github.com/pointfreeco/swift-dependencies': no registry configured'failed querying registry identity for 'https://github.com/fbandemer/SwiftAnalyticsKitInterface': no registry configured'failed querying registry identity for 'https://github.com/superwall/Superscript-iOS': no registry configured'failed querying registry identity for 'https://github.com/Quick/Nimble.git': no registry configured'failed querying registry identity for 'https://github.com/Quick/Quick.git': no registry configured'failed querying registry identity for 'https://github.com/AliSoftware/OHHTTPStubs.git': no registry configured'failed querying registry identity for 'https://github.com/quick/nimble': no registry configured'failed querying registry identity for 'https://github.com/pointfreeco/swift-snapshot-testing': no registry configured'failed querying registry identity for 'https://github.com/swiftlang/swift-syntax.git': no registry configured'failed querying registry identity for 'https://github.com/pointfreeco/combine-schedulers': no registry configured'failed querying registry identity for 'https://github.com/pointfreeco/swift-concurrency-extras': no registry configured'failed querying registry identity for 'https://github.com/pointfreeco/swift-clocks': no registry configured'failed querying registry identity for 'https://github.com/pointfreeco/xctest-dynamic-overlay': no registry configured'failed querying registry identity for 'https://github.com/pointfreeco/swift-macro-testing': no registry configured'failed querying registry identity for 'https://github.com/apple/swift-docc-plugin': no registry configured'failed querying registry identity for 'https://github.com/swiftlang/swift-syntax': no registry configured'failed querying registry identity for 'https://github.com/swiftwasm/carton': no registry configured'2025-11-10 11:44:51.929 xcodebuild[46232:6627534] [MT] IDERunDestination: Supported platforms for the buildables in the current scheme is empty.
+
+
+Resolved source packages:
+  SwiftAnalyticsKitInterface: https://github.com/fbandemer/SwiftAnalyticsKitInterface @ 1.0.3
+  Sentry: https://github.com/getsentry/sentry-cocoa @ 8.52.1
+  Analytics: /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper
+  swift-testing: https://github.com/apple/swift-testing.git @ 0.99.0
+  swift-dependencies: https://github.com/pointfreeco/swift-dependencies @ 1.10.0
+  xctest-dynamic-overlay: https://github.com/pointfreeco/xctest-dynamic-overlay @ 1.7.0
+  SuperwallKit: https://github.com/superwall-me/Superwall-iOS @ 4.5.1
+  combine-schedulers: https://github.com/pointfreeco/combine-schedulers @ 1.0.3
+  Superscript: https://github.com/superwall/Superscript-iOS @ 0.2.8
+  swift-concurrency-extras: https://github.com/pointfreeco/swift-concurrency-extras @ 1.3.2
+  swift-syntax: https://github.com/swiftlang/swift-syntax.git @ 600.0.1
+  swift-clocks: https://github.com/pointfreeco/swift-clocks @ 1.0.6
+  RevenueCat: https://github.com/RevenueCat/purchases-ios.git @ 5.28.1
+  PostHog: https://github.com/PostHog/posthog-ios.git @ 3.26.2
+
+Writing result bundle at path:
+	/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/.nvim/xcodebuild/build.xcresult
+
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (33 targets)
+    Target 'AnalyticsManager' in project 'Analytics'
+        ➜ Explicit dependency on target 'AnalyticsManager' in project 'Analytics'
+        ➜ Explicit dependency on target 'SwiftAnalyticsKitInterface' in project 'SwiftAnalyticsKitInterface'
+        ➜ Explicit dependency on target 'Sentry' in project 'Sentry'
+        ➜ Explicit dependency on target 'SuperwallKit' in project 'SuperwallKit'
+        ➜ Explicit dependency on target 'RevenueCat' in project 'RevenueCat'
+        ➜ Explicit dependency on target 'RevenueCatUI' in project 'RevenueCat'
+        ➜ Explicit dependency on target 'PostHog' in project 'PostHog'
+        ➜ Explicit dependency on target 'Dependencies' in project 'swift-dependencies'
+    Target 'AnalyticsManager' in project 'Analytics'
+        ➜ Explicit dependency on target 'SwiftAnalyticsKitInterface' in project 'SwiftAnalyticsKitInterface'
+        ➜ Explicit dependency on target 'Sentry' in project 'Sentry'
+        ➜ Explicit dependency on target 'SuperwallKit' in project 'SuperwallKit'
+        ➜ Explicit dependency on target 'RevenueCat' in project 'RevenueCat'
+        ➜ Explicit dependency on target 'RevenueCatUI' in project 'RevenueCat'
+        ➜ Explicit dependency on target 'PostHog' in project 'PostHog'
+        ➜ Explicit dependency on target 'Dependencies' in project 'swift-dependencies'
+    Target 'PostHog' in project 'PostHog'
+        ➜ Explicit dependency on target 'PostHog' in project 'PostHog'
+        ➜ Explicit dependency on target 'PostHog_PostHog' in project 'PostHog'
+        ➜ Explicit dependency on target 'phlibwebp' in project 'PostHog'
+    Target 'PostHog' in project 'PostHog'
+        ➜ Explicit dependency on target 'PostHog_PostHog' in project 'PostHog'
+        ➜ Explicit dependency on target 'phlibwebp' in project 'PostHog'
+    Target 'phlibwebp' in project 'PostHog' (no dependencies)
+    Target 'PostHog_PostHog' in project 'PostHog' (no dependencies)
+    Target 'RevenueCatUI' in project 'RevenueCat'
+        ➜ Explicit dependency on target 'RevenueCatUI' in project 'RevenueCat'
+        ➜ Explicit dependency on target 'RevenueCat_RevenueCatUI' in project 'RevenueCat'
+        ➜ Explicit dependency on target 'RevenueCat' in project 'RevenueCat'
+    Target 'RevenueCatUI' in project 'RevenueCat'
+        ➜ Explicit dependency on target 'RevenueCat_RevenueCatUI' in project 'RevenueCat'
+        ➜ Explicit dependency on target 'RevenueCat' in project 'RevenueCat'
+    Target 'RevenueCat_RevenueCatUI' in project 'RevenueCat' (no dependencies)
+    Target 'RevenueCat' in project 'RevenueCat'
+        ➜ Explicit dependency on target 'RevenueCat' in project 'RevenueCat'
+        ➜ Explicit dependency on target 'RevenueCat_RevenueCat' in project 'RevenueCat'
+    Target 'RevenueCat' in project 'RevenueCat'
+        ➜ Explicit dependency on target 'RevenueCat_RevenueCat' in project 'RevenueCat'
+    Target 'RevenueCat_RevenueCat' in project 'RevenueCat' (no dependencies)
+    Target 'SuperwallKit' in project 'SuperwallKit'
+        ➜ Explicit dependency on target 'SuperwallKit' in project 'SuperwallKit'
+        ➜ Explicit dependency on target 'SuperwallKit_SuperwallKit' in project 'SuperwallKit'
+        ➜ Explicit dependency on target 'Superscript' in project 'Superscript'
+    Target 'SuperwallKit' in project 'SuperwallKit'
+        ➜ Explicit dependency on target 'SuperwallKit_SuperwallKit' in project 'SuperwallKit'
+        ➜ Explicit dependency on target 'Superscript' in project 'Superscript'
+    Target 'Superscript' in project 'Superscript'
+        ➜ Explicit dependency on target 'Superscript' in project 'Superscript'
+    Target 'Superscript' in project 'Superscript' (no dependencies)
+    Target 'SuperwallKit_SuperwallKit' in project 'SuperwallKit' (no dependencies)
+    Target 'Sentry' in project 'Sentry' (no dependencies)
+    Target 'SwiftAnalyticsKitInterface' in project 'SwiftAnalyticsKitInterface'
+        ➜ Explicit dependency on target 'SwiftAnalyticsKitInterface' in project 'SwiftAnalyticsKitInterface'
+        ➜ Explicit dependency on target 'Dependencies' in project 'swift-dependencies'
+    Target 'SwiftAnalyticsKitInterface' in project 'SwiftAnalyticsKitInterface'
+        ➜ Explicit dependency on target 'Dependencies' in project 'swift-dependencies'
+    Target 'Dependencies' in project 'swift-dependencies'
+        ➜ Explicit dependency on target 'Dependencies' in project 'swift-dependencies'
+        ➜ Explicit dependency on target 'Clocks' in project 'swift-clocks'
+        ➜ Explicit dependency on target 'CombineSchedulers' in project 'combine-schedulers'
+        ➜ Explicit dependency on target 'ConcurrencyExtras' in project 'swift-concurrency-extras'
+        ➜ Explicit dependency on target 'IssueReporting' in project 'xctest-dynamic-overlay'
+        ➜ Explicit dependency on target 'XCTestDynamicOverlay' in project 'xctest-dynamic-overlay'
+    Target 'Dependencies' in project 'swift-dependencies'
+        ➜ Explicit dependency on target 'Clocks' in project 'swift-clocks'
+        ➜ Explicit dependency on target 'CombineSchedulers' in project 'combine-schedulers'
+        ➜ Explicit dependency on target 'ConcurrencyExtras' in project 'swift-concurrency-extras'
+        ➜ Explicit dependency on target 'IssueReporting' in project 'xctest-dynamic-overlay'
+        ➜ Explicit dependency on target 'XCTestDynamicOverlay' in project 'xctest-dynamic-overlay'
+    Target 'XCTestDynamicOverlay' in project 'xctest-dynamic-overlay'
+        ➜ Explicit dependency on target 'XCTestDynamicOverlay' in project 'xctest-dynamic-overlay'
+        ➜ Explicit dependency on target 'IssueReportingPackageSupport' in project 'xctest-dynamic-overlay'
+        ➜ Explicit dependency on target 'IssueReporting' in project 'xctest-dynamic-overlay'
+    Target 'XCTestDynamicOverlay' in project 'xctest-dynamic-overlay'
+        ➜ Explicit dependency on target 'IssueReportingPackageSupport' in project 'xctest-dynamic-overlay'
+        ➜ Explicit dependency on target 'IssueReporting' in project 'xctest-dynamic-overlay'
+    Target 'CombineSchedulers' in project 'combine-schedulers'
+        ➜ Explicit dependency on target 'CombineSchedulers' in project 'combine-schedulers'
+        ➜ Explicit dependency on target 'ConcurrencyExtras' in project 'swift-concurrency-extras'
+        ➜ Explicit dependency on target 'IssueReporting' in project 'xctest-dynamic-overlay'
+    Target 'CombineSchedulers' in project 'combine-schedulers'
+        ➜ Explicit dependency on target 'ConcurrencyExtras' in project 'swift-concurrency-extras'
+        ➜ Explicit dependency on target 'IssueReporting' in project 'xctest-dynamic-overlay'
+    Target 'Clocks' in project 'swift-clocks'
+        ➜ Explicit dependency on target 'Clocks' in project 'swift-clocks'
+        ➜ Explicit dependency on target 'ConcurrencyExtras' in project 'swift-concurrency-extras'
+        ➜ Explicit dependency on target 'IssueReporting' in project 'xctest-dynamic-overlay'
+    Target 'Clocks' in project 'swift-clocks'
+        ➜ Explicit dependency on target 'ConcurrencyExtras' in project 'swift-concurrency-extras'
+        ➜ Explicit dependency on target 'IssueReporting' in project 'xctest-dynamic-overlay'
+    Target 'IssueReporting' in project 'xctest-dynamic-overlay'
+        ➜ Explicit dependency on target 'IssueReporting' in project 'xctest-dynamic-overlay'
+        ➜ Explicit dependency on target 'IssueReportingPackageSupport' in project 'xctest-dynamic-overlay'
+    Target 'IssueReporting' in project 'xctest-dynamic-overlay'
+        ➜ Explicit dependency on target 'IssueReportingPackageSupport' in project 'xctest-dynamic-overlay'
+    Target 'IssueReportingPackageSupport' in project 'xctest-dynamic-overlay' (no dependencies)
+    Target 'ConcurrencyExtras' in project 'swift-concurrency-extras'
+        ➜ Explicit dependency on target 'ConcurrencyExtras' in project 'swift-concurrency-extras'
+    Target 'ConcurrencyExtras' in project 'swift-concurrency-extras' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.1.sdk /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.1-23B77-90cf18a4295e390e64c810bc6bd7acbc.sdkstatcache
+    cd /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/.swiftpm/xcode
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.1.sdk -o /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.1-23B77-90cf18a4295e390e64c810bc6bd7acbc.sdkstatcache
+
+SwiftDriver AnalyticsManager normal arm64 com.apple.xcode.tools.swift.compiler (in target 'AnalyticsManager' from project 'Analytics')
+    cd /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/.swiftpm/xcode
+    builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name AnalyticsManager -Onone -enforce-exclusivity\=checked @/Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/Analytics.build/Debug-iphonesimulator/AnalyticsManager.build/Objects-normal/arm64/AnalyticsManager.SwiftFileList -DSWIFT_PACKAGE -DDEBUG -DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE -Xcc -fmodule-map-file\=/Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/phlibwebp.modulemap -DXcode -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.1.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 6 -I /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.1.sdk/Developer/Library/Frameworks -c -j16 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.1-23B77-90cf18a4295e390e64c810bc6bd7acbc.sdkstatcache -output-file-map /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/Analytics.build/Debug-iphonesimulator/AnalyticsManager.build/Objects-normal/arm64/AnalyticsManager-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/Analytics.build/Debug-iphonesimulator/AnalyticsManager.build/Objects-normal/arm64/AnalyticsManager.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -package-name swiftanalyticswrapper -Xcc -I/Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/Analytics.build/Debug-iphonesimulator/AnalyticsManager.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/Analytics.build/Debug-iphonesimulator/AnalyticsManager.build/Objects-normal/arm64/AnalyticsManager_const_extract_protocols.json -Xcc -I/Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/SourcePackages/checkouts/posthog-ios/vendor/libwebp -Xcc -I/Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/Analytics.build/Debug-iphonesimulator/AnalyticsManager.build/DerivedSources-normal/arm64 -Xcc -I/Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/Analytics.build/Debug-iphonesimulator/AnalyticsManager.build/DerivedSources/arm64 -Xcc -I/Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/Analytics.build/Debug-iphonesimulator/AnalyticsManager.build/DerivedSources -Xcc -DSWIFT_PACKAGE -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/Analytics.build/Debug-iphonesimulator/AnalyticsManager.build/Objects-normal/arm64/AnalyticsManager-Swift.h -working-directory /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/.swiftpm/xcode -experimental-emit-module-separately -disable-cmo
+
+CompileAssetCatalogVariant thinned /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/RevenueCat_RevenueCatUI.bundle /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/SourcePackages/checkouts/purchases-ios/RevenueCatUI/Resources/icons.xcassets (in target 'RevenueCat_RevenueCatUI' from project 'RevenueCat')
+    cd /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/SourcePackages/checkouts/purchases-ios
+    /Applications/Xcode.app/Contents/Developer/usr/bin/actool /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/SourcePackages/checkouts/purchases-ios/RevenueCatUI/Resources/icons.xcassets --compile /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/RevenueCat.build/Debug-iphonesimulator/RevenueCat_RevenueCatUI.build/assetcatalog_output/thinned --output-format human-readable-text --notices --warnings --export-dependency-info /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/RevenueCat.build/Debug-iphonesimulator/RevenueCat_RevenueCatUI.build/assetcatalog_dependencies_thinned --output-partial-info-plist /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/RevenueCat.build/Debug-iphonesimulator/RevenueCat_RevenueCatUI.build/assetcatalog_generated_info.plist_thinned --compress-pngs --enable-on-demand-resources NO --filter-for-thinning-device-configuration iPhone18,1 --filter-for-device-os-version 26.1 --development-region en --target-device iphone --target-device ipad --minimum-deployment-target 13.0 --platform iphonesimulator
+
+** BUILD FAILED **
+
+
+The following build commands failed:
+	SwiftCompile normal arm64 Compiling\ Analytics.swift /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift (in target 'AnalyticsManager' from project 'Analytics')
+	SwiftCompile normal arm64 /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift (in target 'AnalyticsManager' from project 'Analytics')
+CompileAssetCatalogVariant thinned /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/SuperwallKit_SuperwallKit.bundle /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/SourcePackages/checkouts/Superwall-iOS/Sources/SuperwallKit/Resources/Superwall_Assets.xcassets (in target 'SuperwallKit_SuperwallKit' from project 'SuperwallKit')
+    cd /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/SourcePackages/checkouts/Superwall-iOS
+    /Applications/Xcode.app/Contents/Developer/usr/bin/actool /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/SourcePackages/checkouts/Superwall-iOS/Sources/SuperwallKit/Resources/Superwall_Assets.xcassets --compile /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/SuperwallKit.build/Debug-iphonesimulator/SuperwallKit_SuperwallKit.build/assetcatalog_output/thinned --output-format human-readable-text --notices --warnings --export-dependency-info /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/SuperwallKit.build/Debug-iphonesimulator/SuperwallKit_SuperwallKit.build/assetcatalog_dependencies_thinned --output-partial-info-plist /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/SuperwallKit.build/Debug-iphonesimulator/SuperwallKit_SuperwallKit.build/assetcatalog_generated_info.plist_thinned --compress-pngs --enable-on-demand-resources NO --filter-for-thinning-device-configuration iPhone18,1 --filter-for-device-os-version 26.1 --development-region en --target-device iphone --target-device ipad --minimum-deployment-target 13.0 --platform iphonesimulator
+
+SwiftCompile normal arm64 Compiling\ Analytics.swift /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift (in target 'AnalyticsManager' from project 'Analytics')
+Failed frontend command:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -frontend -c -primary-file /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/AnalyticsClient+Helpers.swift /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/CrashManager/CrashClient+Default.swift /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/PostHogFeatureFlag/FeatureFlagClient+Default.swift /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/RevenueCat/CustomerCenterContainerView.swift /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/RevenueCat/RCPurchaseController.swift /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/RevenueCatIntegration.swift /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Superwall/SuperwallService.swift /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/SuperwallIntegration.swift -emit-dependencies-path /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/Analytics.build/Debug-iphonesimulator/AnalyticsManager.build/Objects-normal/arm64/Analytics.d -emit-const-values-path /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/Analytics.build/Debug-iphonesimulator/AnalyticsManager.build/Objects-normal/arm64/Analytics.swiftconstvalues -emit-reference-dependencies-path /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/Analytics.build/Debug-iphonesimulator/AnalyticsManager.build/Objects-normal/arm64/Analytics.swiftdeps -serialize-diagnostics-path /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/Analytics.build/Debug-iphonesimulator/AnalyticsManager.build/Objects-normal/arm64/Analytics.dia -target arm64-apple-ios17.0-simulator -module-can-import RevenueCatUI -module-can-import SuperwallKit -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins/libFoundationMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server\#FoundationMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins/libObservationMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server\#ObservationMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins/libPreviewsMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server\#PreviewsMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins/libSwiftMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server\#SwiftMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins/libSwiftUIMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server\#SwiftUIMacros -disable-implicit-swift-modules -Xcc -fno-implicit-modules -Xcc -fno-implicit-module-maps -explicit-swift-module-map-file /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/Analytics.build/Debug-iphonesimulator/AnalyticsManager.build/Objects-normal/arm64/AnalyticsManager-dependencies-1.json -Xllvm -aarch64-use-tbi -enable-objc-interop -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.1.sdk -I /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.1.sdk/Developer/Library/Frameworks -no-color-diagnostics -Xcc -fno-color-diagnostics -enable-testing -g -debug-info-format\=dwarf -dwarf-version\=4 -module-cache-path /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -swift-version 6 -enforce-exclusivity\=checked -Onone -D SWIFT_PACKAGE -D DEBUG -D SWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE -D Xcode -serialize-debugging-options -const-gather-protocols-file /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/Analytics.build/Debug-iphonesimulator/AnalyticsManager.build/Objects-normal/arm64/AnalyticsManager_const_extract_protocols.json -enable-experimental-feature DebugDescriptionMacro -empty-abi-descriptor -validate-clang-modules-once -clang-build-session-file /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -working-directory -Xcc /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/.swiftpm/xcode -enable-anonymous-context-mangled-names -file-compilation-dir /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/.swiftpm/xcode -Xcc -fmodule-map-file\=/Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/phlibwebp.modulemap -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -Xcc -ivfsstatcache -Xcc /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.1-23B77-90cf18a4295e390e64c810bc6bd7acbc.sdkstatcache -Xcc -I/Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/Analytics.build/Debug-iphonesimulator/AnalyticsManager.build/swift-overrides.hmap -Xcc -I/Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/SourcePackages/checkouts/posthog-ios/vendor/libwebp -Xcc -I/Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/Analytics.build/Debug-iphonesimulator/AnalyticsManager.build/DerivedSources-normal/arm64 -Xcc -I/Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/Analytics.build/Debug-iphonesimulator/AnalyticsManager.build/DerivedSources/arm64 -Xcc -I/Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/Analytics.build/Debug-iphonesimulator/AnalyticsManager.build/DerivedSources -Xcc -DSWIFT_PACKAGE -Xcc -DDEBUG\=1 -no-auto-bridging-header-chaining -module-name AnalyticsManager -package-name swiftanalyticswrapper -frontend-parseable-output -disable-clang-spi -target-sdk-version 26.1 -target-sdk-name iphonesimulator26.1 -clang-target arm64-apple-ios26.1-simulator -in-process-plugin-server-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/libSwiftInProcPluginServer.dylib -o /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/Analytics.build/Debug-iphonesimulator/AnalyticsManager.build/Objects-normal/arm64/Analytics.o -index-unit-output-path /Analytics.build/Debug-iphonesimulator/AnalyticsManager.build/Objects-normal/arm64/Analytics.o -index-store-path /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Index.noindex/DataStore -index-system-modules
+
+SwiftCompile normal arm64 /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift (in target 'AnalyticsManager' from project 'Analytics')
+    cd /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/.swiftpm/xcode
+    
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:238:1: warning: extension declares a conformance of imported type 'AnalyticsClient' to imported protocol 'DependencyKey'; this will not behave correctly if the owners of 'SwiftAnalyticsKitInterface' introduce this conformance in the future
+extension AnalyticsClient: DependencyKey {
+^
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:238:1: note: add '@retroactive' to silence this warning
+extension AnalyticsClient: DependencyKey {
+^                          ~~~~~~~~~~~~~
+                           @retroactive DependencyKey
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:154:25: warning: variable 'posthogConfig' was never mutated; consider changing to 'let' constant
+                    var posthogConfig = PostHogConfig(apiKey: posthogAPIKey, host: AnalyticsClientDefaults.posthogHost)
+                    ~~~ ^
+                    let
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:135:30: error: reference to captured var 'configuration' in concurrently-executing code
+            configuration: { configuration },
+                             ^
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:138:28: error: reference to captured var 'useSuperwall' in concurrently-executing code
+                    return useSuperwall
+                           ^
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:188:88: error: capture of 'userDefaults' with non-Sendable type 'UserDefaults' in a '@Sendable' closure
+                            let purchaseController = RCPurchaseController(userDefault: userDefaults)
+                                                                                       ^
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.1.sdk/System/Library/Frameworks/Foundation.framework/Headers/NSUserDefaults.h:49:12: note: class 'UserDefaults' does not conform to the 'Sendable' protocol
+@interface NSUserDefaults : NSObject {
+           ^
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:144:17: error: mutation of captured var 'configuration' in concurrently-executing code
+                configuration = newConfiguration
+                ^
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:148:17: error: mutation of captured var 'logger' in concurrently-executing code
+                logger = Logger(subsystem: subsystem, category: category)
+                ^
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:149:17: error: mutation of captured var 'usePosthog' in concurrently-executing code
+                usePosthog = false
+                ^
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:150:17: error: mutation of captured var 'useSuperwall' in concurrently-executing code
+                useSuperwall = false
+                ^
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:153:21: error: mutation of captured var 'usePosthog' in concurrently-executing code
+                    usePosthog = true
+                    ^
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:171:28: error: reference to captured var 'userID' in concurrently-executing code
+                    if let userID {
+                           ^
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:180:78: error: reference to captured var 'userID' in concurrently-executing code
+                    Purchases.configure(withAPIKey: revenueCatID, appUserID: userID)
+                                                                             ^
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:186:25: error: mutation of captured var 'useSuperwall' in concurrently-executing code
+                        useSuperwall = true
+                        ^
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:188:88: error: reference to captured var 'userDefaults' in concurrently-executing code
+                            let purchaseController = RCPurchaseController(userDefault: userDefaults)
+                                                                                       ^
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:194:73: error: reference to captured var 'logger' in concurrently-executing code
+                        let superwallService = SuperwallService(logger: logger, withPostHog: usePosthog)
+                                                                        ^
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:194:94: error: reference to captured var 'usePosthog' in concurrently-executing code
+                        let superwallService = SuperwallService(logger: logger, withPostHog: usePosthog)
+                                                                                             ^
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:197:25: error: mutation of captured var 'useSuperwall' in concurrently-executing code
+                        useSuperwall = false
+                        ^
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:206:17: error: capture of 'userDefaults' with non-Sendable type 'UserDefaults' in a '@Sendable' closure
+                userDefaults = defaults
+                ^
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.1.sdk/System/Library/Frameworks/Foundation.framework/Headers/NSUserDefaults.h:49:12: note: class 'UserDefaults' does not conform to the 'Sendable' protocol
+@interface NSUserDefaults : NSObject {
+           ^
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:206:17: error: mutation of captured var 'userDefaults' in concurrently-executing code
+                userDefaults = defaults
+                ^
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:209:17: error: capture of 'trackEvent(named:params:)' with non-Sendable type '(String, [String : Any]) -> ()' in a '@Sendable' closure
+                trackEvent(named: event.name, params: event.properties.toAnyDictionary())
+                ^
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:209:17: note: a function type must be marked '@Sendable' to conform to 'Sendable'
+                trackEvent(named: event.name, params: event.properties.toAnyDictionary())
+                ^
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:36:14: error: concurrently-executed local function 'trackEvent(named:params:)' must be marked as '@Sendable'
+        func trackEvent(named name: String, params: [String: Any]) {
+             ^
+        @Sendable 
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:212:17: error: capture of 'assignUser(id:email:oneSignalUserID:attributes:)' with non-Sendable type '(String, String?, String?, [String : Any]?) -> ()' in a '@Sendable' closure
+                assignUser(
+                ^
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:212:17: note: a function type must be marked '@Sendable' to conform to 'Sendable'
+                assignUser(
+                ^
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:81:14: error: concurrently-executed local function 'assignUser(id:email:oneSignalUserID:attributes:)' must be marked as '@Sendable'
+        func assignUser(
+             ^
+        @Sendable 
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:220:17: error: capture of 'setUserAttributeValue' with non-Sendable type '(String, String) -> ()' in a '@Sendable' closure
+                setUserAttributeValue(key, String(describing: value.anyValue))
+                ^
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:220:17: note: a function type must be marked '@Sendable' to conform to 'Sendable'
+                setUserAttributeValue(key, String(describing: value.anyValue))
+                ^
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:44:14: error: concurrently-executed local function 'setUserAttributeValue' must be marked as '@Sendable'
+        func setUserAttributeValue(_ key: String, _ value: String) {
+             ^
+        @Sendable 
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:223:17: error: capture of 'incrementAttributeValue(_:by:)' with non-Sendable type '(String, Double) -> ()' in a '@Sendable' closure
+                incrementAttributeValue(key, by: value)
+                ^
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:223:17: note: a function type must be marked '@Sendable' to conform to 'Sendable'
+                incrementAttributeValue(key, by: value)
+                ^
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:64:14: error: concurrently-executed local function 'incrementAttributeValue(_:by:)' must be marked as '@Sendable'
+        func incrementAttributeValue(_ key: String, by value: Double) {
+             ^
+        @Sendable 
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:226:17: error: capture of 'setUserAttributeValue' with non-Sendable type '(String, String) -> ()' in a '@Sendable' closure
+                setUserAttributeValue(key, "\(isActive)")
+                ^
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:226:17: note: a function type must be marked '@Sendable' to conform to 'Sendable'
+                setUserAttributeValue(key, "\(isActive)")
+                ^
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:229:17: error: capture of 'handlePlacement(_:params:completion:)' with non-Sendable type '(String, [String : Any], @escaping AnalyticsAction) -> ()' (aka '(String, Dictionary<String, Any>, @escaping @Sendable () -> ()) -> ()') in a '@Sendable' closure
+                handlePlacement(placement, params: params, completion: completion)
+                ^
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:229:17: note: a function type must be marked '@Sendable' to conform to 'Sendable'
+                handlePlacement(placement, params: params, completion: completion)
+                ^
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:118:14: error: concurrently-executed local function 'handlePlacement(_:params:completion:)' must be marked as '@Sendable'
+        func handlePlacement(
+             ^
+        @Sendable 
+
+SwiftEmitModule normal arm64 Emitting\ module\ for\ AnalyticsManager (in target 'AnalyticsManager' from project 'Analytics')
+
+EmitSwiftModule normal arm64 (in target 'AnalyticsManager' from project 'Analytics')
+    cd /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/.swiftpm/xcode
+    
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:238:1: warning: extension declares a conformance of imported type 'AnalyticsClient' to imported protocol 'DependencyKey'; this will not behave correctly if the owners of 'SwiftAnalyticsKitInterface' introduce this conformance in the future
+extension AnalyticsClient: DependencyKey {
+^
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:238:1: note: add '@retroactive' to silence this warning
+extension AnalyticsClient: DependencyKey {
+^                          ~~~~~~~~~~~~~
+                           @retroactive DependencyKey
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/CrashManager/CrashClient+Default.swift:68:1: warning: extension declares a conformance of imported type 'CrashClient' to imported protocol 'DependencyKey'; this will not behave correctly if the owners of 'SwiftAnalyticsKitInterface' introduce this conformance in the future
+extension CrashClient: DependencyKey {
+^
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/CrashManager/CrashClient+Default.swift:68:1: note: add '@retroactive' to silence this warning
+extension CrashClient: DependencyKey {
+^                      ~~~~~~~~~~~~~
+                       @retroactive DependencyKey
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/PostHogFeatureFlag/FeatureFlagClient+Default.swift:67:1: warning: extension declares a conformance of imported type 'FeatureFlagClient' to imported protocol 'DependencyKey'; this will not behave correctly if the owners of 'SwiftAnalyticsKitInterface' introduce this conformance in the future
+extension FeatureFlagClient: DependencyKey {
+^
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/PostHogFeatureFlag/FeatureFlagClient+Default.swift:67:1: note: add '@retroactive' to silence this warning
+extension FeatureFlagClient: DependencyKey {
+^                            ~~~~~~~~~~~~~
+                             @retroactive DependencyKey
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Superwall/SuperwallService.swift:22:59: warning: 'SuperwallPlacementInfo' is deprecated: renamed to 'SuperwallEventInfo'
+    func handleSuperwallPlacement(withInfo placementInfo: SuperwallPlacementInfo) {
+                                                          ^
+/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Superwall/SuperwallService.swift:22:59: note: use 'SuperwallEventInfo' instead
+    func handleSuperwallPlacement(withInfo placementInfo: SuperwallPlacementInfo) {
+                                                          ^~~~~~~~~~~~~~~~~~~~~~
+                                                          SuperwallEventInfo
+
+SwiftCompile normal arm64 Compiling\ RCPurchaseController.swift /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/RevenueCat/RCPurchaseController.swift (in target 'AnalyticsManager' from project 'Analytics')
+SwiftCompile normal arm64 /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/RevenueCat/RCPurchaseController.swift (in target 'AnalyticsManager' from project 'Analytics')
+    cd /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 Compiling\ SuperwallService.swift /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Superwall/SuperwallService.swift (in target 'AnalyticsManager' from project 'Analytics')
+
+SwiftCompile normal arm64 /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Superwall/SuperwallService.swift (in target 'AnalyticsManager' from project 'Analytics')
+    cd /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/.swiftpm/xcode
+    
+
+SwiftCompile normal arm64 Compiling\ CrashClient+Default.swift /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/CrashManager/CrashClient+Default.swift (in target 'AnalyticsManager' from project 'Analytics')
+
+SwiftCompile normal arm64 /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/CrashManager/CrashClient+Default.swift (in target 'AnalyticsManager' from project 'Analytics')
+    cd /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/.swiftpm/xcode
+    
+
+SwiftDriverJobDiscovery normal arm64 Emitting module for AnalyticsManager (in target 'AnalyticsManager' from project 'Analytics')
+
+SwiftDriver\ Compilation\ Requirements AnalyticsManager normal arm64 com.apple.xcode.tools.swift.compiler (in target 'AnalyticsManager' from project 'Analytics')
+    cd /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/.swiftpm/xcode
+    builtin-Swift-Compilation-Requirements -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name AnalyticsManager -Onone -enforce-exclusivity\=checked @/Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/Analytics.build/Debug-iphonesimulator/AnalyticsManager.build/Objects-normal/arm64/AnalyticsManager.SwiftFileList -DSWIFT_PACKAGE -DDEBUG -DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE -Xcc -fmodule-map-file\=/Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/phlibwebp.modulemap -DXcode -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.1.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 6 -I /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.1.sdk/Developer/Library/Frameworks -c -j16 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.1-23B77-90cf18a4295e390e64c810bc6bd7acbc.sdkstatcache -output-file-map /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/Analytics.build/Debug-iphonesimulator/AnalyticsManager.build/Objects-normal/arm64/AnalyticsManager-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/Analytics.build/Debug-iphonesimulator/AnalyticsManager.build/Objects-normal/arm64/AnalyticsManager.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -package-name swiftanalyticswrapper -Xcc -I/Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/Analytics.build/Debug-iphonesimulator/AnalyticsManager.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/Analytics.build/Debug-iphonesimulator/AnalyticsManager.build/Objects-normal/arm64/AnalyticsManager_const_extract_protocols.json -Xcc -I/Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/SourcePackages/checkouts/posthog-ios/vendor/libwebp -Xcc -I/Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/Analytics.build/Debug-iphonesimulator/AnalyticsManager.build/DerivedSources-normal/arm64 -Xcc -I/Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/Analytics.build/Debug-iphonesimulator/AnalyticsManager.build/DerivedSources/arm64 -Xcc -I/Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/Analytics.build/Debug-iphonesimulator/AnalyticsManager.build/DerivedSources -Xcc -DSWIFT_PACKAGE -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Intermediates.noindex/Analytics.build/Debug-iphonesimulator/AnalyticsManager.build/Objects-normal/arm64/AnalyticsManager-Swift.h -working-directory /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/.swiftpm/xcode -experimental-emit-module-separately -disable-cmo
+
+
+Result bundle written to path:
+	/Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/.nvim/xcodebuild/build.xcresult
+
+	Building workspace SwiftAnalyticsWrapper with scheme AnalyticsManager
+(3 failures)
+
