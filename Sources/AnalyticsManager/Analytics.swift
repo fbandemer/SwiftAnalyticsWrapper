@@ -19,7 +19,6 @@ private enum AnalyticsClientDefaults {
 public extension AnalyticsClient {
     static func `default`() -> Self {
         var logger = Logger(subsystem: AnalyticsClientDefaults.subsystem, category: AnalyticsClientDefaults.category)
-
         return Self(
             logger: logger,
             configure: { newConfiguration, userDefaults in
@@ -30,13 +29,10 @@ public extension AnalyticsClient {
                 // logger = Logger(subsystem: subsystem, category: category)
                 #if canImport(SuperwallKit)
                     Self.configureSuperwall(apiKey: newConfiguration.superwallAPIKey, userDefaults: userDefaults)
-                #else
-                    logger.log("Superwall ID provided but Superwall is unavailable on this platform.")
                 #endif
             },
             track: { event in
                 PostHogSDK.shared.capture(event.name, properties: event.properties.toAnyDictionary())
-                logger.log("Event logged: \(event.name, privacy: .public)")
             },
             setUserIdentity: { identity in
                 Self.assignUser(
@@ -107,6 +103,7 @@ extension AnalyticsClient {
             let purchaseController = RCPurchaseController(userDefault: userDefaults)
             Superwall.configure(apiKey: apiKey, purchaseController: purchaseController)
             purchaseController.syncSubscriptionStatus()
+            var logger = Logger(subsystem: AnalyticsClientDefaults.subsystem, category: AnalyticsClientDefaults.category)
             let superwallService = SuperwallService(logger: logger)
             Superwall.shared.delegate = superwallService
         }
