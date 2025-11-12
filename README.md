@@ -269,6 +269,10 @@ XCTAssertEqual(mock.trackedEvents.first?.name, "test_flow:primary_cta:click")
 4. Handle errors appropriately
 5. Consider privacy implications when tracking user data
 
+## Open Tasks
+
+- **Logging configuration parity** – `AnalyticsClient.default()` currently ignores the `loggerSubsystem` and `loggerCategory` values supplied via `AnalyticsConfiguration`. Update the initialization path so custom subsystems/categories propagate to every logger instance (including the Superwall delegate) before the next release.
+
 ## License
 
 This package is available under the MIT license.

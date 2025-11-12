@@ -21,3 +21,7 @@ Recent history favors short, imperative subjects (e.g., `Update Analytics.swift`
 
 ## Configuration & Secrets
 Never commit real API keys or Sentry DSNs. Instead, update example placeholders in README snippets and document required environment keys in your PR description. When adding a new service, ensure fail-safe defaults so the package remains buildable without secrets.
+
+## Open Tasks
+
+- Align the live analytics logger with configuration inputs. `AnalyticsClient.default()` should respect `AnalyticsConfiguration.loggerSubsystem` and `.loggerCategory` for every Logger it creates so providers and delegates reflect the app’s chosen context.

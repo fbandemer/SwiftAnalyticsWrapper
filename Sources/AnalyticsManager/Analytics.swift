@@ -52,6 +52,7 @@ public extension AnalyticsClient {
                 Self.setUserAttribute(key: key, rawValue: "\(isActive)")
             },
             handlePlacement: { placement, params, completion in
+                PostHogSDK.shared.capture(placement, properties: params)
                 #if canImport(SuperwallKit)
                     Superwall.shared.register(placement: placement, params: params) {
                         completion()

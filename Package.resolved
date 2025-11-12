@@ -1,5 +1,5 @@
 {
-  "originHash" : "3130bca4a9ca562f1df8d9c7686b128461ff83ba7561ff0518fe4d1e5690d6c2",
+  "originHash" : "e7a84a981813fde541741857b9cec79c9bf83df766721e9573619a68c6f36424",
   "pins" : [
     {
       "identity" : "combine-schedulers",
@@ -105,8 +105,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/fbandemer/SwiftAnalyticsKitInterface",
       "state" : {
-        "revision" : "ffe41867b226ebf1192352620ee59de50dfb1240",
-        "version" : "1.0.8"
+        "revision" : "1fa1e58634d5e13436c68aa7651a77165ed814cb",
+        "version" : "1.0.9"
       }
     },
     {
