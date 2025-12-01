@@ -16,41 +16,45 @@ public extension CrashClient {
         return Self(
             configuration: { CrashConfiguration() },
             start: { newConfiguration in
-                guard let dsn = newConfiguration.dsn else {
-                    return
-                }
-
-                SentrySDK.start { options in
-                    options.dsn = dsn
-                    options.environment = newConfiguration.environment
-                    #if os(iOS)
-                        options.attachScreenshot = newConfiguration.enableScreenshots
-                    #endif
-                }
+                
+                
+//                SentryHub(client: .init(options: .init()), andScope: .none)
+//                SentrySDK.
+//                guard let dsn = newConfiguration.dsn else {
+//                    return
+//                }
+//                SentrySDK.start(options: .init())
+//                SentrySDK.start { options in
+//                    options.dsn = dsn
+//                    options.environment = newConfiguration.environment
+//                    #if os(iOS)
+//                        options.attachScreenshot = newConfiguration.enableScreenshots
+//                    #endif
+//                }
             },
             capture: { error, attachments in
-                guard !attachments.isEmpty else {
-                    SentrySDK.capture(error: error)
-                    return
-                }
-
-                SentrySDK.capture(error: error) { scope in
-                    for attachment in attachments {
-                        let sentryAttachment = Attachment(
-                            data: attachment.data,
-                            filename: attachment.filename,
-                            contentType: attachment.contentType
-                        )
-                        scope.add(sentryAttachment)
-                    }
-                }
+//                guard !attachments.isEmpty else {
+//                    SentrySDK.capture(error: error)
+//                    return
+//                }
+//
+//                SentrySDK.capture(error: error) { scope in
+//                    for attachment in attachments {
+//                        let sentryAttachment = Attachment(
+//                            data: attachment.data,
+//                            filename: attachment.filename,
+//                            contentType: attachment.contentType
+//                        )
+//                        scope.add(sentryAttachment)
+//                    }
+//                }
             },
             log: { message in
-                let crumb = Breadcrumb()
-                crumb.level = .info
-                crumb.category = "log"
-                crumb.message = message
-                SentrySDK.addBreadcrumb(crumb)
+//                let crumb = Breadcrumb()
+//                crumb.level = .info
+//                crumb.category = "log"
+//                crumb.message = message
+//                SentrySDK.addBreadcrumb(crumb)
             }
         )
     }

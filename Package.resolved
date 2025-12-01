@@ -1,13 +1,13 @@
 {
-  "originHash" : "e7a84a981813fde541741857b9cec79c9bf83df766721e9573619a68c6f36424",
+  "originHash" : "edfc0923ceb792ce3e5426cb725aed27619eb3e5ca8fd0e8e1a17e2726295007",
   "pins" : [
     {
       "identity" : "combine-schedulers",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/combine-schedulers",
       "state" : {
-        "revision" : "5928286acce13def418ec36d05a001a9641086f2",
-        "version" : "1.0.3"
+        "revision" : "fd16d76fd8b9a976d88bfb6cacc05ca8d19c91b6",
+        "version" : "1.1.0"
       }
     },
     {
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/PostHog/posthog-ios.git",
       "state" : {
-        "revision" : "d6fde6cea4fbb2f968f116aa04572c39297a8c2b",
-        "version" : "3.26.2"
+        "revision" : "b71b7b1ba861391377d01251479530b938881ce0",
+        "version" : "3.35.0"
       }
     },
     {
@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/RevenueCat/purchases-ios.git",
       "state" : {
-        "revision" : "cdfe7100fc8cca4a655a9c0f1d34e1fcbc40edd0",
-        "version" : "5.28.1"
+        "revision" : "db54c3955115a5bc968db5a29737104638aeba93",
+        "version" : "5.49.2"
       }
     },
     {
@@ -33,8 +33,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/getsentry/sentry-cocoa",
       "state" : {
-        "revision" : "930b78a63f47549c81e6e63c9172584f7d3dfdd6",
-        "version" : "8.52.1"
+        "revision" : "7a1d9e42d633c926fbf4a94090f9f70c8090ec9d",
+        "version" : "9.0.0-rc.1"
       }
     },
     {
@@ -42,8 +42,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/superwall/Superscript-iOS",
       "state" : {
-        "revision" : "5f99cecebdbbdb0be96f413dbd0e7458180977ed",
-        "version" : "0.2.8"
+        "revision" : "bde42f1c7652a69a469677978ed97cba92c4dd2c",
+        "version" : "1.0.10"
       }
     },
     {
@@ -51,8 +51,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/superwall-me/Superwall-iOS",
       "state" : {
-        "revision" : "0174b92b0dd3321c1c3378f1703ec33c16491b89",
-        "version" : "4.5.1"
+        "revision" : "886c35c556bdac8f8fda6c765239aa908c16e4e5",
+        "version" : "4.10.6"
       }
     },
     {
@@ -105,8 +105,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/fbandemer/SwiftAnalyticsKitInterface",
       "state" : {
-        "revision" : "1fa1e58634d5e13436c68aa7651a77165ed814cb",
-        "version" : "1.0.9"
+        "revision" : "38d7001313a3792e33d5a9b387b87c1edca5e9d7",
+        "version" : "1.0.10"
       }
     },
     {

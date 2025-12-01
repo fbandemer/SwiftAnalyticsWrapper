@@ -1,260 +1,82 @@
 Resolving Package Graph
 Resolved source packages
-SwiftAnalyticsKitInterface - https://github.com/fbandemer/SwiftAnalyticsKitInterface @ 1.0.9
-Superscript - https://github.com/superwall/Superscript-iOS @ 0.2.8
-swift-concurrency-extras - https://github.com/pointfreeco/swift-concurrency-extras @ 1.3.2
-PostHog - https://github.com/PostHog/posthog-ios.git @ 3.26.2
-combine-schedulers - https://github.com/pointfreeco/combine-schedulers @ 1.0.3
-swift-dependencies - https://github.com/pointfreeco/swift-dependencies @ 1.10.0
-swift-testing - https://github.com/apple/swift-testing.git @ 0.99.0
-swift-clocks - https://github.com/pointfreeco/swift-clocks @ 1.0.6
+RevenueCat - https://github.com/RevenueCat/purchases-ios.git @ 5.49.2
+combine-schedulers - https://github.com/pointfreeco/combine-schedulers @ 1.1.0
 swift-syntax - https://github.com/swiftlang/swift-syntax.git @ 600.0.1
-SuperwallKit - https://github.com/superwall-me/Superwall-iOS @ 4.5.1
+Sentry - https://github.com/getsentry/sentry-cocoa @ 8.57.3
+Superscript - https://github.com/superwall/Superscript-iOS @ 1.0.10
+SwiftAnalyticsKitInterface - https://github.com/fbandemer/SwiftAnalyticsKitInterface @ 1.0.10
+SuperwallKit - https://github.com/superwall-me/Superwall-iOS @ 4.10.6
+swift-concurrency-extras - https://github.com/pointfreeco/swift-concurrency-extras @ 1.3.2
+swift-testing - https://github.com/apple/swift-testing.git @ 0.99.0
 xctest-dynamic-overlay - https://github.com/pointfreeco/xctest-dynamic-overlay @ 1.7.0
-RevenueCat - https://github.com/RevenueCat/purchases-ios.git @ 5.28.1
-Sentry - https://github.com/getsentry/sentry-cocoa @ 8.52.1
+PostHog - https://github.com/PostHog/posthog-ios.git @ 3.35.0
+swift-clocks - https://github.com/pointfreeco/swift-clocks @ 1.0.6
+swift-dependencies - https://github.com/pointfreeco/swift-dependencies @ 1.10.0
 note: Building targets in dependency order
-note: Target dependency graph (33 targets)
+note: Target dependency graph (34 targets)
+[RevenueCat_RevenueCat] Processing empty-RevenueCat_RevenueCat.plist
+[PostHog_PostHog] Processing empty-PostHog_PostHog.plist
+[phlibwebp] Linking phlibwebp.o
+[SentryCppHelper] Linking SentryCppHelper.o
+[ConcurrencyExtras] Linking ConcurrencyExtras.o
+[Superscript] Linking Superscript.o
+[IssueReportingPackageSupport] Linking IssueReportingPackageSupport.o
+[RevenueCat] Linking RevenueCat.o
+[Superscript] Extract App Intents Metadata
+[SentryCppHelper] Extract App Intents Metadata
+[IssueReportingPackageSupport] Extract App Intents Metadata
+[ConcurrencyExtras] Extract App Intents Metadata
+[phlibwebp] RegisterExecutionPolicyException phlibwebp.o
+[PostHog] Linking PostHog.o
+[PostHog] Extract App Intents Metadata
+[RevenueCat] Extract App Intents Metadata
+[SentryCppHelper] RegisterExecutionPolicyException SentryCppHelper.o
+[IssueReportingPackageSupport] RegisterExecutionPolicyException IssueReportingPackageSupport.o
+[Superscript] RegisterExecutionPolicyException Superscript.o
+[ConcurrencyExtras] RegisterExecutionPolicyException ConcurrencyExtras.o
+[IssueReporting] Linking IssueReporting.o
+[IssueReporting] Extract App Intents Metadata
+[PostHog] RegisterExecutionPolicyException PostHog.o
+[RevenueCat] RegisterExecutionPolicyException RevenueCat.o
+[IssueReporting] RegisterExecutionPolicyException IssueReporting.o
+[CombineSchedulers] Linking CombineSchedulers.o
+[XCTestDynamicOverlay] Linking XCTestDynamicOverlay.o
+[Clocks] Linking Clocks.o
+[XCTestDynamicOverlay] Extract App Intents Metadata
+[Clocks] Extract App Intents Metadata
+[CombineSchedulers] Extract App Intents Metadata
+[Clocks] RegisterExecutionPolicyException Clocks.o
+[XCTestDynamicOverlay] RegisterExecutionPolicyException XCTestDynamicOverlay.o
+[CombineSchedulers] RegisterExecutionPolicyException CombineSchedulers.o
+[Dependencies] Linking Dependencies.o
+[Dependencies] Extract App Intents Metadata
+[Dependencies] RegisterExecutionPolicyException Dependencies.o
+[SwiftAnalyticsKitInterface] Linking SwiftAnalyticsKitInterface.o
+[SwiftAnalyticsKitInterface] Extract App Intents Metadata
+[SwiftAnalyticsKitInterface] RegisterExecutionPolicyException SwiftAnalyticsKitInterface.o
+[AnalyticsManager] Compiling AnalyticsClient+Helpers.swift
+[AnalyticsManager] Compiling SuperwallService.swift
+[AnalyticsManager] Compiling FeatureFlagClient+Default.swift
+[AnalyticsManager] Compiling RCPurchaseController.swift
 [AnalyticsManager] Compiling CrashClient+Default.swift
 [!]  /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/CrashManager/CrashClient+Default.swift:68:1: extension declares a conformance of imported type 'CrashClient' to imported protocol 'DependencyKey'; this will not behave correctly if the owners of 'SwiftAnalyticsKitInterface' introduce this conformance in the future
 extension CrashClient: DependencyKey {
 ^
-[!]  /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/CrashManager/CrashClient+Default.swift:44:31: 'add' is deprecated: use `addAttachment` instead
-                        scope.add(sentryAttachment)
-                              ^
+[x] /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/CrashManager/CrashClient+Default.swift:23:27: type 'SentrySDK' has no member 'start'
+                SentrySDK.start { options in
+                ~~~~~~~~~ ^~~~~
+[x] /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/CrashManager/CrashClient+Default.swift:33:31: type 'SentrySDK' has no member 'capture'
+                    SentrySDK.capture(error: error)
+                    ~~~~~~~~~ ^~~~~~~
+[x] /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/CrashManager/CrashClient+Default.swift:53:27: type 'SentrySDK' has no member 'addBreadcrumb'
+                SentrySDK.addBreadcrumb(crumb)
+                ~~~~~~~~~ ^~~~~~~~~~~~~
 [AnalyticsManager] Compiling Analytics.swift
-[!]  /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:162:1: extension declares a conformance of imported type 'AnalyticsClient' to imported protocol 'DependencyKey'; this will not behave correctly if the owners of 'SwiftAnalyticsKitInterface' introduce this conformance in the future
-extension AnalyticsClient: DependencyKey {
-^
-[!]  /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:21:13: variable 'logger' was never mutated; consider changing to 'let' constant
-        var logger = Logger(subsystem: AnalyticsClientDefaults.subsystem, category: AnalyticsClientDefaults.category)
-        ~~~ ^
-[!]  /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:73:13: variable 'posthogConfig' was never mutated; consider changing to 'let' constant
-        var posthogConfig = PostHogConfig(apiKey: apiKey, host: AnalyticsClientDefaults.posthogHost)
-        ~~~ ^
-[!]  /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:107:17: variable 'logger' was never mutated; consider changing to 'let' constant
-            var logger = Logger(subsystem: AnalyticsClientDefaults.subsystem, category: AnalyticsClientDefaults.category)
-            ~~~ ^
-[AnalyticsManager] Compiling FeatureFlagClient+Default.swift
-[!]  /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/PostHogFeatureFlag/FeatureFlagClient+Default.swift:67:1: extension declares a conformance of imported type 'FeatureFlagClient' to imported protocol 'DependencyKey'; this will not behave correctly if the owners of 'SwiftAnalyticsKitInterface' introduce this conformance in the future
-extension FeatureFlagClient: DependencyKey {
-^
-[!]  /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/PostHogFeatureFlag/FeatureFlagClient+Default.swift:13:21: variable 'config' was never mutated; consider changing to 'let' constant
-                var config = PostHogConfig(apiKey: key, host: FeatureFlagClientDefaults.posthogHost)
-                ~~~ ^
 [AnalyticsManager] Compiling CustomerCenterContainerView.swift
-[AnalyticsManager] Compiling AnalyticsClient+Helpers.swift
-[AnalyticsManager] Compiling SuperwallIntegration.swift
-[AnalyticsManager] Compiling SuperwallService.swift
-[!]  /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Superwall/SuperwallService.swift:20:63: 'SuperwallPlacementInfo' is deprecated: renamed to 'SuperwallEventInfo'
-        func handleSuperwallPlacement(withInfo placementInfo: SuperwallPlacementInfo) {
-                                                              ^
-[!]  /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Superwall/SuperwallService.swift:21:53: 'placement' is deprecated: renamed to 'event'
-            PostHogSDK.shared.capture(placementInfo.placement.description, properties: placementInfo.params)
-                                                    ^
-[!]  /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Superwall/SuperwallService.swift:22:65: 'placement' is deprecated: renamed to 'event'
-            logger.log("Superwall Event logged: \(placementInfo.placement.description)")
-                                                                ^
-[AnalyticsManager] Compiling RCPurchaseController.swift
-[!]  /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:162:1: extension declares a conformance of imported type 'AnalyticsClient' to imported protocol 'DependencyKey'; this will not behave correctly if the owners of 'SwiftAnalyticsKitInterface' introduce this conformance in the future
-extension AnalyticsClient: DependencyKey {
-^
-[!]  /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/CrashManager/CrashClient+Default.swift:68:1: extension declares a conformance of imported type 'CrashClient' to imported protocol 'DependencyKey'; this will not behave correctly if the owners of 'SwiftAnalyticsKitInterface' introduce this conformance in the future
-extension CrashClient: DependencyKey {
-^
-[!]  /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/PostHogFeatureFlag/FeatureFlagClient+Default.swift:67:1: extension declares a conformance of imported type 'FeatureFlagClient' to imported protocol 'DependencyKey'; this will not behave correctly if the owners of 'SwiftAnalyticsKitInterface' introduce this conformance in the future
-extension FeatureFlagClient: DependencyKey {
-^
-[!]  /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Superwall/SuperwallService.swift:20:63: 'SuperwallPlacementInfo' is deprecated: renamed to 'SuperwallEventInfo'
-        func handleSuperwallPlacement(withInfo placementInfo: SuperwallPlacementInfo) {
-                                                              ^
-[RevenueCatUI] Compiling Template4View.swift
-[RevenueCatUI] Compiling Template7View.swift
-[RevenueCatUI] Compiling Template5View.swift
-[RevenueCatUI] Compiling Template2View.swift
-[RevenueCatUI] Compiling TemplateViewType.swift
-[RevenueCatUI] Compiling BottomSheetView.swift
-[RevenueCatUI] Compiling ComponentsView.swift
-[RevenueCatUI] Compiling IconComponentView.swift
-[RevenueCatUI] Compiling CarouselComponentViewModel.swift
-[RevenueCatUI] Compiling ButtonComponentViewModel.swift
-[RevenueCatUI] Compiling IconComponentViewModel.swift
-[RevenueCatUI] Compiling CarouselComponentView.swift
-[AnalyticsManager] Copy arm64-apple-ios-simulator.swiftmodule -> AnalyticsManager.swiftmodule
-[AnalyticsManager] Copy arm64-apple-ios-simulator.swiftdoc -> AnalyticsManager.swiftdoc
-[AnalyticsManager] Copy arm64-apple-ios-simulator.abi.json -> AnalyticsManager.abi.json
-[AnalyticsManager] Copy arm64-apple-ios-simulator.swiftsourceinfo -> AnalyticsManager.swiftsourceinfo
-[RevenueCatUI] Compiling Template3View.swift
-[RevenueCatUI] Compiling ButtonComponentView.swift
-[RevenueCatUI] Compiling ViewModelFactory.swift
-[RevenueCatUI] Compiling FallbackComponentPreview.swift
-[RevenueCatUI] Compiling StackComponentView.swift
-[RevenueCatUI] Compiling TimelineComponentView.swift
-[RevenueCatUI] Compiling PaywallComponentViewModel.swift
-[RevenueCatUI] Compiling FlexHStack.swift
-[RevenueCatUI] Compiling BadgeModifier.swift
-[RevenueCatUI] Compiling FlexVStack.swift
-[RevenueCatUI] Compiling PaywallsV2View.swift
-[RevenueCatUI] Compiling TimelineComponentViewModel.swift
-[RevenueCatUI] Compiling PaywallData+Default.swift
-[RevenueCatUI] Compiling PreviewHelpers.swift
-[RevenueCatUI] Compiling TemplateView+MultiTier.swift
-[RevenueCatUI] Compiling ConsistentPackageContentView.swift
-[RevenueCatUI] Compiling ConsistentTierContentView.swift
-[RevenueCatUI] Compiling FitToAspectRatio.swift
-[RevenueCatUI] Compiling FooterHidingModifier.swift
-[RevenueCatUI] Compiling ViewExtensions.swift
-[RevenueCatUI] Compiling PaywallFontProvider.swift
-[RevenueCatUI] Compiling MockCustomerCenterPurchases.swift
-[RevenueCatUI] Compiling PurchaseInformationFixtures.swift
-[RevenueCatUI] Compiling CustomerCenterStoreKitUtilities.swift
-[RevenueCatUI] Compiling View+PresentCustomerCenter.swift
-[RevenueCatUI] Compiling BaseManageSubscriptionViewModel.swift
-[RevenueCatUI] Compiling CustomerCenterViewModel.swift
-[RevenueCatUI] Compiling CustomerCenterViewState.swift
-[RevenueCatUI] Compiling PurchaseDetailViewModel.swift
-[RevenueCatUI] Compiling PurchaseHistoryViewModel.swift
-[RevenueCatUI] Compiling PurchaseInfo.swift
-[RevenueCatUI] Compiling resource_bundle_accessor.swift
-[RevenueCatUI] Compiling CustomerCenterPurchasesType.swift
-[RevenueCatUI] Compiling CustomerCenter+PreferenceKeys.swift
-[RevenueCatUI] Compiling CustomerCenterConfigData.HelpPath+PurchaseInformation.swift
-[RevenueCatUI] Compiling CustomerCenterView+Actions.swift
-[RevenueCatUI] Compiling ButtonStyles.swift
-[RevenueCatUI] Compiling ColorFromAppearance.swift
-[RevenueCatUI] Compiling CustomerInfo+CurrentEntitlement.swift
-[RevenueCatUI] Compiling CustomerCenterActionViewModifier.swift
-[RevenueCatUI] Compiling CustomerCenterActionWrapper.swift
-[RevenueCatUI] Compiling PurchaseHistoryView.swift
-[RevenueCatUI] Compiling PurchaseLinkView.swift
-[RevenueCatUI] Compiling RelevantPurchasesListView.swift
-[RevenueCatUI] Compiling RestorePurchasesAlert.swift
-[RevenueCatUI] Compiling ScrollViewSection.swift
-[RevenueCatUI] Compiling ScrollViewWithOSBackground.swift
-[RevenueCatUI] Compiling SubscriptionDetailView.swift
-[RevenueCatUI] Compiling TintedProgressView.swift
-[RevenueCatUI] Compiling CustomerCenterViewController.swift
-[RevenueCatUI] Compiling RelevantPurchasesListViewModel.swift
-[RevenueCatUI] Compiling RestorePurchasesAlertViewModel.swift
-[RevenueCatUI] Compiling SubscriptionDetailViewModel.swift
-[RevenueCatUI] Compiling ActiveSubscriptionButtonsView.swift
-[RevenueCatUI] Compiling AppUpdateWarningView.swift
-[RevenueCatUI] Compiling CompatibilityContentUnavailableView.swift
-[RevenueCatUI] Compiling CompatibilityLabeledContent.swift
-[RevenueCatUI] Compiling CompatibilityNavigationStack.swift
-[RevenueCatUI] Compiling CustomerCenterNavigationLink.swift
-[RevenueCatUI] Compiling CustomerCenterView.swift
-[RevenueCatUI] Compiling ErrorView.swift
-[RevenueCatUI] Compiling FallbackNoSubscriptionsView.swift
-[RevenueCatUI] Compiling FeedbackSurveyView.swift
-[RevenueCatUI] Compiling ManageSubscriptionsButtonsView.swift
-[RevenueCatUI] Compiling NoSubscriptionsCardView.swift
-[RevenueCatUI] Compiling PromotionalOfferView.swift
-[RevenueCatUI] Compiling PurchaseCardView.swift
-[RevenueCatUI] Compiling PurchaseDetailView.swift
-[RevenueCatUI] Compiling ContactSupportUtilities.swift
-[RevenueCatUI] Compiling URLUtilities.swift
-[RevenueCatUI] Compiling StoreProductDiscount+Extensions.swift
-[RevenueCatUI] Compiling ShadowModifier.swift
-[RevenueCatUI] Compiling Shape.swift
-[RevenueCatUI] Compiling SizeModifier.swift
-[RevenueCatUI] Compiling PackageValidator.swift
-[RevenueCatUI] Compiling PaywallComponentTypeTransformers.swift
-[RevenueCatUI] Compiling PaywallViewController.swift
-[RevenueCatUI] Compiling View+OnRedeemWebPurchaseAttempt.swift
-[RevenueCatUI] Compiling View+PresentPaywall.swift
-[RevenueCatUI] Compiling View+PresentPaywallFooter.swift
-[RevenueCatUI] Compiling CustomerCenterConfigData+Mock.swift
-[RevenueCatUI] Compiling CustomerCenterError.swift
-[RevenueCatUI] Compiling DiscountsHandler.swift
-[RevenueCatUI] Compiling FeedbackSurveyData.swift
-[RevenueCatUI] Compiling PromotionalOfferData.swift
-[RevenueCatUI] Compiling PurchaseInformation+Mock.swift
-[RevenueCatUI] Compiling PurchaseInformation.swift
-[RevenueCatUI] Compiling SemanticVersion.swift
-[RevenueCatUI] Compiling Transaction.swift
-[RevenueCatUI] Compiling CustomerInfo+SeeAllPurchases.swift
-[RevenueCatUI] Compiling PackageButtonStyle.swift
-[RevenueCatUI] Compiling ProgressView.swift
-[RevenueCatUI] Compiling PurchaseButton.swift
-[RevenueCatUI] Compiling RemoteImage.swift
-[RevenueCatUI] Compiling SafariView.swift
-[RevenueCatUI] Compiling TemplateBackgroundImageView.swift
-[RevenueCatUI] Compiling TemplatePackageSetting.swift
-[RevenueCatUI] Compiling TierSelectorView.swift
-[RevenueCatUI] Compiling GeneratedAssetSymbols.swift
-[RevenueCatUI] Compiling Constants.swift
-[RevenueCatUI] Compiling CustomerInfoFixtures.swift
-[RevenueCatUI] Compiling Localization.swift
-[RevenueCatUI] Compiling PaywallData+Validation.swift
-[RevenueCatUI] Compiling PaywallTemplate.swift
-[RevenueCatUI] Compiling PaywallViewConfiguration.swift
-[RevenueCatUI] Compiling ProcessedLocalizedConfiguration.swift
-[RevenueCatUI] Compiling TemplateViewConfiguration+Extensions.swift
-[RevenueCatUI] Compiling TemplateViewConfiguration+Images.swift
-[RevenueCatUI] Compiling TextComponentView.swift
-[RevenueCatUI] Compiling TextComponentViewModel.swift
-[RevenueCatUI] Compiling OpenSheet.swift
-[RevenueCatUI] Compiling PackageContext.swift
-[RevenueCatUI] Compiling ScreenCondition.swift
-[RevenueCatUI] Compiling LocaleExtensions.swift
-[RevenueCatUI] Compiling PreviewMock.swift
-[RevenueCatUI] Compiling ButtonWithFooterPreview.swift
-[RevenueCatUI] Compiling FamilySharingTogglePreview.swift
-[RevenueCatUI] Compiling MultiTierPreview.swift
-[RevenueCatUI] Compiling PurchaseButtonInPackagePreview.swift
-[RevenueCatUI] Compiling Template1Preview.swift
-[RevenueCatUI] Compiling VariableHandlerV2.swift
-[RevenueCatUI] Compiling BackgroundStyle.swift
-[RevenueCatUI] Compiling DisplayableColor.swift
-[RevenueCatUI] Compiling Fill.swift
-[RevenueCatUI] Compiling ForegroundColorScheme.swift
-[RevenueCatUI] Compiling ProgressViewModifier.swift
-[RevenueCatUI] Compiling PaywallView.swift
-[RevenueCatUI] Compiling PurchaseHandler.swift
-[RevenueCatUI] Compiling Template1View.swift
-[RevenueCatUI] Compiling ImageComponentView.swift
-[RevenueCatUI] Compiling ImageComponentViewModel.swift
-[RevenueCatUI] Compiling ComponentViewState.swift
-[RevenueCatUI] Compiling PackageComponentView.swift
-[RevenueCatUI] Compiling PackageComponentViewModel.swift
-[RevenueCatUI] Compiling PurchaseButtonComponentView.swift
-[RevenueCatUI] Compiling PurchaseButtonComponentViewModel.swift
-[RevenueCatUI] Compiling RootView.swift
-[RevenueCatUI] Compiling JustifyContent.swift
-[RevenueCatUI] Compiling StackComponentViewModel.swift
-[RevenueCatUI] Compiling StickyFooterComponentView.swift
-[RevenueCatUI] Compiling TabControlButtonComponentView.swift
-[RevenueCatUI] Compiling TabControlComponentView.swift
-[RevenueCatUI] Compiling TabControlToggleComponentView.swift
-[RevenueCatUI] Compiling TabsComponentView.swift
-[RevenueCatUI] Compiling View+PurchaseRestoreCompleted.swift
-[RevenueCatUI] Compiling AsyncButton.swift
-[RevenueCatUI] Compiling DebugErrorView.swift
-[RevenueCatUI] Compiling ErrorDisplay.swift
-[RevenueCatUI] Compiling FooterView.swift
-[RevenueCatUI] Compiling GradientView.swift
-[RevenueCatUI] Compiling IconView.swift
-[RevenueCatUI] Compiling IntroEligibilityStateView.swift
-[RevenueCatUI] Compiling LoadingPaywallView.swift
-[RevenueCatUI] Compiling TemplateViewConfiguration.swift
-[RevenueCatUI] Compiling TestData.swift
-[RevenueCatUI] Compiling UserInterfaceIdiom.swift
-[RevenueCatUI] Compiling Variables.swift
-[RevenueCatUI] Compiling ColorInformation+MultiScheme.swift
-[RevenueCatUI] Compiling EmergeRenderingMode.swift
-[RevenueCatUI] Compiling ImageLoader.swift
-[RevenueCatUI] Compiling Optional+Extensions.swift
-[RevenueCatUI] Compiling Package+VariableDataProvider.swift
-[RevenueCatUI] Compiling IntroEligibilityViewModel.swift
-[RevenueCatUI] Compiling TemplateError.swift
-[RevenueCatUI] Linking RevenueCatUI.o
-[RevenueCatUI] Extract App Intents Metadata
-[RevenueCatUI] RegisterExecutionPolicyException RevenueCatUI.o
-[AnalyticsManager] Linking AnalyticsManager.o
-[AnalyticsManager] Extract App Intents Metadata
-[AnalyticsManager] RegisterExecutionPolicyException AnalyticsManager.o
-Build Succeeded
+[AnalyticsManager] Compiling ReviewClient+Default.swift
+note: Emplaced /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/SuperwallKit_SuperwallKit.bundle/Assets.car (in target 'SuperwallKit_SuperwallKit' from project 'SuperwallKit')
+[SuperwallKit_SuperwallKit] Processing empty-SuperwallKit_SuperwallKit.plist
 
 -----------------------------
 -- xcodebuild.nvim summary --
@@ -265,46 +87,18 @@ Warnings:
     extension declares a conformance of imported type 'CrashClient' to imported protocol 'DependencyKey'; this will not behave correctly if the owners of 'SwiftAnalyticsKitInterface' introduce this conformance in the future
     extension CrashClient: DependencyKey {
     ^
-   /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/CrashManager/CrashClient+Default.swift:44:31
-    'add' is deprecated: use `addAttachment` instead
-                            scope.add(sentryAttachment)
-                                  ^
-   /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:162:1
-    extension declares a conformance of imported type 'AnalyticsClient' to imported protocol 'DependencyKey'; this will not behave correctly if the owners of 'SwiftAnalyticsKitInterface' introduce this conformance in the future
-    extension AnalyticsClient: DependencyKey {
-    ^
-   /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:21:13
-    variable 'logger' was never mutated; consider changing to 'let' constant
-            var logger = Logger(subsystem: AnalyticsClientDefaults.subsystem, category: AnalyticsClientDefaults.category)
-            ~~~ ^
-   /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:73:13
-    variable 'posthogConfig' was never mutated; consider changing to 'let' constant
-            var posthogConfig = PostHogConfig(apiKey: apiKey, host: AnalyticsClientDefaults.posthogHost)
-            ~~~ ^
-   /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:107:17
-    variable 'logger' was never mutated; consider changing to 'let' constant
-                var logger = Logger(subsystem: AnalyticsClientDefaults.subsystem, category: AnalyticsClientDefaults.category)
-                ~~~ ^
-   /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/PostHogFeatureFlag/FeatureFlagClient+Default.swift:67:1
-    extension declares a conformance of imported type 'FeatureFlagClient' to imported protocol 'DependencyKey'; this will not behave correctly if the owners of 'SwiftAnalyticsKitInterface' introduce this conformance in the future
-    extension FeatureFlagClient: DependencyKey {
-    ^
-   /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/PostHogFeatureFlag/FeatureFlagClient+Default.swift:13:21
-    variable 'config' was never mutated; consider changing to 'let' constant
-                    var config = PostHogConfig(apiKey: key, host: FeatureFlagClientDefaults.posthogHost)
-                    ~~~ ^
-   /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Superwall/SuperwallService.swift:20:63
-    'SuperwallPlacementInfo' is deprecated: renamed to 'SuperwallEventInfo'
-            func handleSuperwallPlacement(withInfo placementInfo: SuperwallPlacementInfo) {
-                                                                  ^
-   /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Superwall/SuperwallService.swift:21:53
-    'placement' is deprecated: renamed to 'event'
-                PostHogSDK.shared.capture(placementInfo.placement.description, properties: placementInfo.params)
-                                                        ^
-   /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Superwall/SuperwallService.swift:22:65
-    'placement' is deprecated: renamed to 'event'
-                logger.log("Superwall Event logged: \(placementInfo.placement.description)")
-                                                                    ^
 
-  ✔ Build Succeeded
+Errors:
+  ✖ /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/CrashManager/CrashClient+Default.swift:23:27
+    type 'SentrySDK' has no member 'start'
+                    SentrySDK.start { options in
+                    ~~~~~~~~~ ^~~~~
+  ✖ /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/CrashManager/CrashClient+Default.swift:33:31
+    type 'SentrySDK' has no member 'capture'
+  ✖ /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/CrashManager/CrashClient+Default.swift:53:27
+    type 'SentrySDK' has no member 'addBreadcrumb'
+                    SentrySDK.addBreadcrumb(crumb)
+                    ~~~~~~~~~ ^~~~~~~~~~~~~
+
+  Build Failed
 
