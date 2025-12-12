@@ -9,7 +9,7 @@ public extension AnalyticsClient {
         object: AnalyticsObject,
         verb: AnalyticsVerb,
         attributes: AnalyticsAttributes = [:],
-        action: @escaping AnalyticsAction
+        action _: @escaping AnalyticsAction
     ) {
         guard let event = try? AnalyticsEvent(
             category: category,
@@ -22,9 +22,6 @@ public extension AnalyticsClient {
         }
 
         track(event)
-        handlePlacement(event.name, event.properties.toAnyDictionary()) {
-            action()
-        }
     }
 
     func setUserID(_ userID: String) {

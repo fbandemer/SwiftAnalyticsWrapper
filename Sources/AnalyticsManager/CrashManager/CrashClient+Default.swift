@@ -15,24 +15,22 @@ public extension CrashClient {
     static func sentry() -> Self {
         return Self(
             configuration: { CrashConfiguration() },
-            start: { newConfiguration in
-                
-                
+            start: { _ in
 //                SentryHub(client: .init(options: .init()), andScope: .none)
 //                SentrySDK.
-//                guard let dsn = newConfiguration.dsn else {
-//                    return
-//                }
-//                SentrySDK.start(options: .init())
-//                SentrySDK.start { options in
-//                    options.dsn = dsn
-//                    options.environment = newConfiguration.environment
-//                    #if os(iOS)
-//                        options.attachScreenshot = newConfiguration.enableScreenshots
-//                    #endif
-//                }
+                // guard let dsn = newConfiguration.dsn else {
+                //     return
+                // }
+                // SentrySDK.start(options: .init())
+                // SentrySDK.start { options in
+                //     options.dsn = dsn
+                //     options.environment = newConfiguration.environment
+                //     #if os(iOS)
+                //         options.attachScreenshot = newConfiguration.enableScreenshots
+                //     #endif
+                // }
             },
-            capture: { error, attachments in
+            capture: { _, _ in
 //                guard !attachments.isEmpty else {
 //                    SentrySDK.capture(error: error)
 //                    return
@@ -49,7 +47,7 @@ public extension CrashClient {
 //                    }
 //                }
             },
-            log: { message in
+            log: { _ in
 //                let crumb = Breadcrumb()
 //                crumb.level = .info
 //                crumb.category = "log"
