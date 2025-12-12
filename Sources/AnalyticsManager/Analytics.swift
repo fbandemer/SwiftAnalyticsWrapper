@@ -62,6 +62,7 @@ extension AnalyticsClient {
             posthogConfig.sessionReplayConfig.screenshotMode = true
             posthogConfig.sessionReplayConfig.maskAllTextInputs = false
             posthogConfig.sessionReplayConfig.maskAllImages = false
+            posthogConfig.surveys = true
         #endif
 
         posthogConfig.personProfiles = .identifiedOnly
