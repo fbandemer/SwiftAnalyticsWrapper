@@ -6,8 +6,8 @@ import PackageDescription
 let package = Package(
     name: "Analytics",
     platforms: [
-        .iOS(.v17),
-        .macOS(.v26),
+        .iOS(.v26),
+//        .macOS(.v26),
     ],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
@@ -21,8 +21,7 @@ let package = Package(
         ),
     ],
     dependencies: [
-        // .package(url: "https://github.com/superwall-me/Superwall-iOS", .upToNextMajor(from: "4.0.0")),
-        .package(url: "https://github.com/getsentry/sentry-cocoa", from: "9.0.0-rc.1"),
+        .package(url: "https://github.com/getsentry/sentry-cocoa", from: "9.1.0"),
         .package(url: "https://github.com/RevenueCat/purchases-ios.git", from: "5.2.0"),
         .package(url: "https://github.com/PostHog/posthog-ios.git", from: "3.0.0"),
         .package(url: "https://github.com/apple/swift-testing.git", from: "0.9.0"),
@@ -37,7 +36,6 @@ let package = Package(
             dependencies: [
                 .product(name: "SwiftAnalyticsKitInterface", package: "SwiftAnalyticsKitInterface"),
                 .product(name: "Sentry", package: "sentry-cocoa"),
-                // .product(name: "SuperwallKit", package: "Superwall-iOS", condition: .when(platforms: [.iOS])),
                 .product(name: "RevenueCat", package: "purchases-ios"),
                 .product(name: "RevenueCatUI", package: "purchases-ios"),
                 .product(name: "PostHog", package: "posthog-ios"),

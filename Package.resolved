@@ -1,5 +1,5 @@
 {
-  "originHash" : "91713a4be24ee69b426256ae53351139623a43614acb3bf97e07b14708ba2ec5",
+  "originHash" : "607e13cbe8c564299c4d2934d42abbfaafdae5c6e294f74a7a87a51e2311519d",
   "pins" : [
     {
       "identity" : "combine-schedulers",
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/PostHog/posthog-ios.git",
       "state" : {
-        "revision" : "ada6efeea5d5b7a5e53bde4367edea363faa2e15",
-        "version" : "3.36.0"
+        "revision" : "cfbae6be113616156e6840dbfb61d59593ea1db5",
+        "version" : "3.36.2"
       }
     },
     {
@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/RevenueCat/purchases-ios.git",
       "state" : {
-        "revision" : "2d95eedc59c06fa6349aab7a506f0950ac0a563b",
-        "version" : "5.50.1"
+        "revision" : "8ef238a3add691f410a5b50789630582c9431f38",
+        "version" : "5.51.1"
       }
     },
     {
@@ -87,8 +87,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/fbandemer/SwiftAnalyticsKitInterface",
       "state" : {
-        "revision" : "0fc167cf0c4375299e10319cd521df850e35eb97",
-        "version" : "1.0.11"
+        "revision" : "25c9e50b9090c5663a0df9d8ed88593fef1dec07",
+        "version" : "1.0.12"
       }
     },
     {
