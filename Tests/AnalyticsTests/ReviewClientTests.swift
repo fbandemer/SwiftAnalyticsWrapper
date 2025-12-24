@@ -123,19 +123,19 @@ struct ReviewClientTests {
             now: { currentDate }
         )
 
-        userDefaults.set(3, forKey: "ReviewClient.successCount")
+        userDefaults.set(2, forKey: "ReviewClient.successCount")
         #expect(client.appOpenCount() == 0)
-        #expect(client.shouldPresentReviewPrompt())
+        #expect(client.shouldPresentReviewPromptAfterSuccess())
+        #expect(userDefaults.integer(forKey: "ReviewClient.successCount") == 3)
 
         client.trackReviewPrompt()
         #expect(client.reviewPromptCount() == 1)
 
         currentDate = startDate.addingTimeInterval(2 * day)
-        client.trackAppOpen()
-        #expect(!client.shouldPresentReviewPrompt())
+        #expect(!client.shouldPresentReviewPromptAfterSuccess())
+        #expect(userDefaults.integer(forKey: "ReviewClient.successCount") == 4)
 
         currentDate = startDate.addingTimeInterval(6 * day)
-        client.trackAppOpen()
-        #expect(client.shouldPresentReviewPrompt())
+        #expect(client.shouldPresentReviewPromptAfterSuccess())
     }
 }
