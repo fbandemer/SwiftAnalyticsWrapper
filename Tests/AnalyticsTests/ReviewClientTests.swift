@@ -102,4 +102,40 @@ struct ReviewClientTests {
         #expect(!client.shouldPresentReviewPrompt())
         #expect(client.reviewPromptCount() == 1)
     }
+
+    @Test
+    func testSuccessThresholdAllowsPromptBeforeAppOpens() {
+        let suiteName = "ReviewClientTests.testSuccessThresholdAllowsPromptBeforeAppOpens"
+        let userDefaults = UserDefaults(suiteName: suiteName)!
+        userDefaults.removePersistentDomain(forName: suiteName)
+
+        let configuration = ReviewClient.Configuration(
+            minimumAppOpensBeforePrompt: 1,
+            minimumDaysBetweenPrompts: 5,
+            maximumPromptCount: 3
+        )
+        let startDate = Date()
+        var currentDate = startDate
+
+        let client = ReviewClient.default(
+            configuration: configuration,
+            userDefaults: userDefaults,
+            now: { currentDate }
+        )
+
+        userDefaults.set(3, forKey: "ReviewClient.successCount")
+        #expect(client.appOpenCount() == 0)
+        #expect(client.shouldPresentReviewPrompt())
+
+        client.trackReviewPrompt()
+        #expect(client.reviewPromptCount() == 1)
+
+        currentDate = startDate.addingTimeInterval(2 * day)
+        client.trackAppOpen()
+        #expect(!client.shouldPresentReviewPrompt())
+
+        currentDate = startDate.addingTimeInterval(6 * day)
+        client.trackAppOpen()
+        #expect(client.shouldPresentReviewPrompt())
+    }
 }

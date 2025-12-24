@@ -36,12 +36,20 @@ public extension ReviewClient {
                     return false
                 }
 
+                let lastPromptDate = userDefaults.object(forKey: StorageKeys.lastReviewPromptDate) as? Date
+                if lastPromptDate == nil {
+                    let successCount = userDefaults.integer(forKey: StorageKeys.successCount)
+                    if successCount >= 1 {
+                        return true
+                    }
+                }
+
                 let opens = userDefaults.integer(forKey: StorageKeys.appOpenCount)
                 guard opens >= configuration.minimumAppOpensBeforePrompt else {
                     return false
                 }
 
-                guard let lastPromptDate = userDefaults.object(forKey: StorageKeys.lastReviewPromptDate) as? Date else {
+                guard let lastPromptDate else {
                     return true
                 }
 
@@ -67,4 +75,5 @@ private enum StorageKeys {
     static let lastReviewPromptDate = "ReviewClient.lastReviewPromptDate"
     static let appOpenCount = "ReviewClient.appOpenCount"
     static let reviewPromptCount = "ReviewClient.reviewPromptCount"
+    static let successCount = "ReviewClient.successCount"
 }
