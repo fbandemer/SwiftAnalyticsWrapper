@@ -9,9 +9,9 @@ public extension ReviewClient {
         calendar: Calendar = .current,
         now: @escaping () -> Date = Date.init
     ) -> Self {
-        func hasMetMinimumDaysSincePrompt(_ lastPromptDate: Date?) -> Bool {
+        func cooldownDecision(lastPromptDate: Date?) -> (shouldPresent: Bool, reason: ReviewDecisionReason) {
             guard let lastPromptDate else {
-                return true
+                return (true, .eligible)
             }
 
             guard let daysSincePrompt = calendar.dateComponents(
@@ -19,10 +19,14 @@ public extension ReviewClient {
                 from: lastPromptDate,
                 to: now()
             ).day else {
-                return false
+                return (false, .timeBorderNotCrossed)
             }
 
-            return daysSincePrompt >= configuration.minimumDaysBetweenPrompts
+            guard daysSincePrompt >= configuration.minimumDaysBetweenPrompts else {
+                return (false, .timeBorderNotCrossed)
+            }
+
+            return (true, .eligible)
         }
 
         return Self(
@@ -49,21 +53,21 @@ public extension ReviewClient {
             shouldPresentReviewPrompt: {
                 let promptCount = userDefaults.integer(forKey: StorageKeys.reviewPromptCount)
                 guard promptCount < configuration.maximumPromptCount else {
-                    return false
+                    return (false, .maximumPromptCountReached)
                 }
 
                 let opens = userDefaults.integer(forKey: StorageKeys.appOpenCount)
                 guard opens >= configuration.minimumAppOpensBeforePrompt else {
-                    return false
+                    return (false, .minimumAppOpensNotReached)
                 }
 
                 let lastPromptDate = userDefaults.object(forKey: StorageKeys.lastReviewPromptDate) as? Date
-                return hasMetMinimumDaysSincePrompt(lastPromptDate)
+                return cooldownDecision(lastPromptDate: lastPromptDate)
             },
             shouldPresentReviewPromptAfterSuccess: {
                 let promptCount = userDefaults.integer(forKey: StorageKeys.reviewPromptCount)
                 guard promptCount < configuration.maximumPromptCount else {
-                    return false
+                    return (false, .maximumPromptCountReached)
                 }
 
                 let currentCount = userDefaults.integer(forKey: StorageKeys.successCount)
@@ -71,11 +75,7 @@ public extension ReviewClient {
                 userDefaults.set(nextCount, forKey: StorageKeys.successCount)
 
                 let lastPromptDate = userDefaults.object(forKey: StorageKeys.lastReviewPromptDate) as? Date
-                guard let lastPromptDate else {
-                    return nextCount >= 1
-                }
-
-                return hasMetMinimumDaysSincePrompt(lastPromptDate)
+                return cooldownDecision(lastPromptDate: lastPromptDate)
             }
         )
     }

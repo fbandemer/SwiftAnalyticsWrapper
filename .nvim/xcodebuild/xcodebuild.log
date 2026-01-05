@@ -1,67 +1,23 @@
 Resolving Package Graph
 Resolved source packages
-swift-concurrency-extras - https://github.com/pointfreeco/swift-concurrency-extras @ 1.3.2
-swift-dependencies - https://github.com/pointfreeco/swift-dependencies @ 1.10.0
-swift-syntax - https://github.com/swiftlang/swift-syntax.git @ 600.0.1
-swift-testing - https://github.com/apple/swift-testing.git @ 0.99.0
-RevenueCat - https://github.com/RevenueCat/purchases-ios.git @ 5.51.1
 Sentry - https://github.com/getsentry/sentry-cocoa @ 9.1.0
-SwiftAnalyticsKitInterface - https://github.com/fbandemer/SwiftAnalyticsKitInterface @ 1.0.13
-combine-schedulers - https://github.com/pointfreeco/combine-schedulers @ 1.1.0
 xctest-dynamic-overlay - https://github.com/pointfreeco/xctest-dynamic-overlay @ 1.8.0
-PostHog - https://github.com/PostHog/posthog-ios.git @ 3.36.2
 swift-clocks - https://github.com/pointfreeco/swift-clocks @ 1.0.6
+SwiftAnalyticsKitInterface - https://github.com/fbandemer/SwiftAnalyticsKitInterface @ 1.0.14
+swift-dependencies - https://github.com/pointfreeco/swift-dependencies @ 1.10.0
+swift-testing - https://github.com/apple/swift-testing.git @ 0.99.0
+PostHog - https://github.com/PostHog/posthog-ios.git @ 3.37.0
+combine-schedulers - https://github.com/pointfreeco/combine-schedulers @ 1.1.0
+RevenueCat - https://github.com/RevenueCat/purchases-ios.git @ 5.52.1
+swift-syntax - https://github.com/swiftlang/swift-syntax.git @ 600.0.1
+swift-concurrency-extras - https://github.com/pointfreeco/swift-concurrency-extras @ 1.3.2
 note: Building targets in dependency order
 note: Target dependency graph (29 targets)
-[!]  /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:124:1: extension declares a conformance of imported type 'AnalyticsClient' to imported protocol 'DependencyKey'; this will not behave correctly if the owners of 'SwiftAnalyticsKitInterface' introduce this conformance in the future
-extension AnalyticsClient: DependencyKey {
-^
-[!]  /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/CrashManager/CrashClient+Default.swift:64:1: extension declares a conformance of imported type 'CrashClient' to imported protocol 'DependencyKey'; this will not behave correctly if the owners of 'SwiftAnalyticsKitInterface' introduce this conformance in the future
-extension CrashClient: DependencyKey {
-^
-[!]  /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/PostHogFeatureFlag/FeatureFlagClient+Default.swift:67:1: extension declares a conformance of imported type 'FeatureFlagClient' to imported protocol 'DependencyKey'; this will not behave correctly if the owners of 'SwiftAnalyticsKitInterface' introduce this conformance in the future
-extension FeatureFlagClient: DependencyKey {
-^
-[!]  /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Review/ReviewClient+Default.swift:84:1: extension declares a conformance of imported type 'ReviewClient' to imported protocol 'DependencyKey'; this will not behave correctly if the owners of 'SwiftAnalyticsKitInterface' introduce this conformance in the future
-extension ReviewClient: DependencyKey {
-^
-[AnalyticsManager] Compiling ReviewClient+Default.swift
-[!]  /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Review/ReviewClient+Default.swift:84:1: extension declares a conformance of imported type 'ReviewClient' to imported protocol 'DependencyKey'; this will not behave correctly if the owners of 'SwiftAnalyticsKitInterface' introduce this conformance in the future
-extension ReviewClient: DependencyKey {
-^
-[AnalyticsManager] Copy arm64-apple-ios-simulator.abi.json -> AnalyticsManager.abi.json
-[AnalyticsManager] Copy arm64-apple-ios-simulator.swiftsourceinfo -> AnalyticsManager.swiftsourceinfo
-note: Emplaced /Users/fynnbandemer/Library/Developer/Xcode/DerivedData/SwiftAnalyticsWrapper-hbmcudjkyfacdianjhftjexrvuhq/Build/Products/Debug-iphonesimulator/RevenueCat_RevenueCatUI.bundle/Assets.car (in target 'RevenueCat_RevenueCatUI' from project 'RevenueCat')
-[RevenueCat_RevenueCatUI] Processing empty-RevenueCat_RevenueCatUI.plist
-[RevenueCatUI] Linking RevenueCatUI.o
-[RevenueCatUI] Extract App Intents Metadata
-[RevenueCatUI] RegisterExecutionPolicyException RevenueCatUI.o
-[AnalyticsManager] Linking AnalyticsManager.o
-[AnalyticsManager] Extract App Intents Metadata
-[AnalyticsManager] RegisterExecutionPolicyException AnalyticsManager.o
 Build Succeeded
 
 -----------------------------
 -- xcodebuild.nvim summary --
 -----------------------------
-
-Warnings:
-   /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Analytics.swift:124:1
-    extension declares a conformance of imported type 'AnalyticsClient' to imported protocol 'DependencyKey'; this will not behave correctly if the owners of 'SwiftAnalyticsKitInterface' introduce this conformance in the future
-    extension AnalyticsClient: DependencyKey {
-    ^
-   /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/CrashManager/CrashClient+Default.swift:64:1
-    extension declares a conformance of imported type 'CrashClient' to imported protocol 'DependencyKey'; this will not behave correctly if the owners of 'SwiftAnalyticsKitInterface' introduce this conformance in the future
-    extension CrashClient: DependencyKey {
-    ^
-   /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/PostHogFeatureFlag/FeatureFlagClient+Default.swift:67:1
-    extension declares a conformance of imported type 'FeatureFlagClient' to imported protocol 'DependencyKey'; this will not behave correctly if the owners of 'SwiftAnalyticsKitInterface' introduce this conformance in the future
-    extension FeatureFlagClient: DependencyKey {
-    ^
-   /Users/fynnbandemer/Projects/Packages/SwiftAnalyticsWrapper/Sources/AnalyticsManager/Review/ReviewClient+Default.swift:84:1
-    extension declares a conformance of imported type 'ReviewClient' to imported protocol 'DependencyKey'; this will not behave correctly if the owners of 'SwiftAnalyticsKitInterface' introduce this conformance in the future
-    extension ReviewClient: DependencyKey {
-    ^
 
   ✔ Build Succeeded
 
