@@ -74,6 +74,10 @@ public extension ReviewClient {
                 let nextCount = currentCount + 1
                 userDefaults.set(nextCount, forKey: StorageKeys.successCount)
 
+                if currentCount == 0 {
+                    return (true, .eligible)
+                }
+
                 let lastPromptDate = userDefaults.object(forKey: StorageKeys.lastReviewPromptDate) as? Date
                 return cooldownDecision(lastPromptDate: lastPromptDate)
             }
