@@ -29,9 +29,33 @@ public extension ReviewClient {
             return (true, .eligible)
         }
 
+        func ensureFirstAppOpenDate() -> Date {
+            if let firstAppOpenDate = userDefaults.object(forKey: StorageKeys.firstAppOpenDate) as? Date {
+                return firstAppOpenDate
+            }
+
+            let firstAppOpenDate = now()
+            userDefaults.set(firstAppOpenDate, forKey: StorageKeys.firstAppOpenDate)
+            return firstAppOpenDate
+        }
+
+        func hasCompletedFirstDay() -> Bool {
+            let firstAppOpenDate = ensureFirstAppOpenDate()
+            guard let daysSinceFirstOpen = calendar.dateComponents(
+                [.day],
+                from: firstAppOpenDate,
+                to: now()
+            ).day else {
+                return false
+            }
+
+            return daysSinceFirstOpen >= 1
+        }
+
         return Self(
             userDefaults: userDefaults,
             trackAppOpen: {
+                _ = ensureFirstAppOpenDate()
                 let currentCount = userDefaults.integer(forKey: StorageKeys.appOpenCount)
                 userDefaults.set(currentCount + 1, forKey: StorageKeys.appOpenCount)
             },
@@ -61,6 +85,10 @@ public extension ReviewClient {
                     return (false, .minimumAppOpensNotReached)
                 }
 
+                guard hasCompletedFirstDay() else {
+                    return (false, .timeBorderNotCrossed)
+                }
+
                 let lastPromptDate = userDefaults.object(forKey: StorageKeys.lastReviewPromptDate) as? Date
                 return cooldownDecision(lastPromptDate: lastPromptDate)
             },
@@ -73,6 +101,10 @@ public extension ReviewClient {
                 let currentCount = userDefaults.integer(forKey: StorageKeys.successCount)
                 let nextCount = currentCount + 1
                 userDefaults.set(nextCount, forKey: StorageKeys.successCount)
+
+                guard hasCompletedFirstDay() else {
+                    return (false, .timeBorderNotCrossed)
+                }
 
                 if currentCount == 0 {
                     return (true, .eligible)
@@ -91,6 +123,7 @@ extension ReviewClient: DependencyKey {
 
 private enum StorageKeys {
     static let lastReviewPromptDate = "ReviewClient.lastReviewPromptDate"
+    static let firstAppOpenDate = "ReviewClient.firstAppOpenDate"
     static let appOpenCount = "ReviewClient.appOpenCount"
     static let reviewPromptCount = "ReviewClient.reviewPromptCount"
     static let successCount = "ReviewClient.successCount"

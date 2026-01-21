@@ -17,7 +17,8 @@ struct ReviewClientTests {
             minimumDaysBetweenPrompts: 7,
             maximumPromptCount: 3
         )
-        var currentDate = Date()
+        let startDate = Date()
+        var currentDate = startDate
 
         let client = ReviewClient.default(
             configuration: configuration,
@@ -37,6 +38,11 @@ struct ReviewClientTests {
 
         client.trackAppOpen()
         #expect(client.appOpenCount() == 2)
+        decision = client.shouldPresentReviewPrompt()
+        #expect(!decision.shouldPresent)
+        #expect(decision.reason == .timeBorderNotCrossed)
+
+        currentDate = startDate.addingTimeInterval(day)
         decision = client.shouldPresentReviewPrompt()
         #expect(decision.shouldPresent)
         #expect(decision.reason == .eligible)
@@ -64,6 +70,11 @@ struct ReviewClientTests {
 
         client.trackAppOpen()
         var decision = client.shouldPresentReviewPrompt()
+        #expect(!decision.shouldPresent)
+        #expect(decision.reason == .timeBorderNotCrossed)
+
+        currentDate = startDate.addingTimeInterval(day)
+        decision = client.shouldPresentReviewPrompt()
         #expect(decision.shouldPresent)
         #expect(decision.reason == .eligible)
 
@@ -71,13 +82,13 @@ struct ReviewClientTests {
         #expect(client.reviewPromptCount() == 1)
         #expect(client.appOpenCount() == 0)
 
-        currentDate = startDate.addingTimeInterval(2 * day)
+        currentDate = startDate.addingTimeInterval(3 * day)
         client.trackAppOpen()
         decision = client.shouldPresentReviewPrompt()
         #expect(!decision.shouldPresent)
         #expect(decision.reason == .timeBorderNotCrossed)
 
-        currentDate = startDate.addingTimeInterval(6 * day)
+        currentDate = startDate.addingTimeInterval(7 * day)
         client.trackAppOpen()
         #expect(client.appOpenCount() == 2)
         decision = client.shouldPresentReviewPrompt()
@@ -96,7 +107,8 @@ struct ReviewClientTests {
             minimumDaysBetweenPrompts: 1,
             maximumPromptCount: 1
         )
-        var currentDate = Date()
+        let startDate = Date()
+        var currentDate = startDate
 
         let client = ReviewClient.default(
             configuration: configuration,
@@ -106,6 +118,11 @@ struct ReviewClientTests {
 
         client.trackAppOpen()
         var decision = client.shouldPresentReviewPrompt()
+        #expect(!decision.shouldPresent)
+        #expect(decision.reason == .timeBorderNotCrossed)
+
+        currentDate = startDate.addingTimeInterval(day)
+        decision = client.shouldPresentReviewPrompt()
         #expect(decision.shouldPresent)
         #expect(decision.reason == .eligible)
         client.trackReviewPrompt()
@@ -139,6 +156,7 @@ struct ReviewClientTests {
             now: { currentDate }
         )
 
+        userDefaults.set(startDate.addingTimeInterval(-day), forKey: "ReviewClient.firstAppOpenDate")
         userDefaults.set(2, forKey: "ReviewClient.successCount")
         #expect(client.appOpenCount() == 0)
         var decision = client.shouldPresentReviewPromptAfterSuccess()
@@ -156,6 +174,38 @@ struct ReviewClientTests {
         #expect(userDefaults.integer(forKey: "ReviewClient.successCount") == 4)
 
         currentDate = startDate.addingTimeInterval(6 * day)
+        decision = client.shouldPresentReviewPromptAfterSuccess()
+        #expect(decision.shouldPresent)
+        #expect(decision.reason == .eligible)
+    }
+
+    @Test
+    func testSuccessPromptBlocked_FirstDay() {
+        let suiteName = "ReviewClientTests.testSuccessPromptBlocked_FirstDay"
+        let userDefaults = UserDefaults(suiteName: suiteName)!
+        userDefaults.removePersistentDomain(forName: suiteName)
+
+        let configuration = ReviewClient.Configuration(
+            minimumAppOpensBeforePrompt: 1,
+            minimumDaysBetweenPrompts: 5,
+            maximumPromptCount: 3
+        )
+        let startDate = Date()
+        var currentDate = startDate
+
+        let client = ReviewClient.default(
+            configuration: configuration,
+            userDefaults: userDefaults,
+            now: { currentDate }
+        )
+
+        userDefaults.set(2, forKey: "ReviewClient.successCount")
+        var decision = client.shouldPresentReviewPromptAfterSuccess()
+        #expect(!decision.shouldPresent)
+        #expect(decision.reason == .timeBorderNotCrossed)
+        #expect(userDefaults.integer(forKey: "ReviewClient.successCount") == 3)
+
+        currentDate = startDate.addingTimeInterval(day)
         decision = client.shouldPresentReviewPromptAfterSuccess()
         #expect(decision.shouldPresent)
         #expect(decision.reason == .eligible)
