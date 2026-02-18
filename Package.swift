@@ -24,8 +24,10 @@ let package = Package(
         .package(url: "https://github.com/getsentry/sentry-cocoa", from: "9.1.0"),
         .package(url: "https://github.com/RevenueCat/purchases-ios.git", from: "5.2.0"),
         .package(url: "https://github.com/PostHog/posthog-ios.git", from: "3.0.0"),
+        .package(url: "https://github.com/amplitude/Amplitude-Swift", from: "1.0.0"),
+        .package(url: "https://github.com/amplitude/AmplitudeSessionReplay-iOS", from: "0.5.2"),
         .package(url: "https://github.com/apple/swift-testing.git", from: "0.9.0"),
-        .package(url: "https://github.com/fbandemer/SwiftAnalyticsKitInterface", from: "1.0.14"),
+        .package(url: "https://github.com/fbandemer/SwiftAnalyticsKitInterface", from: "1.0.15"),
         .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.10.0"),
     ],
     targets: [
@@ -39,6 +41,8 @@ let package = Package(
                 .product(name: "RevenueCat", package: "purchases-ios"),
                 .product(name: "RevenueCatUI", package: "purchases-ios"),
                 .product(name: "PostHog", package: "posthog-ios"),
+                .product(name: "AmplitudeSwift", package: "Amplitude-Swift"),
+                .product(name: "AmplitudeSwiftSessionReplayPlugin", package: "AmplitudeSessionReplay-iOS"),
                 .product(name: "Dependencies", package: "swift-dependencies"),
             ],
             path: "Sources/AnalyticsManager"
