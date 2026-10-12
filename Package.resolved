@@ -1,60 +1,6 @@
 {
-  "originHash" : "76fe633f23daeea22c95598fc4c2e8542afd53f1506d5f4e0845427e86350895",
+  "originHash" : "6cfa833d022d9bb64bd233384835e6730b3794d33d56ed85e06a1bcdfa850aab",
   "pins" : [
-    {
-      "identity" : "amplitude-ios",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/amplitude/Amplitude-iOS.git",
-      "state" : {
-        "revision" : "7ec0f8971b68c1cb859028655fbff1bcde8170dd",
-        "version" : "8.22.2"
-      }
-    },
-    {
-      "identity" : "amplitude-swift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/amplitude/Amplitude-Swift",
-      "state" : {
-        "revision" : "b9da4c5e28830375dccdd9b49cc62da60b7f1895",
-        "version" : "1.17.3"
-      }
-    },
-    {
-      "identity" : "amplitudecore-swift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/amplitude/AmplitudeCore-Swift.git",
-      "state" : {
-        "revision" : "1d3bdbdac54494650728b8fee297c0fa5298e969",
-        "version" : "1.4.2"
-      }
-    },
-    {
-      "identity" : "amplitudesessionreplay-ios",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/amplitude/AmplitudeSessionReplay-iOS",
-      "state" : {
-        "revision" : "4d740449b968736c8603b2713bebe1cfbdf2f52d",
-        "version" : "0.9.5"
-      }
-    },
-    {
-      "identity" : "analytics-connector-ios",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/amplitude/analytics-connector-ios.git",
-      "state" : {
-        "revision" : "4adbfe85486e6dcdcdca5fa9362097ffe5ec712b",
-        "version" : "1.3.1"
-      }
-    },
-    {
-      "identity" : "analytics-swift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/segmentio/analytics-swift",
-      "state" : {
-        "revision" : "f604cef21bb7269f76136c68bd664c6c993f8e28",
-        "version" : "1.9.1"
-      }
-    },
     {
       "identity" : "combine-schedulers",
       "kind" : "remoteSourceControl",
@@ -62,15 +8,6 @@
       "state" : {
         "revision" : "fd16d76fd8b9a976d88bfb6cacc05ca8d19c91b6",
         "version" : "1.1.0"
-      }
-    },
-    {
-      "identity" : "jsonsafeencoding-swift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/segmentio/jsonsafeencoding-swift.git",
-      "state" : {
-        "revision" : "af6a8b360984085e36c6341b21ecb35c12f47ebd",
-        "version" : "2.0.0"
       }
     },
     {
@@ -87,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/RevenueCat/purchases-ios.git",
       "state" : {
-        "revision" : "524b94b8c36ff60bc1412e248678147ccc607e09",
-        "version" : "5.59.0"
+        "revision" : "95ad250230efa7fc3e811c158ed264832aed2e79",
+        "version" : "5.95.0"
       }
     },
     {
@@ -98,15 +35,6 @@
       "state" : {
         "revision" : "8a7ae8c0290c83fa0253c5bf8eaf88e49150b6d3",
         "version" : "9.4.1"
-      }
-    },
-    {
-      "identity" : "sovran-swift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/segmentio/sovran-swift.git",
-      "state" : {
-        "revision" : "24867f3e4ac62027db9827112135e6531b6f4051",
-        "version" : "1.1.2"
       }
     },
     {

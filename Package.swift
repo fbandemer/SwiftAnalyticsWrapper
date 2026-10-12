@@ -22,7 +22,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/getsentry/sentry-cocoa", from: "9.1.0"),
-        .package(url: "https://github.com/RevenueCat/purchases-ios.git", from: "5.2.0"),
+        .package(url: "https://github.com/RevenueCat/purchases-ios.git", from: "5.89.0"),
         .package(url: "https://github.com/PostHog/posthog-ios.git", from: "3.0.0"),
         .package(url: "https://github.com/apple/swift-testing.git", from: "0.9.0"),
         .package(url: "https://github.com/fbandemer/SwiftAnalyticsKitInterface", from: "1.0.15"),
