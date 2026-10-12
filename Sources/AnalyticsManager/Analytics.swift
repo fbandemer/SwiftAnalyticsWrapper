@@ -1,9 +1,4 @@
 
-import class AmplitudeSwift.Amplitude
-import class AmplitudeSwift.Configuration
-#if canImport(AmplitudeSwiftSessionReplayPlugin)
-import AmplitudeSwiftSessionReplayPlugin
-#endif
 import Dependencies
 import Foundation
 import OSLog
@@ -21,18 +16,15 @@ private enum AnalyticsClientDefaults {
 public extension AnalyticsClient {
     static func `default`() -> Self {
         let logger = Logger(subsystem: AnalyticsClientDefaults.subsystem, category: AnalyticsClientDefaults.category)
-        var amplitudeClient: Amplitude?
         return Self(
             logger: logger,
             configure: { newConfiguration, _ in
                 Self.configurePosthog(apiKey: newConfiguration.posthogAPIKey, userId: newConfiguration.userId)
-                amplitudeClient = Self.configureAmplitude(apiKey: newConfiguration.amplitudeAPIKey, userId: newConfiguration.userId)
                 Self.configureRevenueCat(apiKey: newConfiguration.revenueCatAPIKey, userId: newConfiguration.userId)
             },
             track: { event in
                 let properties = event.properties.toAnyDictionary()
                 PostHogSDK.shared.capture(event.name, properties: properties)
-                amplitudeClient?.track(eventType: event.name, eventProperties: properties)
             },
             setUserIdentity: { identity in
                 Self.assignUser(
@@ -59,25 +51,6 @@ public extension AnalyticsClient {
 }
 
 extension AnalyticsClient {
-    static func configureAmplitude(apiKey: String, userId: String? = nil) -> Amplitude? {
-        guard !apiKey.isEmpty else {
-            return nil
-        }
-
-        let amplitude = Amplitude(
-            configuration: Configuration(
-                apiKey: apiKey,
-                serverZone: .EU
-            )
-        )
-
-        if let userId, !userId.isEmpty {
-            amplitude.setUserId(userId: userId)
-        }
-
-        return amplitude
-    }
-
     static func configurePosthog(apiKey: String, userId: String? = nil) {
         let posthogConfig = PostHogConfig(apiKey: apiKey, host: AnalyticsClientDefaults.posthogHost)
 
