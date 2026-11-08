@@ -1,5 +1,6 @@
 import Foundation
 import PostHog
+import SwiftAnalyticsKitInterface
 
 public extension AnalyticsClient {
     /// Whether PostHog session replay is currently recording.
